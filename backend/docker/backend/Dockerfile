@@ -7,10 +7,10 @@ ADD ./backend/requirements.txt /app/
 RUN pip install --no-cache-dir -r requirements.txt
 COPY ../../ /app
 EXPOSE 8000
-RUN ["python", "./backend/manage.py", "makemigrations", "app"]
-RUN ["python", "./backend/manage.py", "migrate", "app"]
-RUN ["python", "./backend/manage.py", "makemigrations"]
-RUN ["python", "./backend/manage.py", "migrate"]
-RUN ["python", "./backend/manage.py", "collectstatic", "--noinput"]
 WORKDIR /app/backend
+RUN ["python", "manage.py", "makemigrations", "app"]
+RUN ["python", "manage.py", "migrate", "app"]
+RUN ["python", "manage.py", "makemigrations"]
+RUN ["python", "manage.py", "migrate"]
+RUN ["python", "manage.py", "collectstatic", "--noinput"]
 CMD ["gunicorn", "hirehappy.wsgi", "--bind", "0.0.0.0:8000", "--workers", "4", "--threads", "4"]
