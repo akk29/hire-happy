@@ -1,9 +1,9 @@
 import React from 'react'
+import { Redirect } from 'react-router-dom'
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { changePassword } from '../../actions/authActions'
-import { bindActionCreators } from 'redux'
 import Errorslist from '../../common/errorslist'
-import { Redirect } from 'react-router-dom'
 
 class changepassword extends React.Component{
 

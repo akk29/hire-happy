@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import Errorslist from "../../common/errorslist";
-import { ForgotAction } from "../../actions/authActions";
-import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { ForgotAction } from "../../actions/authActions";
+import Errorslist from "../../common/errorslist";
 
 class forgot extends Component {
   constructor() {

@@ -8,12 +8,10 @@ import Authorized from "../../hoc/authorized";
 import Adminonly from "../../hoc/adminonly";
 import Header from "../../common/header";
 import Userheader from "../../common/userheader";
-import { deleteObjectById } from "../../actions/adminActions";
 import { NotificationContainer } from "react-notifications";
-import { SUPER_USER_ROLE } from "../../utils";
+import { FILLER as F } from "../../utils";
 
-
-function single_user(user, offset, disable, deleteObjectById) {
+const single_user = (user, offset, disable) => {
   const fullName = `${user.first_name} ${user.last_name}`;
   // var action = (
   //   <button
@@ -29,7 +27,7 @@ function single_user(user, offset, disable, deleteObjectById) {
   //   </button>
 // );
 var action = '-' // not implemented on backend 
-  if (user.role === SUPER_USER_ROLE) {
+  if (user.role === F.SUPER_USER_ROLE) {
     action = "-";
   }
   return (
@@ -78,8 +76,7 @@ class users extends Component {
             return single_user(
               job,
               offset,
-              this.props.disable,
-              this.props.deleteObjectById
+              this.props.disable
             );
           });
           return (
@@ -128,7 +125,7 @@ class users extends Component {
 
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ getallUsers, deleteObjectById }, dispatch);
+  return bindActionCreators({ getallUsers }, dispatch);
 };
 
 const mapStateToProps = (state) => ({

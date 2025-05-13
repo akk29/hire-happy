@@ -7,11 +7,10 @@ import Footer from '../../common/footer'
 import Config from "../config"
 import Authorized from '../../hoc/authorized'
 import Applicationheader from '../../common/applicationheader'
-import { deleteObjectById } from "../../actions/adminActions"
 import { NotificationContainer} from 'react-notifications';
-import { FILLER as F, RECRUITER_ROLE, CANDIDATE_ROLE } from '../../utils'
+import { FILLER as F } from '../../utils'
 
-function single_application(application,index,role,disable,deleteObjectById) {
+const single_application = (application,index,role) => {
     return (        
             <tr key = {application.uuid}>
                 <td>
@@ -23,10 +22,10 @@ function single_application(application,index,role,disable,deleteObjectById) {
                    <td>
                     {application.location}  
                 </td>                         
-                {role === RECRUITER_ROLE ? <td>                    
+                {role === F.RECRUITER_ROLE ? <td>                    
                     {application.applied_by} 
                 </td> : <></>}
-                {role === CANDIDATE_ROLE ? <td>                    
+                {role === F.CANDIDATE_ROLE ? <td>                    
                     {application.posted_by} 
                 </td> : <></>}            
             </tr>        
@@ -67,7 +66,7 @@ class jobs extends Component {
                 var offset = this.props.allapplications.metadata.resultset.offset
                 const appList = this.props.allapplications.applications.map((application) => {
                     offset += 1
-                    return single_application(application,offset,role,this.props.disable,this.props.deleteObjectById)
+                    return single_application(application,offset,role)
                 })
                 return (                
                     <div className="container">
@@ -80,8 +79,8 @@ class jobs extends Component {
                                     <th>Sr. No.</th>                                
                                     <th>Title</th>
                                     <th>Location</th>
-                                    {role === RECRUITER_ROLE ?  <th>Applied by</th> : <></> }   
-                                    {role === CANDIDATE_ROLE ?  <th>Posted by</th> : <></> }   
+                                    {role === F.RECRUITER_ROLE ?  <th>Applied by</th> : <></> }   
+                                    {role === F.CANDIDATE_ROLE ?  <th>Posted by</th> : <></> }   
                                 </tr>
                             </thead>
                             <tbody>
@@ -120,7 +119,7 @@ class jobs extends Component {
 
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({getallapplications,deleteObjectById},dispatch)
+    return bindActionCreators({getallapplications},dispatch)
 }
 
 

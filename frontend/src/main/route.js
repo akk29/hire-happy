@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import "react-notifications/lib/notifications.css";
 import {
   Signin,
   Signup,
@@ -8,13 +9,12 @@ import {
   Jobs,
   Application,
 } from "./user/index";
-import Error404 from "../errors/error404";
-import Logout from "../common/logout";
 import SiginAdmin from "./admin/siginAdmin";
 import Users from "./admin/users";
+import Logout from "../common/logout";
+import Error404 from "../errors/error404";
 import Postjobs from "./user/postjobs";
 import Editjob from "./user/editjob";
-import "react-notifications/lib/notifications.css";
 import { ROUTES } from "../utils";
 
 export default () => (

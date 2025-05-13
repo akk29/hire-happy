@@ -1,28 +1,26 @@
+import { NotificationManager} from 'react-notifications';
 import { ACTION } from "../constants/actionTypes";
 import Config from "../main/config"
-import { NotificationManager} from 'react-notifications';
-import { FILLER as F, CREATED, SUCCESS, SUPER_USER_ROLE } from "../utils";
-
+import { FILLER as F } from "../utils";
 
 function sleepPromise (time) {
     return new Promise((resolve) => setTimeout(resolve, time));
 }
 
-
 export const getalljobs = (limit,offset,token) => (dispatch) =>{        
     dispatch( { type:ACTION.ISLOADING_JOBS})
     var role = JSON.parse(localStorage.getItem(F.AUTH_DATA)).role
     var hit_url = ''
-    if(role === SUPER_USER_ROLE){
+    if(role === F.SUPER_USER_ROLE){
         hit_url = `/api/v1/admin/jobs?limit=${limit}&offset=${offset}`
     }else{
         hit_url = `/api/v1/jobs?limit=${limit}&offset=${offset}`
     }
     const url = Config.base_url + hit_url              
     fetch(url,{
-        method: 'GET',
+        method: F.GET,
         headers: {
-            'Authorization' : `Bearer ${token}`
+            [F.AUTHORIZATION] : `Bearer ${token}`
         },        
     })
     .then((response) => response.json())
@@ -39,16 +37,16 @@ export const applyjob = (payload) => (dispatch) =>{
     dispatch( { type:ACTION.DISABLE })        
     const url = Config.base_url + '/api/v1/applications'       
     fetch(url,{
-        method: 'POST',
+        method: F.POST,
         headers: {
-            'Content-Type' : 'application/json',
-            'Authorization' : `Bearer ${data[1]}`
+            [F.CONTENT_TYPE] : F.APPLICATION_JSON,
+            [F.AUTHORIZATION] : `Bearer ${data[1]}`
         }, 
         body: JSON.stringify({'uuid' : data[0]})       
     })
     .then((response) => response.json())
     .then((data) => {
-      if(data.code === CREATED){        
+      if(data.code === F.CREATED){        
         dispatch({type: ACTION.REDIRECT, payload:{}})
         dispatch( { type: ACTION.RESET })
         dispatch( { type: ACTION.ENABLE }) 
@@ -63,15 +61,16 @@ export const PostjobAction = (payload) => (dispatch) =>{
     const url = Config.base_url + '/api/v1/jobs'  
     const token = JSON.parse(localStorage.getItem(F.AUTH_DATA)).token
     fetch(url,{
-        method: 'POST',
+        method: F.POST,
         headers: {
-            'Authorization' : `Bearer ${token}`
+            [F.CONTENT_TYPE] : F.APPLICATION_JSON,
+            [F.AUTHORIZATION] : `Bearer ${token}`
         },
         body: JSON.stringify(payload)        
     })
     .then((response) => response.json())
     .then((data) => {
-        if(data.code === CREATED){          
+        if(data.code === F.CREATED){          
             NotificationManager.success('Posted')               
             sleepPromise(2000).then(()=>{
                 dispatch( { type: ACTION.RESET })
@@ -84,7 +83,7 @@ export const PostjobAction = (payload) => (dispatch) =>{
             posted = false
         }          
         if(!posted){
-            NotificationManager.error('Validation Errors') 
+            NotificationManager.error(F.VALIDATION_ERRORS) 
         }      
     })                  
 }
@@ -95,15 +94,15 @@ export const EditjobAction = (payload) => (dispatch) =>{
     const url = Config.base_url + '/api/v1/jobs'  
     const token = JSON.parse(localStorage.getItem(F.AUTH_DATA)).token
     fetch(url,{
-        method: 'PATCH',
+        method: F.PATCH,
         headers: {
-            'Authorization' : `Bearer ${token}`
+            [F.AUTHORIZATION] : `Bearer ${token}`
         },
         body: JSON.stringify(payload)        
     })
     .then((response) => response.json())
     .then((data) => {
-        if(data.code === SUCCESS){  
+        if(data.code === F.SUCCESS){  
             NotificationManager.success('Saved')                                                 
             sleepPromise(2000).then(()=>{
                 dispatch( { type: ACTION.RESET })
@@ -113,7 +112,7 @@ export const EditjobAction = (payload) => (dispatch) =>{
         }else{
             dispatch( { type:ACTION.ERRORS, errors: data })
             dispatch( { type:ACTION.ENABLE })    
-            return NotificationManager.error('Validation Errors')   
+            return NotificationManager.error(F.VALIDATION_ERRORS)   
         }        
     })       
 }

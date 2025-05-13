@@ -39,9 +39,34 @@ export const ROUTES = {
   NOT_FOUND_ROUTE,
 };
 
-/**FILLER */
+/** REQUETS Methods */
+
+export const GET = "get"
+export const POST = "post"
+export const DELETE = "delete"
+export const PATCH = "patch"
+
+/**OTHERS */
 export const AUTH_DATA = "authData"
+export const CONTENT_TYPE = "Content-Type"
+export const APPLICATION_JSON = "application/json"
+export const VALIDATION_ERRORS = 'Validation Errors'
+export const AUTHORIZATION = 'Authorization'
 
 export const FILLER = {
-  AUTH_DATA
+  SUCCESS,
+  CREATED,
+  RECRUITER_ROLE,
+  ADMIN_ROLE,
+  SUPER_USER_ROLE,
+  CANDIDATE_ROLE,
+  GET,
+  POST,
+  DELETE,
+  PATCH,
+  AUTH_DATA,
+  CONTENT_TYPE,
+  APPLICATION_JSON,
+  VALIDATION_ERRORS,
+  AUTHORIZATION
 }

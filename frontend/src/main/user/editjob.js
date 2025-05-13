@@ -1,15 +1,14 @@
 import React from 'react'
-import Errorslist from '../../common/errorslist'
+import { Redirect } from 'react-router-dom'
+import { NotificationContainer } from 'react-notifications';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import Errorslist from '../../common/errorslist'
 import {EditjobAction} from "../../actions/jobActions"
-import Authorized from '../../hoc/authorized'
-import { Redirect } from 'react-router-dom'
-import Recruiteronly from '../../hoc/recruiteronly'
 import Editjobheader from '../../common/editjobheader'
 import Header from '../../common/header'
-import { NotificationContainer } from 'react-notifications';
-
+import Authorized from '../../hoc/authorized'
+import Recruiteronly from '../../hoc/recruiteronly'
 
 class editjob extends React.Component{
 

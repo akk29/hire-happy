@@ -1,15 +1,15 @@
 import { combineReducers } from 'redux';
-import auth from "./auth"
-import jobs from './jobs'
-import admin from './admin'
-import applications from "./applications"
+import authReducer from "./auth"
+import jobsReducer from './jobs'
+import adminReducer from './admin'
+import applicationsReducer from "./applications"
 import { ACTION } from '../constants/actionTypes';
 
 const appReducer = combineReducers({
-    auth:auth,
-    jobs:jobs,
-    admin:admin,
-    applications: applications
+    auth:authReducer,
+    jobs:jobsReducer,
+    admin:adminReducer,
+    applications: applicationsReducer
 })
 
 const rootReducer = (state, action) => {    

@@ -1,26 +1,25 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { NotificationContainer} from 'react-notifications';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { NotificationContainer} from 'react-notifications';
+import Config from "../config"
 import { getalljobs ,applyjob } from '../../actions/jobActions'
 import Footer from '../../common/footer'
-import Config from "../config"
-import Authorized from '../../hoc/authorized'
 import Header from '../../common/header'
 import Jobheader from '../../common/jobheader'
-import { CANDIDATE_ROLE, RECRUITER_ROLE, SUPER_USER_ROLE } from '../../utils'
+import Authorized from '../../hoc/authorized'
+import { FILLER as F } from '../../utils'
 
-
-function single_jobs(job,index,role,applyjob,disable,token) {    
+const single_jobs = (job,index,role,applyjob,disable,token) => {    
     var action;
-    if(role === SUPER_USER_ROLE){
+    if(role === F.SUPER_USER_ROLE){
         // action = <button className="btn btn-primary" disabled={disable} value={`jobs-${job.uuid}`} onClick = {(e) => {if(window.confirm('Delete the item?')){deleteObjectById(e,"value")};}}>Delete</button>
         // not implemented in the backend
         action = '-'
-    }else if(role === CANDIDATE_ROLE){
+    }else if(role === F.CANDIDATE_ROLE){
         action =  <button className="btn btn-primary" disabled={disable} value={`${job.uuid}-----${token}`} onClick = {(e) => applyjob(e,"value")}>Apply</button>
-    }else if (role === RECRUITER_ROLE){
+    }else if (role === F.RECRUITER_ROLE){
         action = <Link to={{
             pathname: '/editjob',
             state: {

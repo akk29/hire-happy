@@ -1,15 +1,14 @@
 import React from 'react'
-import Errorslist from '../../common/errorslist'
+import { NotificationContainer , NotificationManager} from 'react-notifications';
+import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import {PostjobAction} from "../../actions/jobActions"
-import Authorized from '../../hoc/authorized'
-import { Redirect } from 'react-router-dom'
-import Recruiteronly from '../../hoc/recruiteronly'
 import Editjobheader from '../../common/editjobheader'
+import Errorslist from '../../common/errorslist'
 import Header from '../../common/header'
-import { NotificationContainer , NotificationManager} from 'react-notifications';
-
+import Authorized from '../../hoc/authorized'
+import Recruiteronly from '../../hoc/recruiteronly'
 
 class postjob extends React.Component{
 

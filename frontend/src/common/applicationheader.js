@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {Link} from "react-router-dom";
-import { RECRUITER_ROLE, ROUTES, SUPER_USER_ROLE } from "../utils";
+import { FILLER as F, ROUTES } from "../utils";
 
 export default class applicationheader extends Component {
   constructor(props) {
@@ -10,14 +10,14 @@ export default class applicationheader extends Component {
     };
   }
   render() {
-    if (this.state.role === RECRUITER_ROLE) {
+    if (this.state.role === F.RECRUITER_ROLE) {
       return (
         <span className="JobHeader">
           <Link to={ROUTES.POST_JOB_ROUTE}>Post Job </Link> &nbsp; &nbsp; &nbsp;                    
           <Link to="/jobs/1">All Jobs</Link>
         </span>
       );
-    } else if (this.state.role === SUPER_USER_ROLE) {
+    } else if (this.state.role === F.SUPER_USER_ROLE) {
       return (
         <span className="JobHeader">          
           <Link to="/jobs/1">All Jobs</Link> &nbsp; &nbsp; &nbsp;          

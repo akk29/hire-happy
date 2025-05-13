@@ -1,12 +1,12 @@
 import {ACTION } from "../constants/actionTypes"
 import Config from "../main/config"
-import { FILLER as F, SUPER_USER_ROLE } from "../utils"
+import { FILLER as F } from "../utils"
 
 export const getallapplications = (limit,offset,token) => (dispatch) =>{    
     dispatch( { type:ACTION.ISLOADING_APPLICATIONS})
     var role = JSON.parse(localStorage.getItem(F.AUTH_DATA)).role
     var hit_url = ''
-    if(role === SUPER_USER_ROLE){
+    if(role === F.SUPER_USER_ROLE){
         hit_url = `/api/v1/admin/applications?limit=${limit}&offset=${offset}`
     }else{
         hit_url = `/api/v1/applications?limit=${limit}&offset=${offset}`

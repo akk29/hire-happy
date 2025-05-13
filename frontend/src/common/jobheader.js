@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {Link} from "react-router-dom";
-import { CANDIDATE_ROLE, ROUTES, SUPER_USER_ROLE } from '../utils';
+import { FILLER as F, ROUTES } from '../utils';
 
 
 export default class jobheader extends Component {    
@@ -11,13 +11,13 @@ export default class jobheader extends Component {
         }                
     }
     render() {        
-        if(this.props.role === CANDIDATE_ROLE){        
+        if(this.props.role === F.CANDIDATE_ROLE){        
         return (
             <span className="JobHeader">                                             
                 <Link to="/applications/1">All Applications</Link>            
             </span>            
         )
-    }else if(this.props.role === SUPER_USER_ROLE){
+    }else if(this.props.role === F.SUPER_USER_ROLE){
         return(
             <span className="JobHeader">           
                 <Link to="/applications/1">All Applications</Link> &nbsp; &nbsp; &nbsp;
