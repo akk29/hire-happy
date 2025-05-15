@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FILLER as F, ROUTES } from '../utils';
-
 
 export default class jobheader extends Component {    
     constructor(props){        

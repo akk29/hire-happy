@@ -1,7 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { SigninAction , startStopLoader } from '../../actions/authActions'
+import { Link } from "react-router-dom";
 import { bindActionCreators } from 'redux'
+import { SigninAction , startStopLoader } from '../../actions/authActions'
 import Errorslist from '../../common/errorslist'
 import RedirectAuthorized from '../../hoc/redirectAuthorized'
 import { ROUTES } from '../../utils'
@@ -65,7 +66,8 @@ class Signin extends React.Component{
                     </div>
                     <div className="form-group">
                         <button className="btn btn-primary" disabled={this.props.disable}> Login </button> &nbsp;
-                        <a href={ROUTES.SIGNUP_ROUTE}>Register</a>                          
+                        <Link to={ROUTES.SIGNUP_ROUTE}> Register </Link>  &nbsp; &nbsp;
+                        <Link to={ROUTES.FORGOT_ROUTE}>Forgot Password </Link>                   
                     </div> 
                 </form>
             </div>

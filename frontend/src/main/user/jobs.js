@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { NotificationContainer} from 'react-notifications';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import Config from "../config"
+import { NotificationContainer} from 'react-notifications';
 import { getalljobs ,applyjob } from '../../actions/jobActions'
 import Footer from '../../common/footer'
 import Header from '../../common/header'
 import Jobheader from '../../common/jobheader'
+import Config from "../config"
 import Authorized from '../../hoc/authorized'
 import { FILLER as F } from '../../utils'
 
@@ -131,7 +131,7 @@ class jobs extends Component {
                         <div className="container">
                              <Jobheader role={role}/><Header/>
                           <h1> Invalid Page</h1>
-                          <a href="/jobs/1">Go to All Jobs</a> 
+                          <Link to={"/jobs/1"}> Go to All Jobs </Link>
                         </div>
                     )
                 }

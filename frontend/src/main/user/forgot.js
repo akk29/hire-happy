@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { ForgotAction } from "../../actions/authActions";
 import Errorslist from "../../common/errorslist";
+import { ROUTES } from "../../utils";
 
 class forgot extends Component {
   constructor() {
@@ -57,7 +59,8 @@ class forgot extends Component {
             <button className="btn btn-primary" disabled={this.props.disabled}>
               Send Link
             </button>  &nbsp;
-            <a href="/signin">Login</a>    
+            <Link to={ROUTES.SIGNIN_ROUTE}> Login </Link> &nbsp; &nbsp;
+            <Link to={ROUTES.SIGNUP_ROUTE}> Register </Link>  
           </div>
         </form>
       </div>

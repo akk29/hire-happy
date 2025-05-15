@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
-import { getallapplications } from '../../actions/applicationActions'
 import { connect } from 'react-redux'
+import { Link } from "react-router-dom";
+import { NotificationContainer} from 'react-notifications';
+import { getallapplications } from '../../actions/applicationActions'
 import Header from '../../common/header'
 import Footer from '../../common/footer'
+import Applicationheader from '../../common/applicationheader'
 import Config from "../config"
 import Authorized from '../../hoc/authorized'
-import Applicationheader from '../../common/applicationheader'
-import { NotificationContainer} from 'react-notifications';
 import { FILLER as F } from '../../utils'
 
 const single_application = (application,index,role) => {
@@ -97,7 +98,7 @@ class jobs extends Component {
                         <div className="container">
                             <Applicationheader role={role}/><Header/>
                           <h1> Invalid Page</h1>
-                          <a href="/applications/1">Go to All Applications</a> 
+                          <Link to={"/applications/1"}> Go to All Applications </Link>
                         </div>
                     )
                 }

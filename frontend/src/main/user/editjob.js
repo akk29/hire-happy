@@ -1,11 +1,11 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
-import { NotificationContainer } from 'react-notifications';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import Errorslist from '../../common/errorslist'
+import { NotificationContainer } from 'react-notifications';
 import {EditjobAction} from "../../actions/jobActions"
 import Editjobheader from '../../common/editjobheader'
+import Errorslist from '../../common/errorslist'
 import Header from '../../common/header'
 import Authorized from '../../hoc/authorized'
 import Recruiteronly from '../../hoc/recruiteronly'

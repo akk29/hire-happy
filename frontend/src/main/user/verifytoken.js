@@ -1,9 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { VerifyTokenAction } from '../../actions/authActions'
 import { bindActionCreators } from 'redux'
-import Errorslist from '../../common/errorslist'
 import ChangePassword from './changepassword'
+import { VerifyTokenAction } from '../../actions/authActions'
+import Errorslist from '../../common/errorslist'
 
 class VerifyToken extends React.Component{
 

@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
-import { getallUsers } from "../../actions/adminActions";
 import { connect } from "react-redux";
+import { NotificationContainer } from "react-notifications";
+import { Link } from "react-router-dom";
+import { getallUsers } from "../../actions/adminActions";
 import Footer from "../../common/footer";
+import Header from "../../common/header";
+import Userheader from "../../common/userheader";
 import Config from "../config";
 import Authorized from "../../hoc/authorized";
 import Adminonly from "../../hoc/adminonly";
-import Header from "../../common/header";
-import Userheader from "../../common/userheader";
-import { NotificationContainer } from "react-notifications";
 import { FILLER as F } from "../../utils";
 
 const single_user = (user, offset, disable) => {
@@ -110,7 +111,7 @@ class users extends Component {
               <Userheader />
               <Header />
               <h1> Invalid Page</h1>
-              <a href="/applications/1">Go to All Applications</a>
+              <Link to={"/applications/1"}> Go to All Applications </Link>
             </div>
           );
         }

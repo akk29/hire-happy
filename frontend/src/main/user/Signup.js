@@ -1,8 +1,8 @@
 import React from 'react'
 import {Link} from "react-router-dom";
 import { connect } from 'react-redux'
-import { SignupAction , startStopLoader} from '../../actions/authActions'
 import { bindActionCreators } from 'redux'
+import { SignupAction , startStopLoader} from '../../actions/authActions'
 import Errorslist from '../../common/errorslist'
 import RedirectAuthorized from '../../hoc/redirectAuthorized'
 import { ROUTES } from '../../utils'

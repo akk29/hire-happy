@@ -1,9 +1,9 @@
 import React from 'react'
-import { NotificationContainer , NotificationManager} from 'react-notifications';
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import {PostjobAction} from "../../actions/jobActions"
+import { NotificationContainer , NotificationManager} from 'react-notifications';
+import { PostjobAction } from "../../actions/jobActions"
 import Editjobheader from '../../common/editjobheader'
 import Errorslist from '../../common/errorslist'
 import Header from '../../common/header'
