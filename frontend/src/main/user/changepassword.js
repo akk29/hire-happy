@@ -1,5 +1,5 @@
 import React from 'react'
-import { Redirect } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { changePassword } from '../../actions/authActions'
@@ -33,7 +33,7 @@ class changepassword extends React.Component{
 
     render(){
         if(this.props.redirect){
-           return <Redirect to="/signin"/>
+           return <Navigate to="/signin"/>
         }else{
         return(
             <div>

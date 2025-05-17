@@ -1,5 +1,5 @@
 import React from 'react'
-import { Redirect } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { NotificationContainer } from 'react-notifications';
@@ -57,7 +57,7 @@ class editjob extends React.Component{
    
     render() {           
         if(this.props.redirect || this.state.uuid === ''){            
-            return <Redirect to="/jobs/1"/>
+            return <Navigate to="/jobs/1"/>
         }else{                   
         return(
             <div>                      

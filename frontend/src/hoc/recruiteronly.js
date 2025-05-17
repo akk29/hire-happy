@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
+import { Navigate } from 'react-router-dom'
 import { FILLER as F } from "../utils";
 
 const recruiteronly = (WrappedComponent) => {
@@ -9,7 +9,7 @@ const recruiteronly = (WrappedComponent) => {
       if (role === F.RECRUITER_ROLE) {
         return <WrappedComponent {...this.props} />;
       } else {
-        return <Redirect to="/jobs/1" />;
+        return <Navigate to="/jobs/1" />;
       }
     }
   };

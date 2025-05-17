@@ -1,5 +1,5 @@
 # Build Stage
-FROM node:10.24.0-alpine AS build
+FROM node:22.15.1-alpine AS build
 WORKDIR /app
 ADD ./frontend/package.json /app/
 ADD ./frontend/package-lock.json /app/

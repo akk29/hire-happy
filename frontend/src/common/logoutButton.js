@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
+import { Navigate } from 'react-router-dom'
 import { bindActionCreators } from "redux";
 import { logoutAction } from "../actions/authActions";
 import { connect } from "react-redux";
@@ -25,7 +25,7 @@ class LogoutButton extends React.Component {
 
   render() {
     if (this.state.redirect) {
-      return <Redirect to={ROUTES.SIGNIN_ROUTE}/>;
+      return <Navigate to={ROUTES.SIGNIN_ROUTE}/>;
     } else {
       return (
         <button className="btn btn-primary" onClick={this.handleClick}>

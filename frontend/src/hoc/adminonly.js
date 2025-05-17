@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
+import { Navigate } from 'react-router-dom'
 import { FILLER as F } from "../utils";
 
 const adminonly = (WrappedComponent) => {
@@ -7,7 +7,7 @@ const adminonly = (WrappedComponent) => {
     render() {
       var role = JSON.parse(localStorage.getItem(F.AUTH_DATA)).role;
       if (role !== F.SUPER_USER_ROLE) {
-        return <Redirect to="/jobs/1" />;
+        return <Navigate to="/jobs/1" />;
       } else {
         return <WrappedComponent {...this.props} />;
       }
