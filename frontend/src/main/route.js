@@ -17,6 +17,7 @@ import Logout from "../common/logout";
 import Error404 from "../errors/error404";
 import { ROUTES } from "../utils";
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default () => (
   <Router>
     <Routes>

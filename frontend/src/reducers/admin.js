@@ -1,5 +1,6 @@
 import { ACTION } from "../constants/actionTypes";
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default (state = { isloading: true }, action) => {
   switch (action.type) {
     case ACTION.RESET:

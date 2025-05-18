@@ -2,18 +2,19 @@ import { ACTION } from "../constants/actionTypes";
 import { FILLER as F } from "../utils";
 
 var authData = JSON.parse(localStorage.getItem(F.AUTH_DATA));
-var initialState = {isloading: true,
-  disable: false};
+var initialState = { isloading: true, disable: false };
 
 if (authData !== null) {
-  initialState['userinfo'] = authData
+  initialState["userinfo"] = authData;
 }
 
 const empty_state = {
-  isloading: true, disable: false
-}
+  isloading: true,
+  disable: false,
+};
 
-export default (state = initialState, action) => {  
+// eslint-disable-next-line import/no-anonymous-default-export
+export default (state = initialState, action) => {
   switch (action.type) {
     case ACTION.RESET:
       return empty_state;
@@ -21,12 +22,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isloading: true,
-      }
-      case ACTION.ISLOADED_JOBS:
+      };
+    case ACTION.ISLOADED_JOBS:
       return {
         ...state,
         isloading: false,
-      };  
+      };
     case ACTION.ALLJOBS:
       return {
         ...state,

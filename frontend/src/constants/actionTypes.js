@@ -1,5 +1,5 @@
 export const LOGIN = "LOGIN";
-export const ERRORS = "ERRORS";
+export const ERRORS = "ERRORS"; // errors in application recieved from API
 export const REGISTER = "REGISTER";
 export const FORGOT = "FORGOT";
 export const ALLJOBS = "ALLJOBS";
@@ -13,8 +13,8 @@ export const PASSWORD_ERRORS = "PASSWORD_ERRORS";
 export const REDIRECT = "REDIRECT";
 export const POSTJOB = "POSTJOB";
 export const EDIT_REDIRECT = "EDIT_REDIRECT";
-export const DISABLE = "DISABLE";
-export const ENABLE = "ENABLE";
+export const DISABLE = "DISABLE"; // disable button click in application
+export const ENABLE = "ENABLE"; // enable button clicks in application
 export const CURRENT = "CURRENT";
 export const NOTIFY = "NOTIFY";
 export const STOPNOTIFY = "STOPNOTIFY"

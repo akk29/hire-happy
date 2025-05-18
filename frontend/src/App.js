@@ -4,7 +4,8 @@ import "./App.css"
 import "../src/static/site.css"
 import { Provider } from 'react-redux';
 import store from './store';
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 class App extends Component{
 
@@ -19,6 +20,7 @@ class App extends Component{
     return(
       <Provider store={store}>
         <div className="container main-container">
+           <ToastContainer pauseOnFocusLoss={false} />
           <Route />
         </div>
       </Provider>

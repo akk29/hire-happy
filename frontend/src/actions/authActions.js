@@ -18,7 +18,7 @@ export const SigninAction = (payload,user) => (dispatch) =>{
       .then((response) => response.json())
       .then((data) => {
         if(data.code === F.SUCCESS){          
-          window.location.reload(true)
+          window.location.href = '/jobs/1'
           dispatch( { type:ACTION.ISLOADING_JOBS})       
           localStorage.setItem(F.AUTH_DATA,JSON.stringify(data.data))          
           dispatch( { type:ACTION.ERRORS, errors: undefined })
