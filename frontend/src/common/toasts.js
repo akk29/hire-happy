@@ -4,7 +4,7 @@ const errorToast = (
   message,
   config = {
     position: "top-right",
-    autoClose: 2500,
+    autoClose: 1000,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
@@ -19,7 +19,7 @@ const successToast = (
   message,
   config = {
     position: "top-right",
-    autoClose: 2500,
+    autoClose: 1000,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
@@ -34,7 +34,7 @@ const infoToast = (
   message,
   config = {
     position: "top-right",
-    autoClose: 2500,
+    autoClose: 1000,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,

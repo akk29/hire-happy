@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { Link, useParams, useNavigate, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
-import { NotificationContainer } from "react-notifications";
 import { getalljobs, applyjob } from "../../actions/jobActions";
 import Footer from "../../common/footer";
 import Header from "../../common/header";
@@ -12,8 +11,14 @@ import { FILLER as F, ROUTES } from "../../utils";
 
 /**
  * TODO
+ * FIRST TIME
  1. Initalize State
  2. Start Loader 
+ 3. Load jobs
+ 4. stop loader
+
+ * AFTER APPLYING
+ 1. 
 */
 
 const single_jobs = (job, index, role, applyjob, disable, token) => {
@@ -139,7 +144,6 @@ function Jobs(props) {
               action={setUrlandFetchJobs}
               current={props.current}
             />
-            <NotificationContainer />
           </div>
         );
       } else {
