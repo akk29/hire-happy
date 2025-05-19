@@ -1,136 +1,125 @@
-import React from 'react'
-import { Navigate } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { NotificationContainer } from 'react-notifications';
-import {EditjobAction} from "../../actions/jobActions"
-import Editjobheader from '../../common/editjobheader'
-import Errorslist from '../../common/errorslist'
-import Header from '../../common/header'
-import Authorized from '../../hoc/authorized'
-import Recruiteronly from '../../hoc/recruiteronly'
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { EditjobAction } from "../../actions/jobActions";
+import Editjobheader from "../../common/editjobheader";
+import Errorslist from "../../common/errorslist";
+import Header from "../../common/header";
+import Authorized from "../../hoc/authorized";
+import Recruiteronly from "../../hoc/recruiteronly";
 
-class editjob extends React.Component{
+function EditJobs(props) {
+  const location = useLocation();
+  const [form, setForm] = useState({
+    uuid: "",
+    title: "",
+    description: "",
+    location: "",
+  });
 
-    constructor(props) {
-        console.log(props)
-        super(props)        
-        if(this.props.location.state !== undefined){
-            this.state = {
-                uuid : this.props.location.state.id,
-                title : this.props.location.state.title,
-                description : this.props.location.state.description,
-                location: this.props.location.state.location,            
-            }
-        }else{
-            this.state = {
-                uuid : ''
-            }
-        }
-        
-        this.sleep = this.sleep.bind(this)
+  useEffect(() => {
+    document.title = "Edit Job";
+    if (location.state !== undefined) {
+      const { state } = location;
+      setForm((prev) => ({
+        ...prev,
+        uuid: state.uuid,
+        title: state.title,
+        description: state.description,
+        location: state.location,
+      }));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.state]);
 
-    sleep(milliseconds) {
-        const date = Date.now();
-        let currentDate = null;
-        do {
-        currentDate = Date.now();
-            } while (currentDate - date < milliseconds);
-    }
+  const handleOnChange = (event) => {
+    const { name, value } = event.target;
+    setForm({
+      [name]: value,
+    });
+  };
 
-    componentWillMount(){
-        document.title = 'Edit Job' 
-    }
+  const handleOnSubmit = (event) => {
+    event.preventDefault();
+    props.EditjobAction(form);
+  };
 
-    handleOnChange = (event) => {   
-        const {name,value}  = event.target
-        this.setState({
-            [name] : value
-        })
-    }
-
-    handleOnSubmit = (event) => {
-        event.preventDefault()
-        this.props.EditjobAction(this.state)        
-    }
-   
-    render() {           
-        if(this.props.redirect || this.state.uuid === ''){            
-            return <Navigate to="/jobs/1"/>
-        }else{                   
-        return(
-            <div>                      
-                {typeof(this.props.errors) === 'undefined' ? <></> : <Errorslist {... this.props.errors}/> }     
-                          
-                <form className="form-horizontal" onSubmit = {this.handleOnSubmit} method="post">                                    
-                <Editjobheader/> <Header/>
-                <h1>Edit Job</h1>
-                    <div className="form-group">      
-                            <label className="control-label col-sm-2">Title : </label>
-                            <div className="col-sm-10">
-                            <input
-                            className="form-control" 
-                            type = "text" 
-                            name="title"
-                            value = {this.state.title}
-                            placeholder = "title" 
-                            onChange = {this.handleOnChange}
-                            required
-                            />
-                            </div>
-                    </div>
-                    <div className="form-group">
-                            <label className="control-label col-sm-2">Description : </label>
-                            <div className="col-sm-10">
-                            <input
-                            className="form-control" 
-                            type = "text" 
-                            name="description"
-                            value = {this.state.description}
-                            placeholder = "Description" 
-                            onChange = {this.handleOnChange}
-                            required
-                            />
-                            </div>
-                    </div>
-                    <div className="form-group">
-                            <label className="control-label col-sm-2">Location : </label>
-                            <div className="col-sm-10">
-                            <input
-                            className="form-control" 
-                            type = "text" 
-                            name="location"
-                            value = {this.state.location}
-                            placeholder = "Location" 
-                            onChange = {this.handleOnChange}
-                            required
-                            />
-                            </div>
-                    </div>
-                    
-                    <div className="form-group">
-                        <div className="col-sm-offset-2 col-sm-10">
-                            <button className="btn btn-primary" disabled={this.props.disable}> Save Job </button>
-                        </div>     
-                    </div>                
-                    </form>
-                    <NotificationContainer/>
-            </div>            
-        )}       
-    }
+  return (
+    <div>
+      <form className="form-horizontal" onSubmit={handleOnSubmit} method="post">
+        <Editjobheader /> <Header />
+        <h1>Edit Job</h1>
+        <div className="form-group">
+          <label className="control-label col-sm-2">Title : </label>
+          <div className="col-sm-10">
+            <input
+              className="form-control"
+              type="text"
+              name="title"
+              value={form.title}
+              placeholder="title"
+              onChange={handleOnChange}
+              required
+            />
+          </div>
+        </div>
+        <div className="form-group">
+          <label className="control-label col-sm-2">Description : </label>
+          <div className="col-sm-10">
+            <input
+              className="form-control"
+              type="text"
+              name="description"
+              value={form.description}
+              placeholder="Description"
+              onChange={handleOnChange}
+              required
+            />
+          </div>
+        </div>
+        <div className="form-group">
+          <label className="control-label col-sm-2">Location : </label>
+          <div className="col-sm-10">
+            <input
+              className="form-control"
+              type="text"
+              name="location"
+              value={form.location}
+              placeholder="Location"
+              onChange={handleOnChange}
+              required
+            />
+          </div>
+        </div>
+        <div className="form-group">
+          <div className="col-sm-offset-2 col-sm-10">
+            <button className="btn btn-primary" disabled={props.disable}>
+              Save Job
+            </button>
+          </div>
+        </div>
+      </form>
+      {typeof props.errors === "undefined" ? (
+        <></>
+      ) : (
+        <Errorslist {...props.errors} />
+      )}
+    </div>
+  );
 }
 
+const mapDispatchToProps = { EditjobAction };
 
-const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({EditjobAction},dispatch)
-}
+const mapStateToProps = (state) => ({
+  redirect: state.jobs.redirect,
+  errors: state.jobs.errors,
+  disable: state.jobs.disable,
+});
 
+const editjob = EditJobs;
 
-const mapStateToProps = state =>({
-    redirect : state.jobs.redirect,
-    errors : state.jobs.errors,
-    disable : state.jobs.disable
-})
-
-export default connect(mapStateToProps,mapDispatchToProps)(Authorized(Recruiteronly(editjob)))
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Authorized(Recruiteronly(editjob)));

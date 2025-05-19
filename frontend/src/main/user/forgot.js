@@ -31,11 +31,6 @@ class forgot extends Component {
   render() {
     return (
       <div>
-        {typeof this.props.errors === "undefined" ? (
-          <div> </div>
-        ) : (
-          <Errorslist {...this.props.errors} />
-        )}
         <h1>Forgot Password</h1>
         <br />
         <form
@@ -63,6 +58,11 @@ class forgot extends Component {
             <Link to={ROUTES.SIGNUP_ROUTE}> Register </Link>  
           </div>
         </form>
+         {typeof this.props.errors === "undefined" ? (
+          <div> </div>
+        ) : (
+          <Errorslist {...this.props.errors} />
+        )}
       </div>
     );
   }

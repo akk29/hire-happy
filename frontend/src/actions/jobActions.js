@@ -2,7 +2,7 @@ import { NotificationManager } from "react-notifications";
 import { ACTION } from "../constants/actionTypes";
 import Config from "../main/config";
 import { FILLER as F } from "../utils";
-import { successToast } from "../common/toasts";
+import { errorToast, successToast } from "../common/toasts";
 
 function sleepPromise(time) {
   return new Promise((resolve) => setTimeout(resolve, time));
@@ -37,7 +37,6 @@ export const getalljobs = (limit, offset, token) => (dispatch) => {
 
 export const applyjob = (payload) => (dispatch) => {
   var data = payload.target.value.split("-----");
-  // NotificationManager.success('Applied')
   dispatch({ type: ACTION.DISABLE });
   const url = Config.base_url + "/api/v1/applications";
   fetch(url, {
@@ -53,7 +52,7 @@ export const applyjob = (payload) => (dispatch) => {
       if (data.code === F.CREATED) {
         successToast("Applied");
         sleepPromise(2000)
-        .then(() => {
+          .then(() => {
             dispatch({ type: ACTION.REDIRECT, payload: {} });
             dispatch({ type: ACTION.RESET });
             dispatch({ type: ACTION.ENABLE });
@@ -66,6 +65,9 @@ export const applyjob = (payload) => (dispatch) => {
             window.location.reload(true);
           });
       }
+    })
+    .catch((err) => {
+      errorToast("Error applying for job");
     });
 };
 
@@ -85,20 +87,26 @@ export const PostjobAction = (payload) => (dispatch) => {
     .then((response) => response.json())
     .then((data) => {
       if (data.code === F.CREATED) {
-        NotificationManager.success("Posted");
+        successToast("Job Created");
         sleepPromise(2000).then(() => {
           dispatch({ type: ACTION.RESET });
           dispatch({ type: ACTION.ENABLE });
-          window.location.href = "/jobs/1";
+          // window.location.href = "/jobs/1";
         });
       } else {
         dispatch({ type: ACTION.ERRORS, errors: data });
         dispatch({ type: ACTION.ENABLE });
-        posted = false;
+        errorToast("Error creating Job");
       }
       if (!posted) {
         NotificationManager.error(F.VALIDATION_ERRORS);
       }
+    })
+    .catch((err) => {
+      errorToast("Error");
+    })
+    .catch((err) => {
+      errorToast("Error");
     });
 };
 
@@ -116,7 +124,7 @@ export const EditjobAction = (payload) => (dispatch) => {
     .then((response) => response.json())
     .then((data) => {
       if (data.code === F.SUCCESS) {
-        NotificationManager.success("Saved");
+        successToast("Saved");
         sleepPromise(2000).then(() => {
           dispatch({ type: ACTION.RESET });
           dispatch({ type: ACTION.ENABLE });

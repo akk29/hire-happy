@@ -49,12 +49,7 @@ class SigninAdmin extends React.Component {
   render() {
     if (!this.props.isloading) {
       return (
-        <div>
-          {typeof this.props.errors === "undefined" ? (
-            <></>
-          ) : (
-            <Errorslist {...this.props.errors} />
-          )}
+        <div>          
           <h1> Admin Signin </h1>
           <br />
           <form
@@ -94,12 +89,16 @@ class SigninAdmin extends React.Component {
 
             <div className="form-group">
               <button className="btn btn-primary">
-                {" "}
-                Login{" "}
-              </button>{" "}
+                Login
+              </button>
               &nbsp;
             </div>
           </form>
+          {typeof this.props.errors === "undefined" ? (
+            <></>
+          ) : (
+            <Errorslist {...this.props.errors} />
+          )}
         </div>
       );
     } else {

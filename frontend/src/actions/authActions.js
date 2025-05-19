@@ -1,3 +1,4 @@
+import { errorToast, successToast } from "../common/toasts"
 import {  ACTION } from "../constants/actionTypes"
 import Config from "../main/config"
 import { FILLER as F } from "../utils"
@@ -26,7 +27,8 @@ export const SigninAction = (payload,user) => (dispatch) =>{
           dispatch( { type:ACTION.ENABLE })              
         }else{
           dispatch( { type:ACTION.ENABLE })
-          dispatch( { type:ACTION.ERRORS, errors:data })          
+          dispatch( { type:ACTION.ERRORS, errors:data })         
+          errorToast("Error") 
         }        
       })       
 }
@@ -53,7 +55,8 @@ export const SignupAction = (payload) => (dispatch) =>{
       dispatch( { type:ACTION.ENABLE })              
     }else{      
       dispatch( { type:ACTION.ERRORS, errors:data })
-      dispatch( { type:ACTION.ENABLE })      
+      dispatch( { type:ACTION.ENABLE })   
+      errorToast("Error")    
     }
   })     
 }
@@ -74,11 +77,12 @@ export const ForgotAction = (payload) => (dispatch) =>{
     if(data.code === F.SUCCESS){
       dispatch( { type:ACTION.ERRORS, errors: undefined })
       dispatch( { type:ACTION.FORGOT, payload:data })
-      alert('Email Sent')
+      successToast('Email Sent')
       window.location.reload(true);
     }else{
       dispatch( { type:ACTION.ERRORS, errors:data })
       dispatch( { type:ACTION.ENABLE })
+      errorToast("Error")
     }
   })    
 }
@@ -126,11 +130,12 @@ export const changePassword = (payload) => (dispatch) =>{
         dispatch( { type:ACTION.PASSWORD_ERRORS, errors: undefined })
         dispatch( { type:ACTION.CHANGEPASSWORD, payload:data })     
         dispatch( { type:ACTION.REDIRECT, payload:{}})      
-        alert('Your Password Has been Changed')
+        successToast('Your Password Has been Changed')
         dispatch( { type:ACTION.ENABLE })
       }else{
         dispatch( { type:ACTION.PASSWORD_ERRORS, errors: data })
         dispatch( { type:ACTION.ENABLE })
+        errorToast("Error")
       }
     })  
 }

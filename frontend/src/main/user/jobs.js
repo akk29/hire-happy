@@ -41,14 +41,12 @@ const single_jobs = (job, index, role, applyjob, disable, token) => {
   } else if (role === F.RECRUITER_ROLE) {
     action = (
       <Link
-        to={{
-          pathname: ROUTES.EDIT_JOB_ROUTE,
-          state: {
-            id: job.uuid,
-            title: job.title,
-            description: job.description,
-            location: job.location,
-          },
+        to={ROUTES.EDIT_JOB_ROUTE}
+        state={{
+          uuid: job.uuid,
+          title: job.title,
+          description: job.description,
+          location: job.location,
         }}
       >
         Edit
@@ -78,6 +76,7 @@ function Jobs(props) {
       index = 0;
     }
     props.getalljobs(parseInt(Config.offset_size), index, props.authData.token);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -86,6 +85,7 @@ function Jobs(props) {
       index = 0;
     }
     props.getalljobs(parseInt(Config.offset_size), index, props.authData.token);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
 
   const setUrlandFetchJobs = (limit, offset) => {
@@ -163,7 +163,11 @@ function Jobs(props) {
         <div className="container">
           <Jobheader role={role} />
           <Header />
-          <h1>No Jobs Available</h1>
+          {role === F.RECRUITER_ROLE ? (
+            <h1>No Jobs Posted</h1>
+          ) : (
+            <h1>No Jobs Available</h1>
+          )}
         </div>
       );
     }

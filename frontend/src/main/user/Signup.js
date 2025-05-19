@@ -42,8 +42,7 @@ class Signup extends React.Component{
     render(){               
         if(!(this.props.isloading)){ 
         return(                        
-            <main>
-                {typeof(this.props.errors) === 'undefined' ? <></> : <Errorslist {... this.props.errors}/> }                
+            <main>               
                 <h1> Signup </h1>
                 <br/>
                 <form className="form-horizontal" onSubmit = {this.handleOnSubmit} method="post">
@@ -126,6 +125,7 @@ class Signup extends React.Component{
                 </div>                
                 
                 </form>
+                 {typeof(this.props.errors) === 'undefined' ? <></> : <Errorslist {... this.props.errors}/> }                
             </main>
             
         )}else{

@@ -36,8 +36,7 @@ class changepassword extends React.Component{
            return <Navigate to="/signin"/>
         }else{
         return(
-            <div>
-                {typeof(this.props.errors) === 'undefined' ? <></> : <Errorslist {... this.props.errors}/> }                
+            <div>                
                 <form className="form-horizontal" onSubmit = {this.handleOnSubmit} method="post">
                     <h1>Change Password</h1>
                     <br/>
@@ -69,6 +68,7 @@ class changepassword extends React.Component{
                         <button className="btn btn-primary" disabled={this.props.disable} > Change Password </button>
                     </div>                            
                 </form>
+                {typeof(this.props.errors) === 'undefined' ? <></> : <Errorslist {... this.props.errors}/> }                
             </div>
         )
     }}
