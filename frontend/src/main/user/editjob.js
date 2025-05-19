@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 import { EditjobAction } from "../../actions/jobActions";
 import Editjobheader from "../../common/editjobheader";
 import Errorslist from "../../common/errorslist";

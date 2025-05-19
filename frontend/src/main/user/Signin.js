@@ -69,7 +69,7 @@ function Signin(props) {
           <button className="btn btn-primary" disabled={props.disable}>
             Login
           </button>
-          &nbsp;
+          &nbsp;&nbsp;
           <Link to={ROUTES.SIGNUP_ROUTE}>Register</Link> &nbsp; &nbsp;
           <Link to={ROUTES.FORGOT_ROUTE}>Forgot Password</Link>
         </div>

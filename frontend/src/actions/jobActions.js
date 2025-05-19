@@ -4,7 +4,7 @@ import Config from "../main/config";
 import { FILLER as F } from "../utils";
 import { errorToast, successToast } from "../common/toasts";
 
-function sleepPromise(time) {
+const sleepPromise = (time) => {
   return new Promise((resolve) => setTimeout(resolve, time));
 }
 
@@ -91,7 +91,7 @@ export const PostjobAction = (payload) => (dispatch) => {
         sleepPromise(2000).then(() => {
           dispatch({ type: ACTION.RESET });
           dispatch({ type: ACTION.ENABLE });
-          // window.location.href = "/jobs/1";
+          window.location.href = "/jobs/1";
         });
       } else {
         dispatch({ type: ACTION.ERRORS, errors: data });
@@ -135,5 +135,13 @@ export const EditjobAction = (payload) => (dispatch) => {
         dispatch({ type: ACTION.ENABLE });
         return NotificationManager.error(F.VALIDATION_ERRORS);
       }
+    })
+    .catch((err) => {
+      console.error(err);
+      errorToast("Error");
+    })
+    .catch((err) => {
+      console.error(err);
+      errorToast("Error");
     });
 };

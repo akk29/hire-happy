@@ -70,16 +70,6 @@ function Jobs(props) {
   const location = useLocation();
 
   useEffect(() => {
-    document.title = "All Jobs";
-    var index = (pgno - 1) * 10;
-    if (isNaN(index)) {
-      index = 0;
-    }
-    props.getalljobs(parseInt(Config.offset_size), index, props.authData.token);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
     var index = (pgno - 1) * 10;
     if (isNaN(index)) {
       index = 0;
