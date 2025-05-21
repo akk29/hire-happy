@@ -14,12 +14,6 @@ class UserRepository(CRUDRepository):
     def __init__(self):
         super().__init__(User)
         self.model = User
-
-    @staticmethod
-    def get_instance():
-        if(UserRepository.__instance == None):
-            return UserRepository()
-        return UserRepository.__instance
     
     def authenticate_user(self,**kwargs):
         email = kwargs['email'].lower()

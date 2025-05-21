@@ -8,10 +8,4 @@ class ApplicationRepository(CRUDRepository):
     def __init__(self):
         super().__init__(Application)
         self.model = Application
-
-    @staticmethod
-    def get_instance():
-        if(ApplicationRepository.__instance == None):
-            return ApplicationRepository()
-        return ApplicationRepository.__instance
     
