@@ -1,1 +1,46 @@
-# deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hirehappy-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hirehappy
+  template:
+    metadata:
+      labels:
+        app: hirehappy
+    spec:
+      containers:
+        - name: hire-happy-frontend
+          image: akk29/private:hire-happy-frontend
+          ports:
+            - containerPort: 3000
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+        - name: hire-happy-server
+          image: akk29/private:hire-happy-server
+          ports:
+            - containerPort: 8000
+          resources:
+            requests:
+              cpu: "200m"
+              memory: "256Mi"
+            limits:
+              cpu: "1"
+              memory: "512Mi"
+        - name: hire-happy-worker
+          image: akk29/private:hire-happy-worker
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
