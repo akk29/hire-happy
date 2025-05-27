@@ -6,7 +6,7 @@ import Errorslist from "../../common/errorslist";
 import RedirectAuthorized from "../../hoc/redirectAuthorized";
 import { ROUTES } from "../../utils";
 
-function Signin(props) {
+const Signin = (props) => {
 
   const [form, setForm] = useState({
     email: "",

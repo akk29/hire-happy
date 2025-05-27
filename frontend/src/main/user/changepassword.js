@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { changePassword } from "../../actions/authActions";
 import Errorslist from "../../common/errorslist";
 
-function ChangePassword(props) {
+const ChangePassword = (props) => {
 
   document.title = "Change Password";
 
@@ -87,6 +87,4 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = { changePassword };
 
-const changepassword = ChangePassword;
-
-export default connect(mapStateToProps, mapDispatchToProps)(changepassword);
+export default connect(mapStateToProps, mapDispatchToProps)(ChangePassword);

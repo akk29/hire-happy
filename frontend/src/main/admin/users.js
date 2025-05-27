@@ -1,10 +1,10 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { NotificationContainer } from "react-notifications";
 import { Link } from "react-router-dom";
 import { getallUsers } from "../../actions/adminActions";
-import Footer from "../../common/footer";
+import { Footer } from "../../common/footer";
 import Header from "../../common/header";
 import Userheader from "../../common/userheader";
 import Config from "../config";
@@ -26,8 +26,8 @@ const single_user = (user, offset, disable) => {
   //     }}>
   //     Delete
   //   </button>
-// );
-var action = '-' // not implemented on backend 
+  // );
+  var action = '-' // not implemented on backend 
   if (user.role === F.SUPER_USER_ROLE) {
     action = "-";
   }
@@ -55,19 +55,19 @@ class users extends Component {
     if (isNaN(index)) {
       index = 0;
     }
-    this.props.getallUsers(parseInt(Config.offset_size), index , this.props.authData.token);
+    this.props.getallUsers(parseInt(Config.offset_size), index, this.props.authData.token);
   }
 
   setUrlandFetchUsers(limit, offset) {
     var pgno = offset / limit + 1;
     const url = `/users/${pgno}`;
     this.props.history.push(url);
-    this.props.getallUsers(parseInt(Config.offset_size), offset , this.props.authData.token);
+    this.props.getallUsers(parseInt(Config.offset_size), offset, this.props.authData.token);
   }
 
   render() {
     if (!this.props.isloading) {
-      var total = this.props.allusers.metadata.resultset.count;      
+      var total = this.props.allusers.metadata.resultset.count;
       if (total > 0) {
         var current_users = this.props.allusers.users.length;
         if (current_users > 0) {

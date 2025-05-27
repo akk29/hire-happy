@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 import ReCAPTCHA from "react-google-recaptcha";
 import { SigninAction, startStopLoader } from "../../actions/authActions";
 import Errorslist from "../../common/errorslist";
@@ -8,108 +7,103 @@ import RedirectAuthorized from "../../hoc/redirectAuthorized";
 
 const recaptchaRef = React.createRef();
 
-class SigninAdmin extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: "",
-      password: "",
-      disable: true,
-    };
-    this.handleCaptcha = this.handleCaptcha.bind(this);
-  }
+const SigninAdmin = (props) => {
 
-  componentDidMount() {
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+    disable: true,
+  });
+
+  useEffect(() => {
     document.title = "Admin Signin";
-    this.props.startStopLoader();
-  }
+    props.startStopLoader();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  handleOnSubmit = (event) => {
-    event.preventDefault();
-    var payload = {
-      email: this.state.email,
-      password: this.state.password,
-    };
-    this.props.SigninAction(payload, "Admin");
-  };
-
-  handleCaptcha() {
-    this.setState({
-      disable: false,
-    });
-  }
-
-  handleOnChange = (event) => {
+  const handleOnChange = (event) => {
     const { name, value } = event.target;
-    this.setState({
+    setForm((prev) => ({
+      ...prev,
       [name]: value,
-    });
+    }));
   };
 
-  render() {
-    if (!this.props.isloading) {
-      return (
-        <div>          
-          <h1> Admin Signin </h1>
-          <br />
-          <form
-            className="form-horizontal"
-            onSubmit={this.handleOnSubmit}
-            method="post"
-          >
-            <div className="form-group">
-              <label>Email : </label>
-              <input
-                className="form-control"
-                type="email"
-                name="email"
-                value={this.state.email}
-                placeholder="Email"
-                onChange={this.handleOnChange}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label>Password : </label>
-              <input
-                className="form-control"
-                type="password"
-                name="password"
-                value={this.state.password}
-                placeholder="password"
-                onChange={this.handleOnChange}
-                required
-              />
-            </div>
-            <ReCAPTCHA
-              ref={recaptchaRef}
-              sitekey="6LetOOcUAAAAACwrvGAIAMB0BwYkms1vZ6PtCUWt"
-              onChange={this.handleCaptcha}
-            />
+  const handleOnSubmit = (event) => {
+    event.preventDefault();
 
-            <div className="form-group">
-              <button className="btn btn-primary">
-                Login
-              </button>
-              &nbsp;
-            </div>
-          </form>
-          {typeof this.props.errors === "undefined" ? (
-            <></>
-          ) : (
-            <Errorslist {...this.props.errors} />
-          )}
-        </div>
-      );
-    } else {
-      return <h1>Loading</h1>;
-    }
+    props.SigninAction(form, "Admin");
+  };
+
+  const handleCaptcha = () => {
+    setForm((prev) => ({
+      ...prev,
+      disable: false
+    }));
   }
+
+  if (props.isloading) {
+    return (<h1>Loading</h1>)
+  }
+
+  return ((
+    <div>
+      <h1> Admin Signin </h1>
+      <br />
+      <form
+        className="form-horizontal"
+        onSubmit={handleOnSubmit}
+        method="post"
+      >
+        <div className="form-group">
+          <label>Email : </label>
+          <input
+            className="form-control"
+            type="email"
+            name="email"
+            value={form.email}
+            placeholder="Email"
+            onChange={handleOnChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label>Password : </label>
+          <input
+            className="form-control"
+            type="password"
+            name="password"
+            value={form.password}
+            placeholder="password"
+            onChange={handleOnChange}
+            required
+          />
+        </div>
+        <ReCAPTCHA
+          ref={recaptchaRef}
+          sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+          onChange={handleCaptcha}
+        />
+
+        <div className="form-group">
+          <button disabled={form.disable} className="btn btn-primary">
+            Login
+          </button>
+          &nbsp;
+        </div>
+      </form>
+      {typeof props.errors === "undefined" ? (
+        <></>
+      ) : (
+        <Errorslist {...props.errors} />
+      )}
+    </div>
+  ))
+
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ SigninAction, startStopLoader }, dispatch);
-};
+
+const mapDispatchToProps = { SigninAction, startStopLoader }
 
 const mapStateToProps = (state) => ({
   userInfo: state.auth.userinfo,

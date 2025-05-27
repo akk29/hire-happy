@@ -1,9 +1,7 @@
-import React from "react";
 import { Navigate } from 'react-router-dom'
 import { ROUTES } from "../utils";
 
-function logout() {
+export const Logout = () => {
   localStorage.clear();
   return <Navigate to={ROUTES.SIGNIN_ROUTE} />;
 }
-export default logout;

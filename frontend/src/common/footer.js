@@ -24,7 +24,7 @@ const footer_index = (index, onclick, current) => {
   );
 };
 
-export default function footer(props) {
+export const Footer = (props) => {
   var total = props.total;
   var total_index = Math.ceil(total / parseInt(Config.offset_size));
   var html = [];

@@ -5,7 +5,7 @@ import { ForgotAction } from "../../actions/authActions";
 import Errorslist from "../../common/errorslist";
 import { ROUTES } from "../../utils";
 
-function Forgot(props) {
+const Forgot = (props) => {
   document.title = "Forgot Password";
 
   const [form, setForm] = useState({
@@ -68,6 +68,4 @@ const mapStateToProps = (state) => ({
   disabled: state.auth.disable,
 });
 
-const forgot = Forgot;
-
-export default connect(mapStateToProps, mapDispatchToProps)(forgot);
+export default connect(mapStateToProps, mapDispatchToProps)(Forgot);

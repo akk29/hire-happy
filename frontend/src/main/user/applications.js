@@ -4,7 +4,7 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import { NotificationContainer } from "react-notifications";
 import { getallapplications } from "../../actions/applicationActions";
 import Header from "../../common/header";
-import Footer from "../../common/footer";
+import { Footer } from "../../common/footer";
 import Applicationheader from "../../common/applicationheader";
 import Config from "../config";
 import Authorized from "../../hoc/authorized";
@@ -106,9 +106,9 @@ function Applications(props) {
           {role === F.RECRUITER_ROLE ? (
             <h1>No Application Recieved</h1>
           ) : (
-           <h1>Apply for Job</h1>
+            <h1>Apply for Job</h1>
           )}
-          
+
         </div>
       );
     }

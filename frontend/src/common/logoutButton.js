@@ -4,7 +4,7 @@ import { bindActionCreators } from "redux";
 import { logoutAction } from "../actions/authActions";
 import { connect } from "react-redux";
 import { ROUTES } from "../utils";
-
+// @todo
 class LogoutButton extends React.Component {
   constructor() {
     super();

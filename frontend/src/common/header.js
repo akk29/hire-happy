@@ -1,6 +1,7 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import LogoutButton from "./logoutButton";
 import UserinfoHeader from "./userinfoHeader";
+// @todo
 export default class header extends Component {
   render() {
     return (

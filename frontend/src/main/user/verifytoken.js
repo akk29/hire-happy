@@ -1,16 +1,15 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import ChangePassword from "./changepassword";
 import { VerifyTokenAction } from "../../actions/authActions";
 import Errorslist from "../../common/errorslist";
 
-function VerifyToken(props) {
+const VerifyToken = (props) => {
 
   document.title = "Verify Token";
-  
   const { uuid64, token } = useParams();
-  
+
   useEffect(() => {
     props.VerifyTokenAction({
       uuid64: uuid64,

@@ -8,7 +8,7 @@ import Header from "../../common/header";
 import Authorized from "../../hoc/authorized";
 import Recruiteronly from "../../hoc/recruiteronly";
 
-function EditJobs(props) {
+const EditJob = (props) => {
   const location = useLocation();
   const [form, setForm] = useState({
     uuid: "",
@@ -116,9 +116,7 @@ const mapStateToProps = (state) => ({
   disable: state.jobs.disable,
 });
 
-const editjob = EditJobs;
-
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Authorized(Recruiteronly(editjob)));
+)(Authorized(Recruiteronly(EditJob)));

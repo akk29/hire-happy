@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Link, useParams, useNavigate, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
 import { getalljobs, applyjob } from "../../actions/jobActions";
-import Footer from "../../common/footer";
+import { Footer } from "../../common/footer";
 import Header from "../../common/header";
 import Jobheader from "../../common/jobheader";
 import Config from "../config";
@@ -64,7 +64,7 @@ const single_jobs = (job, index, role, applyjob, disable, token) => {
   );
 };
 
-function Jobs(props) {
+const Jobs = (props) => {
   const { pgno } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -177,6 +177,4 @@ const mapStateToProps = (state) => ({
   current: state.jobs.current,
 });
 
-const jobs = Jobs;
-
-export default connect(mapStateToProps, mapDispatchToProps)(Authorized(jobs));
+export default connect(mapStateToProps, mapDispatchToProps)(Authorized(Jobs));
