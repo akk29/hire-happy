@@ -31,8 +31,11 @@ const SigninAdmin = (props) => {
 
   const handleOnSubmit = (event) => {
     event.preventDefault();
-
-    props.SigninAction(form, "Admin");
+    var payload = {
+      email: form.email,  
+      password: form.password,
+    };
+    props.SigninAction(payload, "Admin");
   };
 
   const handleCaptcha = () => {
