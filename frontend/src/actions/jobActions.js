@@ -1,4 +1,3 @@
-import { NotificationManager } from "react-notifications";
 import { ACTION } from "../constants/actionTypes";
 import Config from "../main/config";
 import { FILLER as F } from "../utils";
@@ -99,7 +98,7 @@ export const PostjobAction = (payload) => (dispatch) => {
         errorToast("Error creating Job");
       }
       if (!posted) {
-        NotificationManager.error(F.VALIDATION_ERRORS);
+        errorToast(F.VALIDATION_ERRORS)
       }
     })
     .catch((err) => {
@@ -133,7 +132,7 @@ export const EditjobAction = (payload) => (dispatch) => {
       } else {
         dispatch({ type: ACTION.ERRORS, errors: data });
         dispatch({ type: ACTION.ENABLE });
-        return NotificationManager.error(F.VALIDATION_ERRORS);
+        errorToast(F.VALIDATION_ERRORS);
       }
     })
     .catch((err) => {

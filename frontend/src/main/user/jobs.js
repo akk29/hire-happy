@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { Link, useParams, useNavigate, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
-import { getalljobs, applyjob } from "../../actions/jobActions";
+import { getalljobs, applyjob } from "../../actions";
 import { Header, JobHeader, Footer } from "../../common";
 import Config from "../config";
-import Authorized from "../../hoc/authorized";
+import { authorized } from "../../hoc";
 import { FILLER as F, ROUTES } from "../../utils";
 
 /**
@@ -175,4 +175,4 @@ const mapStateToProps = (state) => ({
   current: state.jobs.current,
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Authorized(Jobs));
+export default connect(mapStateToProps, mapDispatchToProps)(authorized(Jobs));

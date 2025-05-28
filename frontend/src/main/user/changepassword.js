@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { connect } from "react-redux";
-import { changePassword } from "../../actions/authActions";
+import { changePassword } from "../../actions";
 import { ErrorsList } from "../../common";
 
 const ChangePassword = (props) => {

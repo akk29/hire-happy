@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import ReCAPTCHA from "react-google-recaptcha";
-import { SigninAction, startStopLoader } from "../../actions/authActions";
+import { SigninAction, startStopLoader } from "../../actions";
 import { ErrorsList } from "../../common";
-import RedirectAuthorized from "../../hoc/redirectAuthorized";
+import { redirectAuthorized } from "../../hoc";
 
 const recaptchaRef = React.createRef();
 
@@ -115,4 +115,4 @@ const mapStateToProps = (state) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(RedirectAuthorized(SigninAdmin));
+)(redirectAuthorized(SigninAdmin));

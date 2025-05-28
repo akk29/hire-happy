@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux'
-import { SignupAction, startStopLoader } from '../../actions/authActions'
+import { SignupAction, startStopLoader } from '../../actions'
 import { ErrorsList } from '../../common'
-import RedirectAuthorized from '../../hoc/redirectAuthorized'
+import { redirectAuthorized } from '../../hoc'
 import { ROUTES } from '../../utils'
 
 const Signup = (props) => {
@@ -143,4 +143,4 @@ const mapStateToProps = state => ({
     isloading: state.auth.isloading
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(RedirectAuthorized(Signup));
+export default connect(mapStateToProps, mapDispatchToProps)(redirectAuthorized(Signup));

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { SigninAction, startStopLoader } from "../../actions/authActions";
+import { SigninAction, startStopLoader } from "../../actions";
 import { ErrorsList } from "../../common";
-import RedirectAuthorized from "../../hoc/redirectAuthorized";
+import { redirectAuthorized } from "../../hoc";
 import { ROUTES } from "../../utils";
 
 const Signin = (props) => {
@@ -92,4 +92,4 @@ const mapStateToProps = state => ({
   disable: state.auth.disable
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(RedirectAuthorized(Signin))
+export default connect(mapStateToProps, mapDispatchToProps)(redirectAuthorized(Signin))

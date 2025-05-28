@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { connect } from "react-redux";
-import { PostjobAction } from "../../actions/jobActions";
+import { PostjobAction } from "../../actions";
 import { EditJobHeader, ErrorsList, Header } from "../../common/";
-import Authorized from "../../hoc/authorized";
-import Recruiteronly from "../../hoc/recruiteronly";
+import { authorized, recruiteronly } from "../../hoc";
 
 const PostJob = (props) => {
   const [form, setForm] = useState({
@@ -116,4 +115,4 @@ const mapStateToProps = (state) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Authorized(Recruiteronly(PostJob)));
+)(authorized(recruiteronly(PostJob)));

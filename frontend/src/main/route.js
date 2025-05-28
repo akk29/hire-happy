@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import "react-notifications/lib/notifications.css";
 import SigninAdmin from "./admin/signinAdmin";
 import Users from "./admin/users";
 import {
@@ -13,7 +12,7 @@ import {
   EditJob
 } from "./user/index";
 import { Logout } from "../common/logout";
-import Error404 from "../errors/error404";
+import { Error404 } from "../errors/error404";
 import { ROUTES } from "../utils";
 
 // eslint-disable-next-line import/no-anonymous-default-export

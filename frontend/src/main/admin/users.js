@@ -1,13 +1,11 @@
 import { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { NotificationContainer } from "react-notifications";
 import { Link } from "react-router-dom";
-import { getallUsers } from "../../actions/adminActions";
+import { getallUsers } from "../../actions";
 import { Header, UserHeader, Footer } from "../../common";
 import Config from "../config";
-import Authorized from "../../hoc/authorized";
-import Adminonly from "../../hoc/adminonly";
+import { authorized, adminonly } from "../../hoc";
 import { FILLER as F } from "../../utils";
 
 const single_user = (user, offset, disable) => {
@@ -100,7 +98,6 @@ class users extends Component {
                 action={this.setUrlandFetchUsers}
                 current={this.props.current}
               />
-              <NotificationContainer />
             </div>
           );
         } else {
@@ -138,4 +135,4 @@ const mapStateToProps = (state) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Authorized(Adminonly(users)));
+)(authorized(adminonly(users)));

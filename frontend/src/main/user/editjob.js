@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { connect } from "react-redux";
-import { EditjobAction } from "../../actions/jobActions";
+import { EditjobAction } from "../../actions";
 import { EditJobHeader, ErrorsList, Header } from "../../common/";
-import Authorized from "../../hoc/authorized";
-import Recruiteronly from "../../hoc/recruiteronly";
+import { authorized, recruiteronly } from "../../hoc";
 
 const EditJob = (props) => {
   const location = useLocation();
@@ -117,4 +116,4 @@ const mapStateToProps = (state) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Authorized(Recruiteronly(EditJob)));
+)(authorized(recruiteronly(EditJob)));
