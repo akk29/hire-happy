@@ -1,6 +1,6 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import SigninAdmin from "./admin/signinAdmin";
-import Users from "./admin/users";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import SigninAdmin from './admin/signinAdmin';
+import Users from './admin/users';
 import {
   Signin,
   Signup,
@@ -9,11 +9,11 @@ import {
   Jobs,
   Application,
   Postjobs,
-  EditJob
-} from "./user/index";
-import { Logout } from "../common/logout";
-import { Error404 } from "../errors/error404";
-import { ROUTES } from "../utils";
+  EditJob,
+} from './user/index';
+import { Logout } from '../common/logout';
+import { Error404 } from '../errors/error404';
+import { ROUTES } from '../utils';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default () => (

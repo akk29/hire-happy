@@ -3,26 +3,25 @@ export const SUCCESS = 200;
 export const CREATED = 201;
 
 /** ROLES */
-export const RECRUITER_ROLE = "Recruiter";
-export const ADMIN_ROLE = "Admin";
-export const SUPER_USER_ROLE = "SuperUser";
-export const CANDIDATE_ROLE = "Candidate";
+export const RECRUITER_ROLE = 'Recruiter';
+export const ADMIN_ROLE = 'Admin';
+export const SUPER_USER_ROLE = 'SuperUser';
+export const CANDIDATE_ROLE = 'Candidate';
 
 /**ROUTES */
-export const ADMIN_SIGNIN_ROUTE = "/admin/signin";
-export const APPLICATION_ROUTE = "/applications/:pgno";
-export const EDIT_JOB_ROUTE = "/editjob";
-export const FORGOT_ROUTE = "/forgot";
-export const INDEX_ROUTE = "/";
-export const JOB_ROUTE = "/jobs/:pgno";
-export const LOGOUT_ROUTE = "/logout";
-export const NOT_FOUND_ROUTE = "*";
-export const POST_JOB_ROUTE = "/postjob";
-export const SIGNIN_ROUTE = "/signin";
-export const SIGNUP_ROUTE = "/signup";
-export const USERS_ROUTE = "/users/:pgno";
-export const VERIFY_TOKEN_ROUTE = "/verify/:uuid64/:token";
-
+export const ADMIN_SIGNIN_ROUTE = '/admin/signin';
+export const APPLICATION_ROUTE = '/applications/:pgno';
+export const EDIT_JOB_ROUTE = '/editjob';
+export const FORGOT_ROUTE = '/forgot';
+export const INDEX_ROUTE = '/';
+export const JOB_ROUTE = '/jobs/:pgno';
+export const LOGOUT_ROUTE = '/logout';
+export const NOT_FOUND_ROUTE = '*';
+export const POST_JOB_ROUTE = '/postjob';
+export const SIGNIN_ROUTE = '/signin';
+export const SIGNUP_ROUTE = '/signup';
+export const USERS_ROUTE = '/users/:pgno';
+export const VERIFY_TOKEN_ROUTE = '/verify/:uuid64/:token';
 
 export const ROUTES = {
   ADMIN_SIGNIN_ROUTE,
@@ -37,22 +36,22 @@ export const ROUTES = {
   SIGNIN_ROUTE,
   SIGNUP_ROUTE,
   USERS_ROUTE,
-  VERIFY_TOKEN_ROUTE
+  VERIFY_TOKEN_ROUTE,
 };
 
 /** REQUETS Methods */
 
-export const GET = "get"
-export const POST = "post"
-export const DELETE = "delete"
-export const PATCH = "patch"
+export const GET = 'get';
+export const POST = 'post';
+export const DELETE = 'delete';
+export const PATCH = 'patch';
 
 /**OTHERS */
-export const AUTH_DATA = "authData"
-export const AUTHORIZATION = 'Authorization'
-export const APPLICATION_JSON = "application/json"
-export const CONTENT_TYPE = "Content-Type"
-export const VALIDATION_ERRORS = 'Validation Errors'
+export const AUTH_DATA = 'authData';
+export const AUTHORIZATION = 'Authorization';
+export const APPLICATION_JSON = 'application/json';
+export const CONTENT_TYPE = 'Content-Type';
+export const VALIDATION_ERRORS = 'Validation Errors';
 
 export const FILLER = {
   SUCCESS,
@@ -69,5 +68,5 @@ export const FILLER = {
   CONTENT_TYPE,
   APPLICATION_JSON,
   VALIDATION_ERRORS,
-  AUTHORIZATION
-}
+  AUTHORIZATION,
+};

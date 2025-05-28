@@ -1,5 +1,5 @@
-import LogoutButton from "./logoutButton";
-import { UserinfoHeader } from "./userinfoHeader";
+import LogoutButton from './logoutButton';
+import { UserinfoHeader } from './userinfoHeader';
 
 export const Header = () => {
   return (

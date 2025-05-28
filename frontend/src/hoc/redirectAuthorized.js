@@ -1,7 +1,7 @@
-import { Navigate } from 'react-router-dom'
-import { FILLER as F } from "../utils";
+import { Navigate } from 'react-router-dom';
+import { FILLER as F } from '../utils';
 
-const redirectAuthorized = (WrappedComponent) => {
+const redirectAuthorized = WrappedComponent => {
   return function RedirectAuthorizedWrapper(props) {
     const authData = JSON.parse(localStorage.getItem(F.AUTH_DATA));
     if (authData !== null) {

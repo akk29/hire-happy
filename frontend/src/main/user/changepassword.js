@@ -1,26 +1,25 @@
-import { useState } from "react";
-import { Navigate } from "react-router-dom";
-import { connect } from "react-redux";
-import { changePassword } from "../../actions";
-import { ErrorsList } from "../../common";
+import { useState } from 'react';
+import { Navigate } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { changePassword } from '../../actions';
+import { ErrorsList } from '../../common';
 
-const ChangePassword = (props) => {
-
-  document.title = "Change Password";
+const ChangePassword = props => {
+  document.title = 'Change Password';
 
   const [form, setForm] = useState({
-    password: "",
-    confirm_password: "",
+    password: '',
+    confirm_password: '',
   });
 
-  const handleOnSubmit = (event) => {
+  const handleOnSubmit = event => {
     event.preventDefault();
     props.changePassword(form);
   };
 
-  const handleOnChange = (event) => {
+  const handleOnChange = event => {
     const { name, value } = event.target;
-    setForm((prev) => ({
+    setForm(prev => ({
       ...prev,
       [name]: value,
     }));
@@ -68,7 +67,7 @@ const ChangePassword = (props) => {
             </button>
           </div>
         </form>
-        {typeof props.errors === "undefined" ? (
+        {typeof props.errors === 'undefined' ? (
           <></>
         ) : (
           <ErrorsList {...props.errors} />
@@ -76,9 +75,9 @@ const ChangePassword = (props) => {
       </div>
     );
   }
-}
+};
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   userinfo: state.auth.userinfo,
   errors: state.auth.error_password,
   redirect: state.auth.redirect,

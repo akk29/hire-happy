@@ -1,20 +1,20 @@
-import { ACTION } from "../constants/actionTypes";
+import { ACTION } from '../constants/actionTypes';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state = { isloading: true }, action) => {
   switch (action.type) {
     case ACTION.RESET:
-      return { };
-      case ACTION.ISLOADING_USERS:
-        return {
-          ...state,
-          isloading: true,
-        };
-      case ACTION.ISLOADED_USERS:
-        return {
-          ...state,
-          isloading: false,
-        };
+      return {};
+    case ACTION.ISLOADING_USERS:
+      return {
+        ...state,
+        isloading: true,
+      };
+    case ACTION.ISLOADED_USERS:
+      return {
+        ...state,
+        isloading: false,
+      };
     case ACTION.ISLOADING:
       return {
         ...state,
@@ -41,20 +41,20 @@ export default (state = { isloading: true }, action) => {
         disable: false,
       };
     case ACTION.CURRENT:
-      return{
+      return {
         ...state,
-        current : action.payload
-      }
+        current: action.payload,
+      };
     case ACTION.STOPNOTIFY:
-      return{
+      return {
         ...state,
-        notify : false
-      } 
+        notify: false,
+      };
     case ACTION.NOTIFY:
-      return { 
+      return {
         ...state,
-        notify: true 
-      }
+        notify: true,
+      };
     default:
       return state;
   }

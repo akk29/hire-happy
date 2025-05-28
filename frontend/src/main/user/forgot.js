@@ -1,24 +1,24 @@
-import { useState } from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { ForgotAction } from "../../actions";
-import { ErrorsList } from "../../common";
-import { ROUTES } from "../../utils";
+import { useState } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { ForgotAction } from '../../actions';
+import { ErrorsList } from '../../common';
+import { ROUTES } from '../../utils';
 
-const Forgot = (props) => {
-  document.title = "Forgot Password";
+const Forgot = props => {
+  document.title = 'Forgot Password';
 
   const [form, setForm] = useState({
-    email: "",
-    confirm_password: "",
+    email: '',
+    confirm_password: '',
   });
 
-  const handleOnSubmit = (event) => {
+  const handleOnSubmit = event => {
     event.preventDefault();
     props.ForgotAction(form);
   };
 
-  const handleOnChange = (event) => {
+  const handleOnChange = event => {
     const { name, value } = event.target;
     setForm({
       [name]: value,
@@ -51,18 +51,18 @@ const Forgot = (props) => {
           <Link to={ROUTES.SIGNUP_ROUTE}> Register </Link>
         </div>
       </form>
-      {typeof props.errors === "undefined" ? (
+      {typeof props.errors === 'undefined' ? (
         <div> </div>
       ) : (
         <ErrorsList {...props.errors} />
       )}
     </div>
   );
-}
+};
 
 const mapDispatchToProps = { ForgotAction };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   userInfo: state.auth.userinfo,
   errors: state.auth.errors,
   disabled: state.auth.disable,

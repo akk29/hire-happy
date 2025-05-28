@@ -6,7 +6,7 @@ export const ErrorsList = ({ errors }) => {
     <div>
       <br />
       <ul className="error-messages">
-        {Object.keys(errors).map((key) => (
+        {Object.keys(errors).map(key => (
           <li key={key}>
             {key} : {errors[key]}
           </li>

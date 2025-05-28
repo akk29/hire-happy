@@ -1,11 +1,11 @@
-import { ACTION } from "../constants/actionTypes";
-import { FILLER as F } from "../utils";
+import { ACTION } from '../constants/actionTypes';
+import { FILLER as F } from '../utils';
 
 var authData = JSON.parse(localStorage.getItem(F.AUTH_DATA));
 var initialState = { isloading: true, disable: false };
 
 if (authData !== null) {
-  initialState["userinfo"] = authData;
+  initialState['userinfo'] = authData;
 }
 
 const empty_state = {

@@ -1,9 +1,9 @@
-import Route from "../src/main/route";
-import "./App.css";
-import "../src/static/site.css";
-import { Provider } from "react-redux";
-import store from "./store";
-import { ToastContainer } from "react-toastify";
+import Route from '../src/main/route';
+import './App.css';
+import '../src/static/site.css';
+import { Provider } from 'react-redux';
+import store from './store';
+import { ToastContainer } from 'react-toastify';
 
 const App = () => {
   return (
@@ -14,6 +14,6 @@ const App = () => {
       </div>
     </Provider>
   );
-}
+};
 
 export default App;

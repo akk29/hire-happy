@@ -1,11 +1,11 @@
-import { useEffect } from "react";
-import { connect } from "react-redux";
-import { Link, useParams, useNavigate } from "react-router-dom";
-import { getallapplications } from "../../actions";
-import { ApplicationHeader, Footer, Header } from "../../common";
-import Config from "../config";
-import { authorized } from "../../hoc";
-import { FILLER as F } from "../../utils";
+import { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { Link, useParams, useNavigate } from 'react-router-dom';
+import { getallapplications } from '../../actions';
+import { ApplicationHeader, Footer, Header } from '../../common';
+import Config from '../config';
+import { authorized } from '../../hoc';
+import { FILLER as F } from '../../utils';
 
 const single_application = (application, index, role) => {
   return (
@@ -19,12 +19,12 @@ const single_application = (application, index, role) => {
   );
 };
 
-const Applications = (props) => {
+const Applications = props => {
   const { pgno } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
-    document.title = "All Applications";
+    document.title = 'All Applications';
     var index = (pgno - 1) * 10;
     if (isNaN(index)) {
       index = 0;
@@ -55,12 +55,10 @@ const Applications = (props) => {
       var current_apps = props.allapplications.applications.length;
       if (current_apps > 0) {
         var offset = props.allapplications.metadata.resultset.offset;
-        const appList = props.allapplications.applications.map(
-          (application) => {
-            offset += 1;
-            return single_application(application, offset, role);
-          }
-        );
+        const appList = props.allapplications.applications.map(application => {
+          offset += 1;
+          return single_application(application, offset, role);
+        });
         return (
           <div className="container">
             <ApplicationHeader role={role} /> <Header />
@@ -68,7 +66,7 @@ const Applications = (props) => {
             <br />
             <table className="table table-striped">
               <thead>
-                <tr key={"application-header"}>
+                <tr key={'application-header'}>
                   <th>Sr. No.</th>
                   <th>Title</th>
                   <th>Location</th>
@@ -91,7 +89,7 @@ const Applications = (props) => {
             <ApplicationHeader role={role} />
             <Header />
             <h1> Invalid Page</h1>
-            <Link to={"/applications/1"}> Go to All Applications </Link>
+            <Link to={'/applications/1'}> Go to All Applications </Link>
           </div>
         );
       }
@@ -104,18 +102,17 @@ const Applications = (props) => {
           ) : (
             <h1>Apply for Job</h1>
           )}
-
         </div>
       );
     }
   } else {
     return <h1> Loading </h1>;
   }
-}
+};
 
 const mapDispatchToProps = { getallapplications };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   allapplications: state.applications.allapplications,
   application_isloading: state.applications.isloading,
   authData: state.auth.userinfo,

@@ -1,4 +1,4 @@
-const LoaderHOC = (WrappedComponent) => {
+const LoaderHOC = WrappedComponent => {
   return function LoaderHOC(props) {
     return props.isloading ? (
       <h1>Please wait </h1>

@@ -1,11 +1,11 @@
-import { useEffect } from "react";
-import { connect } from "react-redux";
-import { Link, useParams, useNavigate, useLocation } from "react-router-dom";
-import { getallUsers } from "../../actions";
-import { Header, UserHeader, Footer } from "../../common";
-import Config from "../config";
-import { authorized, adminonly } from "../../hoc";
-import { FILLER as F } from "../../utils";
+import { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { Link, useParams, useNavigate, useLocation } from 'react-router-dom';
+import { getallUsers } from '../../actions';
+import { Header, UserHeader, Footer } from '../../common';
+import Config from '../config';
+import { authorized, adminonly } from '../../hoc';
+import { FILLER as F } from '../../utils';
 
 const single_user = (user, offset, disable) => {
   const fullName = `${user.first_name} ${user.last_name}`;
@@ -22,9 +22,9 @@ const single_user = (user, offset, disable) => {
   //     Delete
   //   </button>
   // );
-  var action = '-' // not implemented on backend 
+  var action = '-'; // not implemented on backend
   if (user.role === F.SUPER_USER_ROLE) {
-    action = "-";
+    action = '-';
   }
   return (
     <tr key={user.uuid}>
@@ -35,22 +35,25 @@ const single_user = (user, offset, disable) => {
       <td>{action}</td>
     </tr>
   );
-}
+};
 
-
-const Users = (props) => {
+const Users = props => {
   const { pgno } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
   const { isloading, allusers, disable, current } = props;
 
   useEffect(() => {
-    document.title = "All Users";
+    document.title = 'All Users';
     var offset = (pgno - 1) * 10;
     if (isNaN(offset)) {
       offset = 0;
     }
-    props.getallUsers(offset, parseInt(Config.limit_size), props.authData.token);
+    props.getallUsers(
+      offset,
+      parseInt(Config.limit_size),
+      props.authData.token
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
 
@@ -58,9 +61,12 @@ const Users = (props) => {
     var pgno = offset / limit + 1;
     const url = `/users/${pgno}`;
     navigate(url);
-    props.getallUsers(offset, parseInt(Config.limit_size), this.props.authData.token);
-  }
-
+    props.getallUsers(
+      offset,
+      parseInt(Config.limit_size),
+      this.props.authData.token
+    );
+  };
 
   if (!isloading) {
     const total = allusers.metadata.resultset.count;
@@ -68,7 +74,7 @@ const Users = (props) => {
       const current_users = allusers.users.length;
       if (current_users > 0) {
         let offset = allusers.metadata.resultset.offset;
-        const userList = allusers.users.map((job) => {
+        const userList = allusers.users.map(job => {
           offset += 1;
           return single_user(job, offset, disable);
         });
@@ -102,7 +108,7 @@ const Users = (props) => {
             <UserHeader />
             <Header />
             <h1> Invalid Page</h1>
-            <Link to={"/users/1"}> Go to All Users </Link>
+            <Link to={'/users/1'}> Go to All Users </Link>
           </div>
         );
       }
@@ -112,16 +118,16 @@ const Users = (props) => {
   } else {
     return <h1> Loading </h1>;
   }
-}
+};
 
-const mapDispatchToProps = { getallUsers }
+const mapDispatchToProps = { getallUsers };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   isloading: state.admin.isloading,
   allusers: state.admin.allusers,
   disable: state.admin.disable,
   current: state.admin.current,
-  authData: state.auth.userinfo
+  authData: state.auth.userinfo,
 });
 
 export default connect(

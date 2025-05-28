@@ -1,4 +1,4 @@
-import { FILLER as F } from "../utils";
+import { FILLER as F } from '../utils';
 
 export const UserinfoHeader = () => {
   var authData = JSON.parse(localStorage.getItem(F.AUTH_DATA));
@@ -9,4 +9,4 @@ export const UserinfoHeader = () => {
       Hello {fullName} ( {role}) ! &nbsp;
     </span>
   );
-}
+};

@@ -1,16 +1,16 @@
-import { ACTION } from "../constants/actionTypes";
-import Config from "../main/config";
-import { FILLER as F } from "../utils";
-import { errorToast, successToast } from "../common/toasts";
+import { ACTION } from '../constants/actionTypes';
+import Config from '../main/config';
+import { FILLER as F } from '../utils';
+import { errorToast, successToast } from '../common/toasts';
 
-const sleepPromise = (time) => {
-  return new Promise((resolve) => setTimeout(resolve, time));
-}
+const sleepPromise = time => {
+  return new Promise(resolve => setTimeout(resolve, time));
+};
 
-export const getalljobs = (offset, limit, token) => (dispatch) => {
+export const getalljobs = (offset, limit, token) => dispatch => {
   dispatch({ type: ACTION.ISLOADING_JOBS });
   var role = JSON.parse(localStorage.getItem(F.AUTH_DATA)).role;
-  var hit_url = "";
+  var hit_url = '';
   if (role === F.SUPER_USER_ROLE) {
     hit_url = `/api/v1/admin/jobs?limit=${limit}&offset=${offset}`;
   } else {
@@ -23,8 +23,8 @@ export const getalljobs = (offset, limit, token) => (dispatch) => {
       [F.AUTHORIZATION]: `Bearer ${token}`,
     },
   })
-    .then((response) => response.json())
-    .then((data) => {
+    .then(response => response.json())
+    .then(data => {
       dispatch({ type: ACTION.ALLJOBS, payload: data });
       dispatch({ type: ACTION.ISLOADED_JOBS });
       dispatch({
@@ -34,10 +34,10 @@ export const getalljobs = (offset, limit, token) => (dispatch) => {
     });
 };
 
-export const applyjob = (payload) => (dispatch) => {
-  var data = payload.target.value.split("-----");
+export const applyjob = payload => dispatch => {
+  var data = payload.target.value.split('-----');
   dispatch({ type: ACTION.DISABLE });
-  const url = Config.base_url + "/api/v1/applications";
+  const url = Config.base_url + '/api/v1/applications';
   fetch(url, {
     method: F.POST,
     headers: {
@@ -46,10 +46,10 @@ export const applyjob = (payload) => (dispatch) => {
     },
     body: JSON.stringify({ uuid: data[0] }),
   })
-    .then((response) => response.json())
-    .then((data) => {
+    .then(response => response.json())
+    .then(data => {
       if (data.code === F.CREATED) {
-        successToast("Applied");
+        successToast('Applied');
         sleepPromise(2000)
           .then(() => {
             dispatch({ type: ACTION.REDIRECT, payload: {} });
@@ -65,15 +65,15 @@ export const applyjob = (payload) => (dispatch) => {
           });
       }
     })
-    .catch((err) => {
-      errorToast("Error applying for job");
+    .catch(err => {
+      errorToast('Error applying for job');
     });
 };
 
-export const PostjobAction = (payload) => (dispatch) => {
+export const PostjobAction = payload => dispatch => {
   dispatch({ type: ACTION.DISABLE });
   var posted = true;
-  const url = Config.base_url + "/api/v1/jobs";
+  const url = Config.base_url + '/api/v1/jobs';
   const token = JSON.parse(localStorage.getItem(F.AUTH_DATA)).token;
   fetch(url, {
     method: F.POST,
@@ -83,35 +83,35 @@ export const PostjobAction = (payload) => (dispatch) => {
     },
     body: JSON.stringify(payload),
   })
-    .then((response) => response.json())
-    .then((data) => {
+    .then(response => response.json())
+    .then(data => {
       if (data.code === F.CREATED) {
-        successToast("Job Created");
+        successToast('Job Created');
         sleepPromise(2000).then(() => {
           dispatch({ type: ACTION.RESET });
           dispatch({ type: ACTION.ENABLE });
-          window.location.href = "/jobs/1";
+          window.location.href = '/jobs/1';
         });
       } else {
         dispatch({ type: ACTION.ERRORS, errors: data });
         dispatch({ type: ACTION.ENABLE });
-        errorToast("Error creating Job");
+        errorToast('Error creating Job');
       }
       if (!posted) {
-        errorToast(F.VALIDATION_ERRORS)
+        errorToast(F.VALIDATION_ERRORS);
       }
     })
-    .catch((err) => {
-      errorToast("Error");
+    .catch(err => {
+      errorToast('Error');
     })
-    .catch((err) => {
-      errorToast("Error");
+    .catch(err => {
+      errorToast('Error');
     });
 };
 
-export const EditjobAction = (payload) => (dispatch) => {
+export const EditjobAction = payload => dispatch => {
   dispatch({ type: ACTION.DISABLE });
-  const url = Config.base_url + "/api/v1/jobs";
+  const url = Config.base_url + '/api/v1/jobs';
   const token = JSON.parse(localStorage.getItem(F.AUTH_DATA)).token;
   fetch(url, {
     method: F.PATCH,
@@ -120,14 +120,14 @@ export const EditjobAction = (payload) => (dispatch) => {
     },
     body: JSON.stringify(payload),
   })
-    .then((response) => response.json())
-    .then((data) => {
+    .then(response => response.json())
+    .then(data => {
       if (data.code === F.SUCCESS) {
-        successToast("Saved");
+        successToast('Saved');
         sleepPromise(2000).then(() => {
           dispatch({ type: ACTION.RESET });
           dispatch({ type: ACTION.ENABLE });
-          window.location.href = "/jobs/1";
+          window.location.href = '/jobs/1';
         });
       } else {
         dispatch({ type: ACTION.ERRORS, errors: data });
@@ -135,12 +135,12 @@ export const EditjobAction = (payload) => (dispatch) => {
         errorToast(F.VALIDATION_ERRORS);
       }
     })
-    .catch((err) => {
+    .catch(err => {
       console.error(err);
-      errorToast("Error");
+      errorToast('Error');
     })
-    .catch((err) => {
+    .catch(err => {
       console.error(err);
-      errorToast("Error");
+      errorToast('Error');
     });
 };

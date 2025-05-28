@@ -1,11 +1,11 @@
-import { useEffect } from "react";
-import { Link, useParams, useNavigate, useLocation } from "react-router-dom";
-import { connect } from "react-redux";
-import { getalljobs, applyjob } from "../../actions";
-import { Header, JobHeader, Footer } from "../../common";
-import Config from "../config";
-import { authorized } from "../../hoc";
-import { FILLER as F, ROUTES } from "../../utils";
+import { useEffect } from 'react';
+import { Link, useParams, useNavigate, useLocation } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { getalljobs, applyjob } from '../../actions';
+import { Header, JobHeader, Footer } from '../../common';
+import Config from '../config';
+import { authorized } from '../../hoc';
+import { FILLER as F, ROUTES } from '../../utils';
 
 /**
  * TODO
@@ -24,14 +24,14 @@ const single_jobs = (job, index, role, applyjob, disable, token) => {
   if (role === F.SUPER_USER_ROLE) {
     // action = <button className="btn btn-primary" disabled={disable} value={`jobs-${job.uuid}`} onClick = {(e) => {if(window.confirm('Delete the item?')){deleteObjectById(e,"value")};}}>Delete</button>
     // not implemented in the backend
-    action = "-";
+    action = '-';
   } else if (role === F.CANDIDATE_ROLE) {
     action = (
       <button
         className="btn btn-primary"
         disabled={disable}
         value={`${job.uuid}-----${token}`}
-        onClick={(e) => applyjob(e, "value")}
+        onClick={e => applyjob(e, 'value')}
       >
         Apply
       </button>
@@ -62,7 +62,7 @@ const single_jobs = (job, index, role, applyjob, disable, token) => {
   );
 };
 
-const Jobs = (props) => {
+const Jobs = props => {
   const { pgno } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -80,15 +80,11 @@ const Jobs = (props) => {
     var pgno = offset / limit + 1;
     const url = `/jobs/${pgno}`;
     navigate(url);
-    props.getalljobs(
-      offset,
-      parseInt(Config.limit_size),
-      props.authData.token
-    );
+    props.getalljobs(offset, parseInt(Config.limit_size), props.authData.token);
   };
 
   if (props.redirect) {
-    return (window.location.href = "/jobs/1");
+    return (window.location.href = '/jobs/1');
   }
 
   if (!props.isloading) {
@@ -98,7 +94,7 @@ const Jobs = (props) => {
       if (current_jobs > 0) {
         var offset = props.alljobs.metadata.resultset.offset;
         var role = props.authData.role;
-        const jobsList = props.alljobs.jobs.map((job) => {
+        const jobsList = props.alljobs.jobs.map(job => {
           offset += 1;
           return single_jobs(
             job,
@@ -117,7 +113,7 @@ const Jobs = (props) => {
             <br />
             <table className="table table-striped">
               <thead>
-                <tr key={"job-header"}>
+                <tr key={'job-header'}>
                   <th>Sr. No.</th>
                   <th>Title</th>
                   <th>Description</th>
@@ -141,7 +137,7 @@ const Jobs = (props) => {
             <JobHeader role={role} />
             <Header />
             <h1> Invalid Page</h1>
-            <Link to={"/jobs/1"}> Go to All Jobs </Link>
+            <Link to={'/jobs/1'}> Go to All Jobs </Link>
           </div>
         );
       }
@@ -162,11 +158,11 @@ const Jobs = (props) => {
   } else {
     return <h1> Loading </h1>;
   }
-}
+};
 
 const mapDispatchToProps = { getalljobs, applyjob };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   authData: state.auth.userinfo,
   isloading: state.jobs.isloading,
   alljobs: state.jobs.alljobs,

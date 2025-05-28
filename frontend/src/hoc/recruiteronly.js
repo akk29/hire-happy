@@ -1,7 +1,7 @@
-import { Navigate } from 'react-router-dom'
-import { FILLER as F } from "../utils";
+import { Navigate } from 'react-router-dom';
+import { FILLER as F } from '../utils';
 
-const recruiteronly = (WrappedComponent) => {
+const recruiteronly = WrappedComponent => {
   return function RecruiterOnlyWrapper(props) {
     const authData = localStorage.getItem(F.AUTH_DATA);
     const role = authData ? JSON.parse(authData).role : null;

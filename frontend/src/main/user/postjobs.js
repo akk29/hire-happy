@@ -1,31 +1,31 @@
-import { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
-import { connect } from "react-redux";
-import { PostjobAction } from "../../actions";
-import { EditJobHeader, ErrorsList, Header } from "../../common/";
-import { authorized, recruiteronly } from "../../hoc";
+import { useEffect, useState } from 'react';
+import { Navigate } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { PostjobAction } from '../../actions';
+import { EditJobHeader, ErrorsList, Header } from '../../common/';
+import { authorized, recruiteronly } from '../../hoc';
 
-const PostJob = (props) => {
+const PostJob = props => {
   const [form, setForm] = useState({
-    title: "",
-    description: "",
-    location: "",
+    title: '',
+    description: '',
+    location: '',
   });
 
   useEffect(() => {
-    document.title = "Post Job";
+    document.title = 'Post Job';
     // props.startStopLoader();
   }, []);
 
-  const handleOnChange = (event) => {
+  const handleOnChange = event => {
     const { name, value } = event.target;
-    setForm((prev) => ({
+    setForm(prev => ({
       ...prev,
       [name]: value,
     }));
   };
 
-  const handleOnSubmit = (event) => {
+  const handleOnSubmit = event => {
     event.preventDefault();
     props.PostjobAction(form);
   };
@@ -94,7 +94,7 @@ const PostJob = (props) => {
             </div>
           </div>
         </form>
-        {typeof props.errors === "undefined" ? (
+        {typeof props.errors === 'undefined' ? (
           <></>
         ) : (
           <ErrorsList {...props.errors} />
@@ -102,11 +102,11 @@ const PostJob = (props) => {
       </div>
     );
   }
-}
+};
 
 const mapDispatchToProps = { PostjobAction };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   redirect: state.jobs.redirect,
   errors: state.jobs.errors,
   disable: state.jobs.disable,

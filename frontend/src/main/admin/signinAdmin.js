@@ -1,63 +1,58 @@
-import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
-import ReCAPTCHA from "react-google-recaptcha";
-import { SigninAction, startStopLoader } from "../../actions";
-import { ErrorsList } from "../../common";
-import { redirectAuthorized } from "../../hoc";
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import ReCAPTCHA from 'react-google-recaptcha';
+import { SigninAction, startStopLoader } from '../../actions';
+import { ErrorsList } from '../../common';
+import { redirectAuthorized } from '../../hoc';
 
 const recaptchaRef = React.createRef();
 
-const SigninAdmin = (props) => {
-
+const SigninAdmin = props => {
   const [form, setForm] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
     disable: true,
   });
 
   useEffect(() => {
-    document.title = "Admin Signin";
+    document.title = 'Admin Signin';
     props.startStopLoader();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleOnChange = (event) => {
+  const handleOnChange = event => {
     const { name, value } = event.target;
-    setForm((prev) => ({
+    setForm(prev => ({
       ...prev,
       [name]: value,
     }));
   };
 
-  const handleOnSubmit = (event) => {
+  const handleOnSubmit = event => {
     event.preventDefault();
     var payload = {
-      email: form.email,  
+      email: form.email,
       password: form.password,
     };
-    props.SigninAction(payload, "Admin");
+    props.SigninAction(payload, 'Admin');
   };
 
   const handleCaptcha = () => {
-    setForm((prev) => ({
+    setForm(prev => ({
       ...prev,
-      disable: false
+      disable: false,
     }));
-  }
+  };
 
   if (props.isloading) {
-    return (<h1>Loading</h1>)
+    return <h1>Loading</h1>;
   }
 
-  return ((
+  return (
     <div>
       <h1> Admin Signin </h1>
       <br />
-      <form
-        className="form-horizontal"
-        onSubmit={handleOnSubmit}
-        method="post"
-      >
+      <form className="form-horizontal" onSubmit={handleOnSubmit} method="post">
         <div className="form-group">
           <label>Email : </label>
           <input
@@ -95,20 +90,18 @@ const SigninAdmin = (props) => {
           &nbsp;
         </div>
       </form>
-      {typeof props.errors === "undefined" ? (
+      {typeof props.errors === 'undefined' ? (
         <></>
       ) : (
         <ErrorsList {...props.errors} />
       )}
     </div>
-  ))
+  );
+};
 
-}
+const mapDispatchToProps = { SigninAction, startStopLoader };
 
-
-const mapDispatchToProps = { SigninAction, startStopLoader }
-
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   userInfo: state.auth.userinfo,
   errors: state.auth.errors,
   disable: state.auth.disable,

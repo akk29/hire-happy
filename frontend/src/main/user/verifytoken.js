@@ -1,13 +1,12 @@
-import { useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { connect } from "react-redux";
-import ChangePassword from "./changepassword";
-import { VerifyTokenAction } from "../../actions";
-import { ErrorsList } from "../../common";
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { connect } from 'react-redux';
+import ChangePassword from './changepassword';
+import { VerifyTokenAction } from '../../actions';
+import { ErrorsList } from '../../common';
 
-const VerifyToken = (props) => {
-
-  document.title = "Verify Token";
+const VerifyToken = props => {
+  document.title = 'Verify Token';
   const { uuid64, token } = useParams();
 
   useEffect(() => {
@@ -23,7 +22,7 @@ const VerifyToken = (props) => {
   } else {
     return (
       <div>
-        {typeof props.errors === "undefined" ? (
+        {typeof props.errors === 'undefined' ? (
           <ChangePassword />
         ) : (
           <ErrorsList {...props.errors} />
@@ -31,11 +30,11 @@ const VerifyToken = (props) => {
       </div>
     );
   }
-}
+};
 
 const mapDispatchToProps = { VerifyTokenAction };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   userInfo: state.auth.userinfo,
   errors: state.auth.errors,
   isloading: state.auth.isloading,

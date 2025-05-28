@@ -1,24 +1,24 @@
-import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import { connect } from "react-redux";
-import { EditjobAction } from "../../actions";
-import { EditJobHeader, ErrorsList, Header } from "../../common/";
-import { authorized, recruiteronly } from "../../hoc";
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { EditjobAction } from '../../actions';
+import { EditJobHeader, ErrorsList, Header } from '../../common/';
+import { authorized, recruiteronly } from '../../hoc';
 
-const EditJob = (props) => {
+const EditJob = props => {
   const location = useLocation();
   const [form, setForm] = useState({
-    uuid: "",
-    title: "",
-    description: "",
-    location: "",
+    uuid: '',
+    title: '',
+    description: '',
+    location: '',
   });
 
   useEffect(() => {
-    document.title = "Edit Job";
+    document.title = 'Edit Job';
     if (location.state !== undefined) {
       const { state } = location;
-      setForm((prev) => ({
+      setForm(prev => ({
         ...prev,
         uuid: state.uuid,
         title: state.title,
@@ -29,14 +29,14 @@ const EditJob = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.state]);
 
-  const handleOnChange = (event) => {
+  const handleOnChange = event => {
     const { name, value } = event.target;
     setForm({
       [name]: value,
     });
   };
 
-  const handleOnSubmit = (event) => {
+  const handleOnSubmit = event => {
     event.preventDefault();
     props.EditjobAction(form);
   };
@@ -96,18 +96,18 @@ const EditJob = (props) => {
           </div>
         </div>
       </form>
-      {typeof props.errors === "undefined" ? (
+      {typeof props.errors === 'undefined' ? (
         <></>
       ) : (
         <ErrorsList {...props.errors} />
       )}
     </div>
   );
-}
+};
 
 const mapDispatchToProps = { EditjobAction };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   redirect: state.jobs.redirect,
   errors: state.jobs.errors,
   disable: state.jobs.disable,
