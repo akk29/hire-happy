@@ -1,7 +1,6 @@
-import React from "react";
 import { FILLER as F } from "../utils";
-// @todo
-export default function userinfoHeader() {
+
+export const UserinfoHeader = () => {
   var authData = JSON.parse(localStorage.getItem(F.AUTH_DATA));
   var fullName = `${authData.first_name} ${authData.last_name}`;
   var role = authData.role;

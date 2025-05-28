@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux'
 import { SignupAction, startStopLoader } from '../../actions/authActions'
-import Errorslist from '../../common/errorslist'
+import { ErrorsList } from '../../common'
 import RedirectAuthorized from '../../hoc/redirectAuthorized'
 import { ROUTES } from '../../utils'
 
@@ -128,7 +128,7 @@ const Signup = (props) => {
                 </div>
 
             </form>
-            {typeof (props.errors) === 'undefined' ? <></> : <Errorslist {...props.errors} />}
+            {typeof (props.errors) === 'undefined' ? <></> : <ErrorsList {...props.errors} />}
         </main>
 
     ))

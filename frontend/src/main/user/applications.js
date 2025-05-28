@@ -3,9 +3,7 @@ import { connect } from "react-redux";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { NotificationContainer } from "react-notifications";
 import { getallapplications } from "../../actions/applicationActions";
-import Header from "../../common/header";
-import { Footer } from "../../common/footer";
-import Applicationheader from "../../common/applicationheader";
+import { ApplicationHeader, Footer, Header } from "../../common";
 import Config from "../config";
 import Authorized from "../../hoc/authorized";
 import { FILLER as F } from "../../utils";
@@ -22,7 +20,7 @@ const single_application = (application, index, role) => {
   );
 };
 
-function Applications(props) {
+const Applications = (props) => {
   const { pgno } = useParams();
   const navigate = useNavigate();
 
@@ -66,7 +64,7 @@ function Applications(props) {
         );
         return (
           <div className="container">
-            <Applicationheader role={role} /> <Header />
+            <ApplicationHeader role={role} /> <Header />
             <h1>All Applications</h1>
             <br />
             <table className="table table-striped">
@@ -92,7 +90,7 @@ function Applications(props) {
       } else {
         return (
           <div className="container">
-            <Applicationheader role={role} />
+            <ApplicationHeader role={role} />
             <Header />
             <h1> Invalid Page</h1>
             <Link to={"/applications/1"}> Go to All Applications </Link>
@@ -102,7 +100,7 @@ function Applications(props) {
     } else {
       return (
         <div>
-          <Applicationheader role={role} /> <Header />
+          <ApplicationHeader role={role} /> <Header />
           {role === F.RECRUITER_ROLE ? (
             <h1>No Application Recieved</h1>
           ) : (

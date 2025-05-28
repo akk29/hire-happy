@@ -2,9 +2,7 @@ import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { connect } from "react-redux";
 import { PostjobAction } from "../../actions/jobActions";
-import Editjobheader from "../../common/editjobheader";
-import Errorslist from "../../common/errorslist";
-import Header from "../../common/header";
+import { EditJobHeader, ErrorsList, Header } from "../../common/";
 import Authorized from "../../hoc/authorized";
 import Recruiteronly from "../../hoc/recruiteronly";
 
@@ -38,7 +36,7 @@ const PostJob = (props) => {
   } else {
     return (
       <div className="container">
-        <Editjobheader /> <Header />
+        <EditJobHeader /> <Header />
         <h1>Post Job</h1>
         <form
           className="form-horizontal"
@@ -100,7 +98,7 @@ const PostJob = (props) => {
         {typeof props.errors === "undefined" ? (
           <></>
         ) : (
-          <Errorslist {...props.errors} />
+          <ErrorsList {...props.errors} />
         )}
       </div>
     );

@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "react-notifications/lib/notifications.css";
-import SiginAdmin from "./admin/siginAdmin";
+import SigninAdmin from "./admin/signinAdmin";
 import Users from "./admin/users";
 import {
   Signin,
@@ -23,7 +23,7 @@ export default () => (
       <Route exact path={ROUTES.INDEX_ROUTE} element={<Jobs />} />
       <Route exact path={ROUTES.LOGOUT_ROUTE} element={Logout} />
       <Route exact path={ROUTES.SIGNIN_ROUTE} element={<Signin />} />
-      <Route exact path={ROUTES.ADMIN_SIGNIN_ROUTE} element={<SiginAdmin />} />
+      <Route exact path={ROUTES.ADMIN_SIGNIN_ROUTE} element={<SigninAdmin />} />
       <Route exact path={ROUTES.SIGNUP_ROUTE} element={<Signup />} />
       <Route exact path={ROUTES.FORGOT_ROUTE} element={<Forgot />} />
       <Route exact path={ROUTES.POST_JOB_ROUTE} element={<Postjobs />} />

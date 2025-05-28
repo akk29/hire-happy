@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { connect } from "react-redux";
 import { EditjobAction } from "../../actions/jobActions";
-import Editjobheader from "../../common/editjobheader";
-import Errorslist from "../../common/errorslist";
-import Header from "../../common/header";
+import { EditJobHeader, ErrorsList, Header } from "../../common/";
 import Authorized from "../../hoc/authorized";
 import Recruiteronly from "../../hoc/recruiteronly";
 
@@ -47,7 +45,7 @@ const EditJob = (props) => {
   return (
     <div>
       <form className="form-horizontal" onSubmit={handleOnSubmit} method="post">
-        <Editjobheader /> <Header />
+        <EditJobHeader /> <Header />
         <h1>Edit Job</h1>
         <div className="form-group">
           <label className="control-label col-sm-2">Title : </label>
@@ -102,7 +100,7 @@ const EditJob = (props) => {
       {typeof props.errors === "undefined" ? (
         <></>
       ) : (
-        <Errorslist {...props.errors} />
+        <ErrorsList {...props.errors} />
       )}
     </div>
   );

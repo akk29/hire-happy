@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { connect } from "react-redux";
 import { changePassword } from "../../actions/authActions";
-import Errorslist from "../../common/errorslist";
+import { ErrorsList } from "../../common";
 
 const ChangePassword = (props) => {
 
@@ -71,7 +71,7 @@ const ChangePassword = (props) => {
         {typeof props.errors === "undefined" ? (
           <></>
         ) : (
-          <Errorslist {...props.errors} />
+          <ErrorsList {...props.errors} />
         )}
       </div>
     );

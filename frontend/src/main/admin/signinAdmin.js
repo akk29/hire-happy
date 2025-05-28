@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import ReCAPTCHA from "react-google-recaptcha";
 import { SigninAction, startStopLoader } from "../../actions/authActions";
-import Errorslist from "../../common/errorslist";
+import { ErrorsList } from "../../common";
 import RedirectAuthorized from "../../hoc/redirectAuthorized";
 
 const recaptchaRef = React.createRef();
@@ -95,7 +95,7 @@ const SigninAdmin = (props) => {
       {typeof props.errors === "undefined" ? (
         <></>
       ) : (
-        <Errorslist {...props.errors} />
+        <ErrorsList {...props.errors} />
       )}
     </div>
   ))

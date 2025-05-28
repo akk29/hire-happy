@@ -4,9 +4,7 @@ import { connect } from "react-redux";
 import { NotificationContainer } from "react-notifications";
 import { Link } from "react-router-dom";
 import { getallUsers } from "../../actions/adminActions";
-import { Footer } from "../../common/footer";
-import Header from "../../common/header";
-import Userheader from "../../common/userheader";
+import { Header, UserHeader, Footer } from "../../common";
 import Config from "../config";
 import Authorized from "../../hoc/authorized";
 import Adminonly from "../../hoc/adminonly";
@@ -82,7 +80,7 @@ class users extends Component {
           });
           return (
             <div className="container">
-              <Userheader /> <Header />
+              <UserHeader /> <Header />
               <h1>All Users</h1>
               <br />
               <table className="table table-striped">
@@ -108,7 +106,7 @@ class users extends Component {
         } else {
           return (
             <div className="container">
-              <Userheader />
+              <UserHeader />
               <Header />
               <h1> Invalid Page</h1>
               <Link to={"/applications/1"}> Go to All Applications </Link>

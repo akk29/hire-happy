@@ -2,7 +2,7 @@ import { useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { ForgotAction } from "../../actions/authActions";
-import Errorslist from "../../common/errorslist";
+import { ErrorsList } from "../../common";
 import { ROUTES } from "../../utils";
 
 const Forgot = (props) => {
@@ -54,7 +54,7 @@ const Forgot = (props) => {
       {typeof props.errors === "undefined" ? (
         <div> </div>
       ) : (
-        <Errorslist {...props.errors} />
+        <ErrorsList {...props.errors} />
       )}
     </div>
   );

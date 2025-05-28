@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import ChangePassword from "./changepassword";
 import { VerifyTokenAction } from "../../actions/authActions";
-import Errorslist from "../../common/errorslist";
+import { ErrorsList } from "../../common";
 
 const VerifyToken = (props) => {
 
@@ -26,7 +26,7 @@ const VerifyToken = (props) => {
         {typeof props.errors === "undefined" ? (
           <ChangePassword />
         ) : (
-          <Errorslist {...props.errors} />
+          <ErrorsList {...props.errors} />
         )}
       </div>
     );

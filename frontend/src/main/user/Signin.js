@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { SigninAction, startStopLoader } from "../../actions/authActions";
-import Errorslist from "../../common/errorslist";
+import { ErrorsList } from "../../common";
 import RedirectAuthorized from "../../hoc/redirectAuthorized";
 import { ROUTES } from "../../utils";
 
@@ -17,7 +17,7 @@ const Signin = (props) => {
     document.title = "Signin";
     props.startStopLoader();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[]);
+  }, []);
 
   const handleOnChange = (event) => {
     const { name, value } = event.target;
@@ -77,7 +77,7 @@ const Signin = (props) => {
       {typeof props.errors === "undefined" ? (
         <></>
       ) : (
-        <Errorslist {...props.errors} />
+        <ErrorsList {...props.errors} />
       )}
     </div>
   );
@@ -92,4 +92,4 @@ const mapStateToProps = state => ({
   disable: state.auth.disable
 });
 
-export default connect(mapStateToProps,mapDispatchToProps)(RedirectAuthorized(Signin))
+export default connect(mapStateToProps, mapDispatchToProps)(RedirectAuthorized(Signin))
