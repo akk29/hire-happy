@@ -1,7 +1,26 @@
+import threading
 class CRUDRepository():
 
-    def __init__(self,model):
+    _instances = {}
+    _locks = {}
+    _global_lock = threading.Lock()  # Only for lock creation
+
+    def __init__(self, model):
         self.model = model
+
+    @classmethod
+    def get_instance(cls):
+        # Ensure per-class lock exists (protected by global lock)
+        if cls not in cls._locks:
+            with cls._global_lock:
+                if cls not in cls._locks:
+                    cls._locks[cls] = threading.Lock()
+        # Double-checked locking for instance creation
+        if cls not in cls._instances:
+            with cls._locks[cls]:
+                if cls not in cls._instances:
+                    cls._instances[cls] = cls()
+        return cls._instances[cls]
     
     def create(self,**kwargs):
         obj = self.model.objects.create(**kwargs)

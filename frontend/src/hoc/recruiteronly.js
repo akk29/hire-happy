@@ -1,16 +1,14 @@
-import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
-import { FILLER as F } from "../utils";
+import { Navigate } from 'react-router-dom';
+import { FILLER as F } from '../utils';
 
-const recruiteronly = (WrappedComponent) => {
-  return class recruiteronly extends Component {
-    render() {
-      var role = JSON.parse(localStorage.getItem(F.AUTH_DATA)).role;
-      if (role === F.RECRUITER_ROLE) {
-        return <WrappedComponent {...this.props} />;
-      } else {
-        return <Redirect to="/jobs/1" />;
-      }
+const recruiteronly = WrappedComponent => {
+  return function RecruiterOnlyWrapper(props) {
+    const authData = localStorage.getItem(F.AUTH_DATA);
+    const role = authData ? JSON.parse(authData).role : null;
+    if (role === F.RECRUITER_ROLE) {
+      return <WrappedComponent {...props} />;
+    } else {
+      return <Navigate to="/jobs/1" />;
     }
   };
 };

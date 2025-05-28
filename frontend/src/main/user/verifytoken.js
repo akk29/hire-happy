@@ -1,44 +1,43 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import ChangePassword from './changepassword'
-import { VerifyTokenAction } from '../../actions/authActions'
-import Errorslist from '../../common/errorslist'
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { connect } from 'react-redux';
+import ChangePassword from './changepassword';
+import { VerifyTokenAction } from '../../actions';
+import { ErrorsList } from '../../common';
 
-class VerifyToken extends React.Component{
+const VerifyToken = props => {
+  document.title = 'Verify Token';
+  const { uuid64, token } = useParams();
 
-    componentDidMount(){
-        var {uuid64 , token} = this.props.match.params
-        var payload = {
-            uuid64 : uuid64,
-            token : token
-        }          
-        this.props.VerifyTokenAction(payload)
-    }
-   
-    render(){  
-        if(this.props.isloading){
-            document.title = 'Verify Token' 
-            return <h1>Please Wait</h1>
-        }else{
-            return(            
-                <div>
-                    {typeof(this.props.errors) === 'undefined' ? <ChangePassword/> : <Errorslist {... this.props.errors}/> }               
-                </div>
-            )
-        }        
-    }
-}
+  useEffect(() => {
+    props.VerifyTokenAction({
+      uuid64: uuid64,
+      token: token,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
+  if (props.isloading) {
+    return <h1>Please Wait</h1>;
+  } else {
+    return (
+      <div>
+        {typeof props.errors === 'undefined' ? (
+          <ChangePassword />
+        ) : (
+          <ErrorsList {...props.errors} />
+        )}
+      </div>
+    );
+  }
+};
 
-const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({VerifyTokenAction},dispatch)
-}
+const mapDispatchToProps = { VerifyTokenAction };
 
-const mapStateToProps = state =>({
-    userInfo : state.auth.userinfo,
-    errors : state.auth.errors,
-    isloading : state.auth.isloading
-})
+const mapStateToProps = state => ({
+  userInfo: state.auth.userinfo,
+  errors: state.auth.errors,
+  isloading: state.auth.isloading,
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(VerifyToken);

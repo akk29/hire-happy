@@ -1,30 +1,19 @@
-import React , {Component} from 'react';
-import Route from '../src/main/route'
-import "./App.css"
-import "../src/static/site.css"
+import Route from '../src/main/route';
+import './App.css';
+import '../src/static/site.css';
 import { Provider } from 'react-redux';
 import store from './store';
+import { ToastContainer } from 'react-toastify';
 
-
-class App extends Component{
-
-  constructor() {
-    super()
-    this.state = {
-      text : 'hello world'
-    }
-  }
-
-  render(){
-    return(
-      <Provider store={store}>
-        <div className="container main-container">
-          <Route />
-        </div>
-      </Provider>
-    )
-  }
-
-}
+const App = () => {
+  return (
+    <Provider store={store}>
+      <div className="container main-container">
+        <ToastContainer pauseOnFocusLoss={false} />
+        <Route />
+      </div>
+    </Provider>
+  );
+};
 
 export default App;

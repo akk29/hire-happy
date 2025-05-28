@@ -31,7 +31,6 @@ class JobServices():
         job_ids = []
         for application in all_applied_applications:
             job_ids.append(application.job_id.id)        
-        all_available_jobs = self.job_operations.all_objects().filter(~ex(id__in=job_ids))                       
-        total = all_available_jobs.count()
-        final_jobs = all_available_jobs[int(offset) : int(offset) + int(limit)]       
-        return [total,final_jobs]        
+        paginated_jobs = self.job_operations.all_objects().order_by('-created_at').filter(~ex(id__in=job_ids))[int(offset) : int(offset) + int(limit)]       
+        total = self.job_operations.all_objects().filter(~ex(id__in=job_ids)).count()
+        return [total,paginated_jobs]        

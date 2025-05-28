@@ -1,47 +1,34 @@
-import React from "react";
-import { Redirect } from "react-router-dom";
-import { bindActionCreators } from "redux";
-import { logoutAction } from "../actions/authActions";
-import { connect } from "react-redux";
-import { ROUTES } from "../utils";
+import { useState } from 'react';
+import { Navigate } from 'react-router-dom';
+import { connect, useDispatch } from 'react-redux';
+import { logoutAction } from '../actions/authActions';
+import { ROUTES } from '../utils';
 
-class LogoutButton extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      redirect: false,
-    };
-  }
+const LogoutButton = () => {
+  const [redirect, setRedirect] = useState(false);
+  const dispatch = useDispatch();
 
-  handleClick = (e) => {
+  const handleClick = () => {
     localStorage.clear();
-    this.props.logoutAction();
-    this.setState(() => {
-      return {
-        redirect: true,
-      };
-    });
+    dispatch(logoutAction());
+    setRedirect(true);
   };
 
-  render() {
-    if (this.state.redirect) {
-      return <Redirect to={ROUTES.SIGNIN_ROUTE}/>;
-    } else {
-      return (
-        <button className="btn btn-primary" onClick={this.handleClick}>
-          Logout
-        </button>
-      );
-    }
+  if (redirect) {
+    return <Navigate to={ROUTES.SIGNIN_ROUTE} />;
   }
-}
 
-const mapStateToProps = (state) => ({
+  return (
+    <button className="btn btn-primary" onClick={handleClick}>
+      Logout
+    </button>
+  );
+};
+
+const mapStateToProps = state => ({
   logout: state.auth,
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ logoutAction }, dispatch);
-};
+const mapDispatchToProps = { logoutAction };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LogoutButton);

@@ -1,16 +1,11 @@
-import React, { Component } from "react";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
-import { NotificationContainer } from "react-notifications";
-import { Link } from "react-router-dom";
-import { getallUsers } from "../../actions/adminActions";
-import Footer from "../../common/footer";
-import Header from "../../common/header";
-import Userheader from "../../common/userheader";
-import Config from "../config";
-import Authorized from "../../hoc/authorized";
-import Adminonly from "../../hoc/adminonly";
-import { FILLER as F } from "../../utils";
+import { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { Link, useParams, useNavigate, useLocation } from 'react-router-dom';
+import { getallUsers } from '../../actions';
+import { Header, UserHeader, Footer } from '../../common';
+import Config from '../config';
+import { authorized, adminonly } from '../../hoc';
+import { FILLER as F } from '../../utils';
 
 const single_user = (user, offset, disable) => {
   const fullName = `${user.first_name} ${user.last_name}`;
@@ -26,10 +21,10 @@ const single_user = (user, offset, disable) => {
   //     }}>
   //     Delete
   //   </button>
-// );
-var action = '-' // not implemented on backend 
+  // );
+  var action = '-'; // not implemented on backend
   if (user.role === F.SUPER_USER_ROLE) {
-    action = "-";
+    action = '-';
   }
   return (
     <tr key={user.uuid}>
@@ -40,104 +35,102 @@ var action = '-' // not implemented on backend
       <td>{action}</td>
     </tr>
   );
-}
-
-class users extends Component {
-  constructor(props) {
-    super(props);
-    this.setUrlandFetchUsers = this.setUrlandFetchUsers.bind(this);
-  }
-
-  componentWillMount() {
-    document.title = "All Users";
-    var { pgno } = this.props.match.params;
-    var index = (pgno - 1) * 10;
-    if (isNaN(index)) {
-      index = 0;
-    }
-    this.props.getallUsers(parseInt(Config.offset_size), index , this.props.authData.token);
-  }
-
-  setUrlandFetchUsers(limit, offset) {
-    var pgno = offset / limit + 1;
-    const url = `/users/${pgno}`;
-    this.props.history.push(url);
-    this.props.getallUsers(parseInt(Config.offset_size), offset , this.props.authData.token);
-  }
-
-  render() {
-    if (!this.props.isloading) {
-      var total = this.props.allusers.metadata.resultset.count;      
-      if (total > 0) {
-        var current_users = this.props.allusers.users.length;
-        if (current_users > 0) {
-          var offset = this.props.allusers.metadata.resultset.offset;
-          const userList = this.props.allusers.users.map((job) => {
-            offset += 1;
-            return single_user(
-              job,
-              offset,
-              this.props.disable
-            );
-          });
-          return (
-            <div className="container">
-              <Userheader /> <Header />
-              <h1>All Users</h1>
-              <br />
-              <table className="table table-striped">
-                <thead>
-                  <tr>
-                    <th>Sr. No.</th>
-                    <th>Full Name</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>{userList}</tbody>
-              </table>
-              <Footer
-                total={total}
-                action={this.setUrlandFetchUsers}
-                current={this.props.current}
-              />
-              <NotificationContainer />
-            </div>
-          );
-        } else {
-          return (
-            <div className="container">
-              <Userheader />
-              <Header />
-              <h1> Invalid Page</h1>
-              <Link to={"/applications/1"}> Go to All Applications </Link>
-            </div>
-          );
-        }
-      } else {
-        return <div>No User</div>;
-      }
-    } else {
-      return <h1> Loading </h1>;
-    }
-  }
-}
-
-
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ getallUsers }, dispatch);
 };
 
-const mapStateToProps = (state) => ({
+const Users = props => {
+  const { pgno } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { isloading, allusers, disable, current } = props;
+
+  useEffect(() => {
+    document.title = 'All Users';
+    var offset = (pgno - 1) * 10;
+    if (isNaN(offset)) {
+      offset = 0;
+    }
+    props.getallUsers(
+      offset,
+      parseInt(Config.limit_size),
+      props.authData.token
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.pathname]);
+
+  const setUrlandFetchUsers = (limit, offset) => {
+    var pgno = offset / limit + 1;
+    const url = `/users/${pgno}`;
+    navigate(url);
+    props.getallUsers(
+      offset,
+      parseInt(Config.limit_size),
+      this.props.authData.token
+    );
+  };
+
+  if (!isloading) {
+    const total = allusers.metadata.resultset.count;
+    if (total > 0) {
+      const current_users = allusers.users.length;
+      if (current_users > 0) {
+        let offset = allusers.metadata.resultset.offset;
+        const userList = allusers.users.map(job => {
+          offset += 1;
+          return single_user(job, offset, disable);
+        });
+        return (
+          <div className="container">
+            <UserHeader /> <Header />
+            <h1>All Users</h1>
+            <br />
+            <table className="table table-striped">
+              <thead>
+                <tr>
+                  <th>Sr. No.</th>
+                  <th>Full Name</th>
+                  <th>Email</th>
+                  <th>Role</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>{userList}</tbody>
+            </table>
+            <Footer
+              total={total}
+              action={setUrlandFetchUsers}
+              current={current}
+            />
+          </div>
+        );
+      } else {
+        return (
+          <div className="container">
+            <UserHeader />
+            <Header />
+            <h1> Invalid Page</h1>
+            <Link to={'/users/1'}> Go to All Users </Link>
+          </div>
+        );
+      }
+    } else {
+      return <div>No User</div>;
+    }
+  } else {
+    return <h1> Loading </h1>;
+  }
+};
+
+const mapDispatchToProps = { getallUsers };
+
+const mapStateToProps = state => ({
   isloading: state.admin.isloading,
   allusers: state.admin.allusers,
   disable: state.admin.disable,
   current: state.admin.current,
-  authData: state.auth.userinfo
+  authData: state.auth.userinfo,
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Authorized(Adminonly(users)));
+)(authorized(adminonly(Users)));

@@ -55,7 +55,7 @@ class ResetPasswordSchema(Schema):
     def validate_email_exists(self,data,**kwargs):        
         user = user_operations.model.objects.filter(email = data.lower())
         if(user.count() == 0):
-            raise NotFoundException(F.MSG,F.INVALID_CREDENTIALS)
+            raise NotFoundException(F.EMAIL,F.EMAIL_NOT_FOUND)
 
 class VerifyResetTokenSchema(Schema):
     uidb64 = fields.Str(required=True)

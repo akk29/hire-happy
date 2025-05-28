@@ -1,0 +1,26 @@
+# Ignore build and distribution folders
+dist
+build
+out
+
+# Ignore node_modules
+node_modules
+
+# Ignore common config files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Ignore coverage reports
+coverage
+
+# Ignore log files
+*.log
+
+# Ignore temporary files
+*.tmp
+*.temp
+
+# Ignore common IDE files
+.vscode/
+.idea/

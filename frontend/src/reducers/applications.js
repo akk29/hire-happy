@@ -1,19 +1,21 @@
-import { ACTION } from "../constants/actionTypes";
-import { FILLER as F } from "../utils";
+import { ACTION } from '../constants/actionTypes';
+import { FILLER as F } from '../utils';
 
 var initialState = { isloading: true, disable: false };
-var payload  = JSON.parse(localStorage.getItem(F.AUTH_DATA))
+var payload = JSON.parse(localStorage.getItem(F.AUTH_DATA));
 
-if(payload !== null){
-  initialState['userinfo'] = payload
+if (payload !== null) {
+  initialState['userinfo'] = payload;
 }
 
 const empty_state = {
-  isloading: true, disable: false
-}
+  isloading: true,
+  disable: false,
+};
 
-export default (state = initialState, action) => {  
-  switch (action.type) {    
+// eslint-disable-next-line import/no-anonymous-default-export
+export default (state = initialState, action) => {
+  switch (action.type) {
     case ACTION.RESET:
       return empty_state;
     case ACTION.ISLOADING_APPLICATIONS:

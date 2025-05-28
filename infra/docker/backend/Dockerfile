@@ -3,11 +3,9 @@ RUN set -ex \
     && apk update \
     && pip3 install --upgrade pip
 WORKDIR /app
-ADD ./backend/requirements.txt /app/
+COPY ../../backend/ /app
 RUN pip install --no-cache-dir -r requirements.txt
-COPY ../../ /app
 EXPOSE 8000
-WORKDIR /app/backend
 RUN ["python", "manage.py", "makemigrations", "app"]
 RUN ["python", "manage.py", "migrate", "app"]
 RUN ["python", "manage.py", "makemigrations"]
