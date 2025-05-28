@@ -22,14 +22,9 @@ class ApplicationServices():
         job_ids = []
         for job in all_jobs:
             job_ids.append(job.id)        
-        applications = self.application_operations.all_objects().filter(job_id__in = job_ids)
-        total = applications.count()
-        paginated_applications = []
-        if(total > 0):
-            paginated_applications = applications[int(offset): int(limit) + int(offset)]
-            return [total,paginated_applications]
-        else:
-            return [total,paginated_applications]
+        paginated_applications = self.application_operations.all_objects().filter(job_id__in = job_ids)[int(offset): int(limit) + int(offset)]
+        total = self.application_operations.all_objects().filter(job_id__in = job_ids).count()
+        return [total,paginated_applications]
 
     def candidate_applications_service(self,offset,limit,**kwargs):
         search = {F.USER_ID : kwargs[F.ID]}            
