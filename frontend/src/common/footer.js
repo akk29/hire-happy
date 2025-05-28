@@ -1,7 +1,8 @@
+import classNames from 'classnames';
 import Config from "../main/config";
 
 const footer_index = (index, onclick, current) => {
-  var limit = parseInt(Config.offset_size);
+  var limit = parseInt(Config.limit_size);
   var offset = (index - 1) * limit;
   var buttonClass = `btn btn-primary`;
   if (index === current) {
@@ -16,7 +17,10 @@ const footer_index = (index, onclick, current) => {
     // </select>
 
     <span key={index}>
-      <button className={buttonClass} onClick={() => onclick(limit, offset)}>
+      <button className={classNames(
+        "footer-btn",
+        buttonClass
+      )} onClick={() => onclick(limit, offset)}>
         {index}
       </button>
       &nbsp;
@@ -26,7 +30,7 @@ const footer_index = (index, onclick, current) => {
 
 export const Footer = (props) => {
   var total = props.total;
-  var total_index = Math.ceil(total / parseInt(Config.offset_size));
+  var total_index = Math.ceil(total / parseInt(Config.limit_size));
   var html = [];
   //   var outer_html =
   for (let index = 1; index <= total_index; index++) {

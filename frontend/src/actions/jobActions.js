@@ -8,7 +8,7 @@ const sleepPromise = (time) => {
   return new Promise((resolve) => setTimeout(resolve, time));
 }
 
-export const getalljobs = (limit, offset, token) => (dispatch) => {
+export const getalljobs = (offset, limit, token) => (dispatch) => {
   dispatch({ type: ACTION.ISLOADING_JOBS });
   var role = JSON.parse(localStorage.getItem(F.AUTH_DATA)).role;
   var hit_url = "";
@@ -30,7 +30,7 @@ export const getalljobs = (limit, offset, token) => (dispatch) => {
       dispatch({ type: ACTION.ISLOADED_JOBS });
       dispatch({
         type: ACTION.CURRENT,
-        payload: offset / parseInt(Config.offset_size) + 1,
+        payload: offset / parseInt(Config.limit_size) + 1,
       });
     });
 };

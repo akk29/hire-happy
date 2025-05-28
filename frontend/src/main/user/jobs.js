@@ -68,11 +68,11 @@ const Jobs = (props) => {
   const location = useLocation();
 
   useEffect(() => {
-    var index = (pgno - 1) * 10;
-    if (isNaN(index)) {
-      index = 0;
+    var offset = (pgno - 1) * Config.limit_size;
+    if (isNaN(offset)) {
+      offset = 0;
     }
-    props.getalljobs(parseInt(Config.offset_size), index, props.authData.token);
+    props.getalljobs(offset, parseInt(Config.limit_size), props.authData.token);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
 
@@ -81,8 +81,8 @@ const Jobs = (props) => {
     const url = `/jobs/${pgno}`;
     navigate(url);
     props.getalljobs(
-      parseInt(Config.offset_size),
       offset,
+      parseInt(Config.limit_size),
       props.authData.token
     );
   };
