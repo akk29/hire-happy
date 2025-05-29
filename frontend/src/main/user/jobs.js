@@ -72,7 +72,7 @@ const Jobs = props => {
     if (isNaN(offset)) {
       offset = 0;
     }
-    props.getalljobs(offset, parseInt(Config.limit_size), props.authData.token);
+    props.getalljobs(offset, parseInt(Config.limit_size));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
 
@@ -80,7 +80,7 @@ const Jobs = props => {
     var pgno = offset / limit + 1;
     const url = `/jobs/${pgno}`;
     navigate(url);
-    props.getalljobs(offset, parseInt(Config.limit_size), props.authData.token);
+    props.getalljobs(offset, parseInt(Config.limit_size));
   };
 
   if (props.redirect) {

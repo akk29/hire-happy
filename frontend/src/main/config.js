@@ -1,7 +1,7 @@
 var config = {
-  base_url: 'http://127.0.0.1:8000',
+  base_url: 'http://localhost:8000',
   offset_size: '10',
-  limit_size: '250',
+  limit_size: '50',
 };
 
 export default config;

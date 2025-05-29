@@ -2,12 +2,13 @@ import { ACTION } from '../constants/actionTypes';
 import Config from '../main/config';
 import { FILLER as F } from '../utils';
 import { errorToast, successToast } from '../common/toasts';
+import { axiosAuthenticated } from '../service/axios';
 
 const sleepPromise = time => {
   return new Promise(resolve => setTimeout(resolve, time));
 };
 
-export const getalljobs = (offset, limit, token) => dispatch => {
+export const getalljobs = (offset, limit) => dispatch => {
   dispatch({ type: ACTION.ISLOADING_JOBS });
   var role = JSON.parse(localStorage.getItem(F.AUTH_DATA)).role;
   var hit_url = '';
@@ -17,21 +18,16 @@ export const getalljobs = (offset, limit, token) => dispatch => {
     hit_url = `/api/v1/jobs?limit=${limit}&offset=${offset}`;
   }
   const url = Config.base_url + hit_url;
-  fetch(url, {
-    method: F.GET,
-    headers: {
-      [F.AUTHORIZATION]: `Bearer ${token}`,
-    },
-  })
-    .then(response => response.json())
-    .then(data => {
-      dispatch({ type: ACTION.ALLJOBS, payload: data });
-      dispatch({ type: ACTION.ISLOADED_JOBS });
-      dispatch({
-        type: ACTION.CURRENT,
-        payload: offset / parseInt(Config.limit_size) + 1,
-      });
+  axiosAuthenticated.get(url).then((response) => {
+    dispatch({ type: ACTION.ALLJOBS, payload: response.data });
+    dispatch({ type: ACTION.ISLOADED_JOBS });
+    dispatch({
+      type: ACTION.CURRENT,
+      payload: offset / parseInt(Config.limit_size) + 1,
     });
+  }).catch((error) => {
+    errorToast('Error fetching jobs');
+  })
 };
 
 export const applyjob = payload => dispatch => {
@@ -66,6 +62,8 @@ export const applyjob = payload => dispatch => {
       }
     })
     .catch(err => {
+      dispatch({ type: ACTION.RESET });
+      dispatch({ type: ACTION.ENABLE });
       errorToast('Error applying for job');
     });
 };
