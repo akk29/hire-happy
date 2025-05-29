@@ -8,7 +8,7 @@ def send_email_to_recruiter(sender,instance,created,**kwargs):
     mail_body['message'] = 'Dear Recruiter, You have recieved the application'
     mail_body['sender'] = INFO_EMAIL
     mail_body['reciever'] = recruiter_email                
-    sendMailTask.delay(**mail_body)
+    # sendMailTask.delay(**mail_body)
 
 def send_email_to_candidate(sender,instance,created,**kwargs):
     candidate_email = instance.user_id.email
@@ -17,4 +17,4 @@ def send_email_to_candidate(sender,instance,created,**kwargs):
     mail_body['message'] = 'Dear Candidate , You have applied to Job'
     mail_body['sender'] = INFO_EMAIL
     mail_body['reciever'] = candidate_email    
-    sendMailTask.delay(**mail_body)
+    # sendMailTask.delay(**mail_body)

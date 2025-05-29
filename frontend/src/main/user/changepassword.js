@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { changePassword } from '../../actions';
+import { ChangePasswordAction } from '../../actions';
 import { ErrorsList } from '../../common';
 
 const ChangePassword = props => {
@@ -14,7 +14,7 @@ const ChangePassword = props => {
 
   const handleOnSubmit = event => {
     event.preventDefault();
-    props.changePassword(form);
+    props.ChangePasswordAction(form);
   };
 
   const handleOnChange = event => {
@@ -84,6 +84,6 @@ const mapStateToProps = state => ({
   disable: state.auth.disable,
 });
 
-const mapDispatchToProps = { changePassword };
+const mapDispatchToProps = { ChangePasswordAction };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChangePassword);

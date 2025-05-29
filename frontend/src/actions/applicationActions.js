@@ -1,8 +1,9 @@
 import { ACTION } from '../constants/actionTypes';
 import Config from '../main/config';
+import { axiosAuthenticated } from '../service/axios';
 import { FILLER as F } from '../utils';
 
-export const getallapplications = (limit, offset, token) => dispatch => {
+export const GetApplicationsAction = (limit, offset) => dispatch => {
   dispatch({ type: ACTION.ISLOADING_APPLICATIONS });
   var role = JSON.parse(localStorage.getItem(F.AUTH_DATA)).role;
   var hit_url = '';
@@ -12,19 +13,15 @@ export const getallapplications = (limit, offset, token) => dispatch => {
     hit_url = `/api/v1/applications?limit=${limit}&offset=${offset}`;
   }
   const url = Config.base_url + hit_url;
-  fetch(url, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
-    .then(response => response.json())
-    .then(data => {
-      dispatch({ type: ACTION.ALLAPPLICATIONS, payload: data });
-      dispatch({ type: ACTION.LOADED_APPLICATIONS });
-      dispatch({
-        type: ACTION.CURRENT,
-        payload: offset / parseInt(Config.offset_size) + 1,
-      });
+
+  axiosAuthenticated.get(url).then(response => {
+    dispatch({ type: ACTION.ALLAPPLICATIONS, payload: response.data });
+    dispatch({ type: ACTION.LOADED_APPLICATIONS });
+    dispatch({
+      type: ACTION.CURRENT,
+      payload: offset / parseInt(Config.offset_size) + 1,
     });
+  }).catch(error => {
+    dispatch({ type: ACTION.LOADED_APPLICATIONS });
+  });
 };

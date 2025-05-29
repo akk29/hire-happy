@@ -1,6 +1,7 @@
 import { errorToast, successToast } from '../common/toasts';
 import { ACTION } from '../constants/actionTypes';
 import Config from '../main/config';
+import { axiosAuthenticated } from '../service/axios';
 import { FILLER as F } from '../utils';
 
 const sleepPromise = time => {
@@ -124,7 +125,7 @@ export const logoutAction = payload => dispatch => {
   dispatch({ type: ACTION.RESET, payload: {} });
 };
 
-export const changePassword = payload => dispatch => {
+export const ChangePasswordAction = payload => dispatch => {
   dispatch({ type: ACTION.DISABLE });
   const url = Config.base_url + `/api/v1/change-password`;
   const token = localStorage.getItem(F.AUTH_DATA);
@@ -154,6 +155,7 @@ export const changePassword = payload => dispatch => {
 };
 
 export const startStopLoader = payload => dispatch => {
+  console.log('startStopLoader called');
   dispatch({ type: ACTION.ISLOADING });
   dispatch({ type: ACTION.LOADED });
 };

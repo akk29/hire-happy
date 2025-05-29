@@ -1,16 +1,16 @@
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import { getallapplications } from '../../actions';
+import { GetApplicationsAction } from '../../actions';
 import { ApplicationHeader, Footer, Header } from '../../common';
 import Config from '../config';
 import { authorized } from '../../hoc';
 import { FILLER as F } from '../../utils';
 
-const single_application = (application, index, role) => {
+const single_application = (application, offset, role) => {
   return (
     <tr key={application.uuid}>
-      <td>{index}</td>
+      <td>{offset}</td>
       <td>{application.title}</td>
       <td>{application.location}</td>
       {role === F.RECRUITER_ROLE ? <td>{application.applied_by}</td> : <></>}
@@ -25,14 +25,13 @@ const Applications = props => {
 
   useEffect(() => {
     document.title = 'All Applications';
-    var index = (pgno - 1) * 10;
-    if (isNaN(index)) {
-      index = 0;
+    var offset = (pgno - 1) * 10;
+    if (isNaN(offset)) {
+      offset = 0;
     }
-    props.getallapplications(
-      parseInt(Config.offset_size),
-      index,
-      props.authData.token
+    props.GetApplicationsAction(
+      parseInt(Config.limit_size),
+      offset
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -41,10 +40,9 @@ const Applications = props => {
     var pgno = offset / limit + 1;
     const url = `/applications/${pgno}`;
     navigate(url);
-    props.getallapplications(
-      parseInt(Config.offset_size),
+    props.GetApplicationsAction(
+      parseInt(Config.limit_size),
       offset,
-      props.authData.token
     );
   };
 
@@ -110,7 +108,7 @@ const Applications = props => {
   }
 };
 
-const mapDispatchToProps = { getallapplications };
+const mapDispatchToProps = { GetApplicationsAction };
 
 const mapStateToProps = state => ({
   allapplications: state.applications.allapplications,

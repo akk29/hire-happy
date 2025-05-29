@@ -32,6 +32,7 @@ const Signin = props => {
   };
 
   if (props.isloading) {
+    console.log('Loading');
     return <h1>Loading</h1>;
   }
 
@@ -73,11 +74,7 @@ const Signin = props => {
           <Link to={ROUTES.FORGOT_ROUTE}>Forgot Password</Link>
         </div>
       </form>
-      {typeof props.errors === 'undefined' ? (
-        <></>
-      ) : (
-        <ErrorsList {...props.errors} />
-      )}
+      <ErrorsList errors={props.errors} />
     </div>
   );
 };

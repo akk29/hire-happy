@@ -1,6 +1,6 @@
 export const ErrorsList = ({ errors }) => {
   if (!errors) {
-    return <div></div>;
+    return <></>;
   }
   return (
     <div>
