@@ -2,6 +2,7 @@ from hirehappy.settings import RESET_EMAIL
 from django.utils.http import urlsafe_base64_decode
 from rest_framework import status
 from app.celery.tasks import sendMailTask
+from hirehappy.settings import SEND_MAIL
 from app.error_handler.exceptions import RequestMethodNotAllowException
 from app.repository.DatabaseFactory import DatabaseFactory
 from app.utils.utilities import FILLER as F, generate_salt_for_user , generate_hash_password
@@ -37,7 +38,9 @@ class UserServices():
         mail_body[F.MESSAGE] = message
         mail_body[F.SENDER] = RESET_EMAIL
         mail_body[F.RECIEVER] = kwargs[F.EMAIL]
-        sendMailTask.delay(**mail_body)          
+        print(mail_body)
+        if(SEND_MAIL):
+            sendMailTask.delay(**mail_body)          
         return { F.CODE: status.HTTP_200_OK , F.MESSAGE : F.SUCCESS}
 
     def verify_reset_token_service(self,**kwargs):        
@@ -52,7 +55,7 @@ class UserServices():
         if(user):
             salt = user.salt.encode()
             kwargs[F.PASSWORD] = generate_hash_password(kwargs[F.PASSWORD],salt)    
-            kwargs[F.UUID] = user_id 
-            self.user_operations.update_by_uuid(**kwargs)
+            kwargs[F.ID] = user_id 
+            self.user_operations.update(**kwargs)
         return user
 
