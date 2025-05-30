@@ -16,17 +16,18 @@ const VerifyToken = props => {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  console.log('VerifyToken',props);
 
   if (props.isloading) {
-    return <h1>Please Wait</h1>;
+    return <div>
+      <h1>Loading</h1>
+        <ErrorsList errors={props.errors} />
+    </div>
   } else {
     return (
       <div>
-        {typeof props.errors === 'undefined' ? (
-          <ChangePassword />
-        ) : (
-          <ErrorsList {...props.errors} />
-        )}
+        <ChangePassword />
+        <ErrorsList errors={props.errors} />
       </div>
     );
   }

@@ -1,33 +1,33 @@
 import { getallUsers } from './adminActions';
-import { getallapplications } from './applicationActions';
+import { GetApplicationsAction } from './applicationActions';
 import {
   SigninAction,
   SignupAction,
   ForgotAction,
   VerifyTokenAction,
   logoutAction,
-  changePassword,
+  ChangePasswordAction,
   startStopLoader,
 } from './authActions';
 import {
-  getalljobs,
-  applyjob,
-  PostjobAction,
-  EditjobAction,
+  GetJobsAction,
+  ApplyJobAction,
+  PostJobAction,
+  EditJobAction,
 } from './jobActions';
 
 export {
   getallUsers,
-  getallapplications,
+  GetApplicationsAction,
   SigninAction,
   SignupAction,
   ForgotAction,
   VerifyTokenAction,
   logoutAction,
-  changePassword,
+  ChangePasswordAction,
   startStopLoader,
-  getalljobs,
-  applyjob,
-  PostjobAction,
-  EditjobAction,
+  GetJobsAction,
+  ApplyJobAction,
+  PostJobAction,
+  EditJobAction,
 };

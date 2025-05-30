@@ -47,15 +47,11 @@ const Forgot = props => {
             Send Link
           </button>
           &nbsp; &nbsp;
-          <Link to={ROUTES.SIGNIN_ROUTE}> Login </Link> &nbsp; &nbsp;
-          <Link to={ROUTES.SIGNUP_ROUTE}> Register </Link>
+          <Link reloadDocument to={ROUTES.SIGNIN_ROUTE}> Login </Link> &nbsp; &nbsp;
+          <Link reloadDocument to={ROUTES.SIGNUP_ROUTE}> Register </Link>
         </div>
       </form>
-      {typeof props.errors === 'undefined' ? (
-        <div> </div>
-      ) : (
-        <ErrorsList {...props.errors} />
-      )}
+       <ErrorsList errors={props.errors} />
     </div>
   );
 };

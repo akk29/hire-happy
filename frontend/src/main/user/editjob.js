@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { EditjobAction } from '../../actions';
+import { EditJobAction } from '../../actions';
 import { EditJobHeader, ErrorsList, Header } from '../../common/';
 import { authorized, recruiteronly } from '../../hoc';
 
@@ -31,14 +31,15 @@ const EditJob = props => {
 
   const handleOnChange = event => {
     const { name, value } = event.target;
-    setForm({
+    setForm(prev => ({
+      ...prev,
       [name]: value,
-    });
+    }));
   };
 
   const handleOnSubmit = event => {
     event.preventDefault();
-    props.EditjobAction(form);
+    props.EditJobAction(form);
   };
 
   return (
@@ -96,16 +97,12 @@ const EditJob = props => {
           </div>
         </div>
       </form>
-      {typeof props.errors === 'undefined' ? (
-        <></>
-      ) : (
-        <ErrorsList {...props.errors} />
-      )}
+      <ErrorsList errors={props.errors} />
     </div>
   );
 };
 
-const mapDispatchToProps = { EditjobAction };
+const mapDispatchToProps = { EditJobAction };
 
 const mapStateToProps = state => ({
   redirect: state.jobs.redirect,

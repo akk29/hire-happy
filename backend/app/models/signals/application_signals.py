@@ -1,5 +1,5 @@
 from app.celery.tasks import sendMailTask
-from hirehappy.settings import INFO_EMAIL
+from hirehappy.settings import INFO_EMAIL, SEND_MAIL
 
 def send_email_to_recruiter(sender,instance,created,**kwargs):
     recruiter_email = instance.job_id.user_id.email
@@ -7,8 +7,9 @@ def send_email_to_recruiter(sender,instance,created,**kwargs):
     mail_body['subject'] = 'Application Recieved'
     mail_body['message'] = 'Dear Recruiter, You have recieved the application'
     mail_body['sender'] = INFO_EMAIL
-    mail_body['reciever'] = recruiter_email                
-    sendMailTask.delay(**mail_body)
+    mail_body['reciever'] = recruiter_email
+    if SEND_MAIL:
+        sendMailTask.delay(**mail_body)
 
 def send_email_to_candidate(sender,instance,created,**kwargs):
     candidate_email = instance.user_id.email
@@ -17,4 +18,5 @@ def send_email_to_candidate(sender,instance,created,**kwargs):
     mail_body['message'] = 'Dear Candidate , You have applied to Job'
     mail_body['sender'] = INFO_EMAIL
     mail_body['reciever'] = candidate_email    
-    sendMailTask.delay(**mail_body)
+    if SEND_MAIL:        
+        sendMailTask.delay(**mail_body)

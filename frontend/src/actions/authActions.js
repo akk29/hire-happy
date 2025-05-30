@@ -1,6 +1,7 @@
 import { errorToast, successToast } from '../common/toasts';
 import { ACTION } from '../constants/actionTypes';
 import Config from '../main/config';
+import { AxiosInstance } from '../service/axios';
 import { FILLER as F } from '../utils';
 
 const sleepPromise = time => {
@@ -13,110 +14,79 @@ export const SigninAction = (payload, user) => dispatch => {
   if (user === F.ADMIN_ROLE) {
     url = Config.base_url + '/api/v1/admin/login';
   }
-  fetch(url, {
-    method: F.POST,
-    headers: {
-      [F.CONTENT_TYPE]: F.APPLICATION_JSON,
-    },
-    body: JSON.stringify(payload),
-  })
-    .then(response => response.json())
-    .then(data => {
-      if (data.code === F.SUCCESS) {
-        window.location.href = '/jobs/1';
-        dispatch({ type: ACTION.ISLOADING_JOBS });
-        localStorage.setItem(F.AUTH_DATA, JSON.stringify(data.data));
-        dispatch({ type: ACTION.ERRORS, errors: undefined });
-        dispatch({ type: ACTION.LOGIN, payload: data });
-        dispatch({ type: ACTION.ENABLE });
-      } else {
-        dispatch({ type: ACTION.ENABLE });
-        dispatch({ type: ACTION.ERRORS, errors: data });
-        errorToast('Error');
-      }
-    });
+  AxiosInstance.post(url, payload)
+    .then(response => {
+      dispatch({ type: ACTION.ISLOADING_JOBS });
+      localStorage.setItem(F.AUTH_DATA, JSON.stringify(response.data.data));
+      dispatch({ type: ACTION.ERRORS, errors: undefined });
+      dispatch({ type: ACTION.LOGIN, payload: response.data.data });
+      dispatch({ type: ACTION.ENABLE });
+      window.location.href = '/jobs/1';
+    }).catch(err => {
+      dispatch({ type: ACTION.ENABLE });
+      dispatch({ type: ACTION.ERRORS, errors: err.response.data.errors });
+      errorToast('Error');
+    })
 };
 
 export const SignupAction = payload => dispatch => {
   dispatch({ type: ACTION.DISABLE });
   const url = Config.base_url + '/api/v1/signup';
-  fetch(url, {
-    method: F.POST,
-    headers: {
-      [F.CONTENT_TYPE]: F.APPLICATION_JSON,
-    },
-    body: JSON.stringify(payload),
-  })
-    .then(response => response.json())
-    .then(data => {
-      if (data.code === F.SUCCESS) {
-        window.location.reload(true);
-        dispatch({ type: ACTION.ISLOADING_JOBS });
-        localStorage.setItem(F.AUTH_DATA, JSON.stringify(data.data));
-        dispatch({ type: ACTION.ERRORS, errors: undefined });
-        dispatch({ type: ACTION.REGISTER, payload: data });
-        dispatch({ type: ACTION.ENABLE });
-      } else {
-        dispatch({ type: ACTION.ERRORS, errors: data });
-        dispatch({ type: ACTION.ENABLE });
-        errorToast('Error');
-      }
-    });
+  AxiosInstance.post(url, payload)
+    .then(response => {
+      dispatch({ type: ACTION.ISLOADING_JOBS });
+      localStorage.setItem(F.AUTH_DATA, JSON.stringify(response.data.data));
+      dispatch({ type: ACTION.ERRORS, errors: undefined });
+      dispatch({ type: ACTION.REGISTER, payload: response.data.data });
+      dispatch({ type: ACTION.ENABLE });
+      window.location.reload(true);
+    }).catch(err => {
+      dispatch({ type: ACTION.ERRORS, errors: err.response.data.errors });
+      dispatch({ type: ACTION.ENABLE });
+      errorToast('Error');
+    })
 };
 
 export const ForgotAction = payload => dispatch => {
   dispatch({ type: ACTION.DISABLE });
   const url = Config.base_url + '/api/v1/forgot';
-  fetch(url, {
-    method: F.POST,
-    headers: {
-      [F.CONTENT_TYPE]: F.APPLICATION_JSON,
-    },
-    body: JSON.stringify(payload),
-  })
-    .then(response => response.json())
-    .then(data => {
-      if (data.code === F.SUCCESS) {
-        successToast('Email Sent');
-        sleepPromise(2000)
-          .then(() => {
-            dispatch({ type: ACTION.ERRORS, errors: undefined });
-            dispatch({ type: ACTION.FORGOT, payload: data });
-            window.location.reload(true);
-          })
-          .catch(() => {
-            dispatch({ type: ACTION.ERRORS, errors: undefined });
-            dispatch({ type: ACTION.FORGOT, payload: data });
-            window.location.reload(true);
-          });
-      } else {
-        dispatch({ type: ACTION.ERRORS, errors: data });
-        dispatch({ type: ACTION.ENABLE });
-        errorToast('Error');
-      }
-    });
+  AxiosInstance.post(url, payload)
+    .then(response => {
+      successToast('Email Sent');
+      sleepPromise(2000)
+        .then(() => {
+          dispatch({ type: ACTION.ERRORS, errors: undefined });
+          dispatch({ type: ACTION.FORGOT, payload: response.data.data });
+          dispatch({ type: ACTION.ENABLE });
+        })
+        .catch(() => {
+          dispatch({ type: ACTION.ERRORS, errors: undefined });
+          dispatch({ type: ACTION.FORGOT, payload: response.data.data });
+          dispatch({ type: ACTION.ENABLE });
+        });
+    }).catch(err => {
+      dispatch({ type: ACTION.ERRORS, errors: err.response.data.errors });
+      dispatch({ type: ACTION.ENABLE });
+      errorToast('Error');
+    })
 };
 
 export const VerifyTokenAction = payload => dispatch => {
   dispatch({ type: ACTION.ISLOADING });
   const url =
     Config.base_url + `/api/v1/verify/${payload.uuid64}/${payload.token}`;
-  fetch(url)
-    .then(response => response.json())
-    .then(data => {
-      if (data.code === F.SUCCESS) {
-        localStorage.setItem(F.AUTH_DATA, data.data.token);
-        dispatch({ type: ACTION.ERRORS, errors: undefined });
-        dispatch({ type: ACTION.FORGOT, payload: data });
-        dispatch({ type: ACTION.LOADED });
-      } else {
-        dispatch({ type: ACTION.ERRORS, errors: data });
-        dispatch({ type: ACTION.LOADED });
-      }
+  AxiosInstance.get(url)
+    .then(response => {
+      localStorage.setItem(F.RESET_DATA, response.data.data.token);
+      dispatch({ type: ACTION.ERRORS, errors: undefined });
+      dispatch({ type: ACTION.FORGOT, payload: response.data });
+      dispatch({ type: ACTION.LOADED });
+    }).catch(err => {
+      dispatch({ type: ACTION.ERRORS, errors: err.response.data.errors });
+      dispatch({ type: ACTION.ENABLE });
+      dispatch({ type: ACTION.LOADED });
+      errorToast('Error');
     })
-    .catch(err => {
-      errorToast('Error verifying token');
-    });
 };
 
 export const logoutAction = payload => dispatch => {
@@ -124,33 +94,37 @@ export const logoutAction = payload => dispatch => {
   dispatch({ type: ACTION.RESET, payload: {} });
 };
 
-export const changePassword = payload => dispatch => {
+export const ChangePasswordAction = payload => dispatch => {
   dispatch({ type: ACTION.DISABLE });
   const url = Config.base_url + `/api/v1/change-password`;
-  const token = localStorage.getItem(F.AUTH_DATA);
-  fetch(url, {
-    method: F.POST,
+  const token = localStorage.getItem(F.RESET_DATA);
+  AxiosInstance.post(url, payload, {
     headers: {
       [F.CONTENT_TYPE]: F.APPLICATION_JSON,
-      [F.AUTHORIZATION]: `Bearer ${token}`,
+      [F.AUTHORIZATION]: `${F.BEARER} ${token}`,
     },
-    body: JSON.stringify(payload),
   })
-    .then(response => response.json())
-    .then(data => {
-      if (data.code === F.SUCCESS) {
-        localStorage.clear();
-        dispatch({ type: ACTION.PASSWORD_ERRORS, errors: undefined });
-        dispatch({ type: ACTION.CHANGEPASSWORD, payload: data });
-        dispatch({ type: ACTION.REDIRECT, payload: {} });
-        successToast('Your Password Has been Changed');
-        dispatch({ type: ACTION.ENABLE });
-      } else {
-        dispatch({ type: ACTION.PASSWORD_ERRORS, errors: data });
-        dispatch({ type: ACTION.ENABLE });
-        errorToast('Error');
-      }
-    });
+    .then(response => {
+      localStorage.clear();
+      successToast('Your Password Has been Changed');
+      sleepPromise(2000)
+        .then(() => {
+          dispatch({ type: ACTION.PASSWORD_ERRORS, errors: undefined });
+          dispatch({ type: ACTION.CHANGEPASSWORD, payload: response.data.data });
+          dispatch({ type: ACTION.REDIRECT, payload: {} });
+          dispatch({ type: ACTION.ENABLE });
+        })
+        .catch(() => {
+          dispatch({ type: ACTION.PASSWORD_ERRORS, errors: undefined });
+          dispatch({ type: ACTION.CHANGEPASSWORD, payload: response.data.data });
+          dispatch({ type: ACTION.REDIRECT, payload: {} });
+          dispatch({ type: ACTION.ENABLE });
+        });
+    }).catch(err => {
+      dispatch({ type: ACTION.PASSWORD_ERRORS, errors: err.response.data.errors });
+      dispatch({ type: ACTION.ENABLE });
+      errorToast('Error');
+    })
 };
 
 export const startStopLoader = payload => dispatch => {

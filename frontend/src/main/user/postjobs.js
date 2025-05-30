@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { PostjobAction } from '../../actions';
+import { PostJobAction } from '../../actions';
 import { EditJobHeader, ErrorsList, Header } from '../../common/';
 import { authorized, recruiteronly } from '../../hoc';
 
@@ -27,9 +27,9 @@ const PostJob = props => {
 
   const handleOnSubmit = event => {
     event.preventDefault();
-    props.PostjobAction(form);
+    props.PostJobAction(form);
   };
-
+  
   if (props.redirect) {
     return <Navigate to="/jobs/1" />;
   } else {
@@ -94,17 +94,13 @@ const PostJob = props => {
             </div>
           </div>
         </form>
-        {typeof props.errors === 'undefined' ? (
-          <></>
-        ) : (
-          <ErrorsList {...props.errors} />
-        )}
+        <ErrorsList errors={props.errors} />
       </div>
     );
   }
 };
 
-const mapDispatchToProps = { PostjobAction };
+const mapDispatchToProps = { PostJobAction };
 
 const mapStateToProps = state => ({
   redirect: state.jobs.redirect,

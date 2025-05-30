@@ -2,12 +2,13 @@ import { ACTION } from '../constants/actionTypes';
 import Config from '../main/config';
 import { FILLER as F } from '../utils';
 import { errorToast, successToast } from '../common/toasts';
+import { axiosAuthenticated } from '../service/axios';
 
 const sleepPromise = time => {
   return new Promise(resolve => setTimeout(resolve, time));
 };
 
-export const getalljobs = (offset, limit, token) => dispatch => {
+export const GetJobsAction = (offset, limit) => dispatch => {
   dispatch({ type: ACTION.ISLOADING_JOBS });
   var role = JSON.parse(localStorage.getItem(F.AUTH_DATA)).role;
   var hit_url = '';
@@ -17,130 +18,92 @@ export const getalljobs = (offset, limit, token) => dispatch => {
     hit_url = `/api/v1/jobs?limit=${limit}&offset=${offset}`;
   }
   const url = Config.base_url + hit_url;
-  fetch(url, {
-    method: F.GET,
-    headers: {
-      [F.AUTHORIZATION]: `Bearer ${token}`,
-    },
+  axiosAuthenticated.get(url).then((response) => {
+    dispatch({ type: ACTION.ALLJOBS, payload: response.data });
+    dispatch({ type: ACTION.ISLOADED_JOBS });
+    dispatch({
+      type: ACTION.CURRENT,
+      payload: offset / parseInt(Config.limit_size) + 1,
+    });
+  }).catch((error) => {
+    errorToast('Error fetching jobs');
   })
-    .then(response => response.json())
-    .then(data => {
-      dispatch({ type: ACTION.ALLJOBS, payload: data });
-      dispatch({ type: ACTION.ISLOADED_JOBS });
-      dispatch({
-        type: ACTION.CURRENT,
-        payload: offset / parseInt(Config.limit_size) + 1,
+};
+
+export const ApplyJobAction = payload => dispatch => {
+  dispatch({ type: ACTION.DISABLE });
+  const url = Config.base_url + '/api/v1/applications';
+  axiosAuthenticated.post(url, {
+    uuid: payload.target.value,
+  })
+    .then(response => {
+      successToast('Applied');
+      sleepPromise(2000)
+        .then(() => {
+          dispatch({ type: ACTION.REDIRECT, payload: {} });
+          dispatch({ type: ACTION.RESET });
+          dispatch({ type: ACTION.ENABLE });
+          window.location.reload(true);
+        })
+        .catch(() => {
+          dispatch({ type: ACTION.REDIRECT, payload: {} });
+          dispatch({ type: ACTION.RESET });
+          dispatch({ type: ACTION.ENABLE });
+          window.location.reload(true);
+        });
+    })
+    .catch(err => {
+      errorToast('Error applying for job');
+      sleepPromise(1000).then(() => {
+        dispatch({ type: ACTION.ENABLE });
+      }).catch(() => {
+        dispatch({ type: ACTION.ENABLE });
       });
     });
 };
 
-export const applyjob = payload => dispatch => {
-  var data = payload.target.value.split('-----');
-  dispatch({ type: ACTION.DISABLE });
-  const url = Config.base_url + '/api/v1/applications';
-  fetch(url, {
-    method: F.POST,
-    headers: {
-      [F.CONTENT_TYPE]: F.APPLICATION_JSON,
-      [F.AUTHORIZATION]: `Bearer ${data[1]}`,
-    },
-    body: JSON.stringify({ uuid: data[0] }),
-  })
-    .then(response => response.json())
-    .then(data => {
-      if (data.code === F.CREATED) {
-        successToast('Applied');
-        sleepPromise(2000)
-          .then(() => {
-            dispatch({ type: ACTION.REDIRECT, payload: {} });
-            dispatch({ type: ACTION.RESET });
-            dispatch({ type: ACTION.ENABLE });
-            window.location.reload(true);
-          })
-          .catch(() => {
-            dispatch({ type: ACTION.REDIRECT, payload: {} });
-            dispatch({ type: ACTION.RESET });
-            dispatch({ type: ACTION.ENABLE });
-            window.location.reload(true);
-          });
-      }
-    })
-    .catch(err => {
-      errorToast('Error applying for job');
-    });
-};
-
-export const PostjobAction = payload => dispatch => {
-  dispatch({ type: ACTION.DISABLE });
-  var posted = true;
-  const url = Config.base_url + '/api/v1/jobs';
-  const token = JSON.parse(localStorage.getItem(F.AUTH_DATA)).token;
-  fetch(url, {
-    method: F.POST,
-    headers: {
-      [F.CONTENT_TYPE]: F.APPLICATION_JSON,
-      [F.AUTHORIZATION]: `Bearer ${token}`,
-    },
-    body: JSON.stringify(payload),
-  })
-    .then(response => response.json())
-    .then(data => {
-      if (data.code === F.CREATED) {
-        successToast('Job Created');
-        sleepPromise(2000).then(() => {
-          dispatch({ type: ACTION.RESET });
-          dispatch({ type: ACTION.ENABLE });
-          window.location.href = '/jobs/1';
-        });
-      } else {
-        dispatch({ type: ACTION.ERRORS, errors: data });
-        dispatch({ type: ACTION.ENABLE });
-        errorToast('Error creating Job');
-      }
-      if (!posted) {
-        errorToast(F.VALIDATION_ERRORS);
-      }
-    })
-    .catch(err => {
-      errorToast('Error');
-    })
-    .catch(err => {
-      errorToast('Error');
-    });
-};
-
-export const EditjobAction = payload => dispatch => {
+export const PostJobAction = payload => dispatch => {
   dispatch({ type: ACTION.DISABLE });
   const url = Config.base_url + '/api/v1/jobs';
-  const token = JSON.parse(localStorage.getItem(F.AUTH_DATA)).token;
-  fetch(url, {
-    method: F.PATCH,
-    headers: {
-      [F.AUTHORIZATION]: `Bearer ${token}`,
-    },
-    body: JSON.stringify(payload),
-  })
-    .then(response => response.json())
-    .then(data => {
-      if (data.code === F.SUCCESS) {
-        successToast('Saved');
-        sleepPromise(2000).then(() => {
-          dispatch({ type: ACTION.RESET });
-          dispatch({ type: ACTION.ENABLE });
-          window.location.href = '/jobs/1';
-        });
-      } else {
-        dispatch({ type: ACTION.ERRORS, errors: data });
+  axiosAuthenticated.post(url, payload)
+    .then(response => {
+      successToast('Job Created');
+      sleepPromise(2000).then(() => {
+        dispatch({ type: ACTION.RESET });
         dispatch({ type: ACTION.ENABLE });
-        errorToast(F.VALIDATION_ERRORS);
-      }
+        window.location.href = '/jobs/1';
+      });
+    }).catch(err => {
+      errorToast('Error creating Job');
+      sleepPromise(500).then(() => {
+        dispatch({ type: ACTION.ERRORS, errors: err.response.data.errors });
+        dispatch({ type: ACTION.ENABLE });
+      });
     })
-    .catch(err => {
-      console.error(err);
-      errorToast('Error');
-    })
-    .catch(err => {
-      console.error(err);
-      errorToast('Error');
+};
+
+export const EditJobAction = payload => dispatch => {
+  dispatch({ type: ACTION.DISABLE });
+  const url = Config.base_url + '/api/v1/jobs';
+  axiosAuthenticated.patch(url, payload).then(response => {
+    if (response.data.code === F.SUCCESS) {
+      successToast('Job Updated');
+      sleepPromise(2000).then(() => {
+        dispatch({ type: ACTION.RESET });
+        dispatch({ type: ACTION.ENABLE });
+        window.location.href = '/jobs/1';
+      });
+    } else {
+      dispatch({ type: ACTION.ERRORS, errors: response.data });
+      dispatch({ type: ACTION.ENABLE });
+      errorToast(F.VALIDATION_ERRORS);
+    }
+  }).catch(err => {
+    console.error(err);
+    errorToast('Error updating Job');
+    sleepPromise(500).then(() => {
+      dispatch({ type: ACTION.ERRORS, errors: err.response.data.errors });
+      dispatch({ type: ACTION.ENABLE });
     });
+  });
 };

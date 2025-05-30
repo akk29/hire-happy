@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Link, useParams, useNavigate, useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getalljobs, applyjob } from '../../actions';
+import { GetJobsAction, ApplyJobAction } from '../../actions';
 import { Header, JobHeader, Footer } from '../../common';
 import Config from '../config';
 import { authorized } from '../../hoc';
@@ -19,7 +19,7 @@ import { FILLER as F, ROUTES } from '../../utils';
  1. 
 */
 
-const single_jobs = (job, index, role, applyjob, disable, token) => {
+const single_jobs = (job, index, role, ApplyJobAction, disable) => {
   var action;
   if (role === F.SUPER_USER_ROLE) {
     // action = <button className="btn btn-primary" disabled={disable} value={`jobs-${job.uuid}`} onClick = {(e) => {if(window.confirm('Delete the item?')){deleteObjectById(e,"value")};}}>Delete</button>
@@ -30,8 +30,8 @@ const single_jobs = (job, index, role, applyjob, disable, token) => {
       <button
         className="btn btn-primary"
         disabled={disable}
-        value={`${job.uuid}-----${token}`}
-        onClick={e => applyjob(e, 'value')}
+        value={`${job.uuid}`}
+        onClick={e => ApplyJobAction(e, 'value')}
       >
         Apply
       </button>
@@ -68,11 +68,12 @@ const Jobs = props => {
   const location = useLocation();
 
   useEffect(() => {
+     document.title = 'All Jobs';
     var offset = (pgno - 1) * Config.limit_size;
     if (isNaN(offset)) {
       offset = 0;
     }
-    props.getalljobs(offset, parseInt(Config.limit_size), props.authData.token);
+    props.GetJobsAction(offset, parseInt(Config.limit_size));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
 
@@ -80,7 +81,7 @@ const Jobs = props => {
     var pgno = offset / limit + 1;
     const url = `/jobs/${pgno}`;
     navigate(url);
-    props.getalljobs(offset, parseInt(Config.limit_size), props.authData.token);
+    props.GetJobsAction(offset, parseInt(Config.limit_size));
   };
 
   if (props.redirect) {
@@ -100,16 +101,15 @@ const Jobs = props => {
             job,
             offset,
             role,
-            props.applyjob,
+            props.ApplyJobAction,
             props.disable,
-            props.authData.token
           );
         });
         return (
           <div className="container">
             <JobHeader role={role} />
             <Header />
-            <h1>All Jobs</h1>
+            <h1>All Jobs - {total}</h1>
             <br />
             <table className="table table-striped">
               <thead>
@@ -160,7 +160,7 @@ const Jobs = props => {
   }
 };
 
-const mapDispatchToProps = { getalljobs, applyjob };
+const mapDispatchToProps = { GetJobsAction, ApplyJobAction };
 
 const mapStateToProps = state => ({
   authData: state.auth.userinfo,

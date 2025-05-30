@@ -1,6 +1,9 @@
 export const ErrorsList = ({ errors }) => {
+  if(typeof errors === 'undefined') {
+    return <></>;
+  }
   if (!errors) {
-    return <div></div>;
+    return <></>;
   }
   return (
     <div>

@@ -1,6 +1,8 @@
 /** RESPONSE CODES */
 export const SUCCESS = 200;
 export const CREATED = 201;
+export const NOT_FOUND = 404;
+export const UNAUTHORIZED = 401;
 
 /** ROLES */
 export const RECRUITER_ROLE = 'Recruiter';
@@ -48,14 +50,19 @@ export const PATCH = 'patch';
 
 /**OTHERS */
 export const AUTH_DATA = 'authData';
+export const RESET_DATA = 'resetData';
 export const AUTHORIZATION = 'Authorization';
 export const APPLICATION_JSON = 'application/json';
 export const CONTENT_TYPE = 'Content-Type';
 export const VALIDATION_ERRORS = 'Validation Errors';
 
+export const BEARER = 'Bearer';
+
 export const FILLER = {
   SUCCESS,
   CREATED,
+  NOT_FOUND,
+  UNAUTHORIZED,
   RECRUITER_ROLE,
   ADMIN_ROLE,
   SUPER_USER_ROLE,
@@ -65,8 +72,10 @@ export const FILLER = {
   DELETE,
   PATCH,
   AUTH_DATA,
+  RESET_DATA,
   CONTENT_TYPE,
   APPLICATION_JSON,
   VALIDATION_ERRORS,
   AUTHORIZATION,
+  BEARER,
 };
