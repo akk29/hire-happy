@@ -37,7 +37,7 @@ const AuthAxiosInstance = () => {
             return response;
         },
         (error) => {
-            if (error.response.data.code === 401 && window.location.pathname !== ROUTES.SIGNIN_ROUTE) {
+            if (error.response.data.code === F.UNAUTHORIZED && window.location.pathname !== ROUTES.SIGNIN_ROUTE) {
                 localStorage.clear();
                 window.location.href = ROUTES.SIGNIN_ROUTE;
             
@@ -51,7 +51,7 @@ const AuthAxiosInstance = () => {
 
 const axiosAuthenticated = AuthAxiosInstance()
 
-export { AxiosInstance, AuthAxiosInstance, axiosAuthenticated };
+export { AxiosInstance, axiosAuthenticated };
 
 
 /**
