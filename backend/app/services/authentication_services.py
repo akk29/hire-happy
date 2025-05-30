@@ -38,9 +38,10 @@ class UserServices():
         mail_body[F.MESSAGE] = message
         mail_body[F.SENDER] = RESET_EMAIL
         mail_body[F.RECIEVER] = kwargs[F.EMAIL]
-        print(mail_body)
         if(SEND_MAIL):
             sendMailTask.delay(**mail_body)          
+        else:
+            print(mail_body)
         return { F.CODE: status.HTTP_200_OK , F.MESSAGE : F.SUCCESS}
 
     def verify_reset_token_service(self,**kwargs):        
