@@ -1,13 +1,13 @@
 import axios from "axios";
 import Store from "../store";
 import config from "../main/config";
-import { ROUTES } from "../utils";
+import { FILLER as F, ROUTES } from "../utils";
 
 const AxiosInstance = axios.create({
     baseURL: config.base_url,
     timeout: 600000,
     headers: {
-        "Content-Type": "application/json",
+        [F.CONTENT_TYPE]: [F.APPLICATION_JSON],
     },
 });
 
@@ -21,7 +21,41 @@ const getCurrentUserAuthToken = () => {
     }
 };
 
-// const getCurrentConfigVersion = () => {
+const AuthAxiosInstance = () => {
+    const token = getCurrentUserAuthToken();
+    const AxiosInstanceAuth = axios.create({
+        baseURL: config.base_url,
+        timeout: 60000,
+        headers: {
+            [F.CONTENT_TYPE]: [F.APPLICATION_JSON],
+            Authorization: `${F.BEARER} ${token}`,
+        },
+    });
+
+    AxiosInstanceAuth.interceptors.response.use(
+        (response) => {
+            return response;
+        },
+        (error) => {
+            if (error.response.data.code === 401 && window.location.pathname !== ROUTES.SIGNIN_ROUTE) {
+                localStorage.clear();
+                window.location.href = ROUTES.SIGNIN_ROUTE;
+            
+            }
+            return Promise.reject(error);
+        }
+    );
+
+    return AxiosInstanceAuth;
+};
+
+const axiosAuthenticated = AuthAxiosInstance()
+
+export { AxiosInstance, AuthAxiosInstance, axiosAuthenticated };
+
+
+/**
+ * // const getCurrentConfigVersion = () => {
 //   const state = Store.store.getState();
 //   const { ApplicationReducer } = state;
 //   if (ApplicationReducer.config) {
@@ -31,18 +65,11 @@ const getCurrentUserAuthToken = () => {
 //   }
 // };
 
-const AuthAxiosInstance = () => {
-    const token = getCurrentUserAuthToken();
-    const AxiosInstanceAuth = axios.create({
-        baseURL: config.base_url,
-        timeout: 60000,
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-        },
-    });
-
-    //   AxiosInstanceAuth.interceptors.response.use(
+ * 
+    // Store.store.dispatch({ type: API_ERROR, error: "Session Expired" });
+                // Store.store.dispatch({ type: LOGOUT });
+ * 
+ *     //   AxiosInstanceAuth.interceptors.response.use(
     //     (response) => {
     //       const currentConfig = getCurrentConfigVersion();
     //       const updatedConfig = response.headers["config-version"];
@@ -96,24 +123,4 @@ const AuthAxiosInstance = () => {
     //     }
     //   );
 
-    AxiosInstanceAuth.interceptors.response.use(
-        (response) => {
-            return response;
-        },
-        (error) => {
-            if (error.response.data.code === 401 && window.location.pathname !== ROUTES.SIGNIN_ROUTE) {
-                localStorage.clear();
-                window.location.href = ROUTES.SIGNIN_ROUTE;
-                // Store.store.dispatch({ type: API_ERROR, error: "Session Expired" });
-                // Store.store.dispatch({ type: LOGOUT });
-            }
-            return Promise.reject(error);
-        }
-    );
-
-    return AxiosInstanceAuth;
-};
-
-const axiosAuthenticated = AuthAxiosInstance()
-
-export { AxiosInstance, AuthAxiosInstance, axiosAuthenticated };
+ */

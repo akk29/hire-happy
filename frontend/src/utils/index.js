@@ -53,6 +53,8 @@ export const APPLICATION_JSON = 'application/json';
 export const CONTENT_TYPE = 'Content-Type';
 export const VALIDATION_ERRORS = 'Validation Errors';
 
+export const BEARER = 'Bearer';
+
 export const FILLER = {
   SUCCESS,
   CREATED,
@@ -69,4 +71,5 @@ export const FILLER = {
   APPLICATION_JSON,
   VALIDATION_ERRORS,
   AUTHORIZATION,
+  BEARER,
 };
