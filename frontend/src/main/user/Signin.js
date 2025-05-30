@@ -70,11 +70,11 @@ const Signin = props => {
             Login
           </button>
           &nbsp;&nbsp;
-          <Link to={ROUTES.SIGNUP_ROUTE}>Register</Link> &nbsp; &nbsp;
-          <Link to={ROUTES.FORGOT_ROUTE}>Forgot Password</Link>
+          <Link reloadDocument to={ROUTES.SIGNUP_ROUTE}>Register</Link> &nbsp; &nbsp;
+          <Link reloadDocument to={ROUTES.FORGOT_ROUTE}>Forgot Password</Link>
         </div>
       </form>
-      <ErrorsList errors={props.errors} />
+      <ErrorsList errors={props.errors}/>
     </div>
   );
 };

@@ -101,7 +101,7 @@ const AuthAxiosInstance = () => {
             return response;
         },
         (error) => {
-            if (error.response.data.code === 401) {
+            if (error.response.data.code === 401 && window.location.pathname !== ROUTES.SIGNIN_ROUTE) {
                 localStorage.clear();
                 window.location.href = ROUTES.SIGNIN_ROUTE;
                 // Store.store.dispatch({ type: API_ERROR, error: "Session Expired" });

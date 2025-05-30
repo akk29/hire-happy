@@ -14,55 +14,37 @@ export const SigninAction = (payload, user) => dispatch => {
   if (user === F.ADMIN_ROLE) {
     url = Config.base_url + '/api/v1/admin/login';
   }
-  fetch(url, {
-    method: F.POST,
-    headers: {
-      [F.CONTENT_TYPE]: F.APPLICATION_JSON,
-    },
-    body: JSON.stringify(payload),
-  })
-    .then(response => response.json())
-    .then(data => {
-      if (data.code === F.SUCCESS) {
-        window.location.href = '/jobs/1';
-        dispatch({ type: ACTION.ISLOADING_JOBS });
-        localStorage.setItem(F.AUTH_DATA, JSON.stringify(data.data));
-        dispatch({ type: ACTION.ERRORS, errors: undefined });
-        dispatch({ type: ACTION.LOGIN, payload: data });
-        dispatch({ type: ACTION.ENABLE });
-      } else {
-        dispatch({ type: ACTION.ENABLE });
-        dispatch({ type: ACTION.ERRORS, errors: data });
-        errorToast('Error');
-      }
-    });
+  axiosAuthenticated.post(url, payload)
+    .then(response => {
+      dispatch({ type: ACTION.ISLOADING_JOBS });
+      localStorage.setItem(F.AUTH_DATA, JSON.stringify(response.data));
+      dispatch({ type: ACTION.ERRORS, errors: undefined });
+      dispatch({ type: ACTION.LOGIN, payload: response.data });
+      dispatch({ type: ACTION.ENABLE });
+      window.location.href = '/jobs/1';
+    }).catch(err => {
+      dispatch({ type: ACTION.ENABLE });
+      dispatch({ type: ACTION.ERRORS, errors: err.response.data.errors });
+      errorToast('Error');
+    })
 };
 
 export const SignupAction = payload => dispatch => {
   dispatch({ type: ACTION.DISABLE });
   const url = Config.base_url + '/api/v1/signup';
-  fetch(url, {
-    method: F.POST,
-    headers: {
-      [F.CONTENT_TYPE]: F.APPLICATION_JSON,
-    },
-    body: JSON.stringify(payload),
-  })
-    .then(response => response.json())
-    .then(data => {
-      if (data.code === F.CREATED) {
-        window.location.href = '/jobs/1';
-        dispatch({ type: ACTION.ISLOADING_JOBS });
-        localStorage.setItem(F.AUTH_DATA, JSON.stringify(data.data));
-        dispatch({ type: ACTION.ERRORS, errors: undefined });
-        dispatch({ type: ACTION.REGISTER, payload: data });
-        dispatch({ type: ACTION.ENABLE });
-      } else {
-        dispatch({ type: ACTION.ERRORS, errors: data });
-        dispatch({ type: ACTION.ENABLE });
-        errorToast('Error');
-      }
-    });
+  axiosAuthenticated.post(url, payload)
+    .then(response => {
+      dispatch({ type: ACTION.ISLOADING_JOBS });
+      localStorage.setItem(F.AUTH_DATA, JSON.stringify(response.data.data));
+      dispatch({ type: ACTION.ERRORS, errors: undefined });
+      dispatch({ type: ACTION.REGISTER, payload: response.data.data });
+      dispatch({ type: ACTION.ENABLE });
+      window.location.reload(true);
+    }).catch(err => {
+      dispatch({ type: ACTION.ERRORS, errors: err.response.data.errors });
+      dispatch({ type: ACTION.ENABLE });
+      errorToast('Error');
+    })
 };
 
 export const ForgotAction = payload => dispatch => {
@@ -155,7 +137,6 @@ export const ChangePasswordAction = payload => dispatch => {
 };
 
 export const startStopLoader = payload => dispatch => {
-  console.log('startStopLoader called');
   dispatch({ type: ACTION.ISLOADING });
   dispatch({ type: ACTION.LOADED });
 };

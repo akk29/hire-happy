@@ -121,19 +121,14 @@ const Signup = props => {
 
         <div className="form-group">
           <button className="btn btn-primary" disabled={props.disable}>
-            {' '}
-            Signup{' '}
-          </button>{' '}
-          &nbsp;
-          <Link to={ROUTES.SIGNIN_ROUTE}>Login </Link> &nbsp; &nbsp;
-          <Link to={ROUTES.FORGOT_ROUTE}>Forgot Password </Link>
+            Signup
+          </button>
+          &nbsp;          
+          <Link reloadDocument to={ROUTES.SIGNIN_ROUTE}>Login </Link> &nbsp; &nbsp;
+          <Link reloadDocument to={ROUTES.FORGOT_ROUTE}>Forgot Password </Link>
         </div>
       </form>
-      {typeof props.errors === 'undefined' ? (
-        <></>
-      ) : (
-        <ErrorsList {...props.errors} />
-      )}
+       <ErrorsList errors={props.errors} />
     </main>
   );
 };
