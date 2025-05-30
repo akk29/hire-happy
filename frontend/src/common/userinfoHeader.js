@@ -1,12 +1,13 @@
 import { FILLER as F } from '../utils';
 
 export const UserinfoHeader = () => {
-  var authData = JSON.parse(localStorage.getItem(F.AUTH_DATA));
-  var fullName = `${authData.first_name} ${authData.last_name}`;
-  var role = authData.role;
+  const authData = JSON.parse(localStorage.getItem(F.AUTH_DATA));
+  const fullName = `${authData.first_name} ${authData.last_name}`;
+  const role = authData.role;
+  const email = authData.email;
   return (
     <span>
-      Hello {fullName} ( {role}) ! &nbsp;
+      {role} | {fullName} | {email}
     </span>
   );
 };

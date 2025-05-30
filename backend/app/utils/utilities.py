@@ -144,7 +144,8 @@ def get_user_payload(code,message,User):
                 F.UUID : User.uuid.hex,
                 F.FIRST_NAME : User.first_name,
                 F.LAST_NAME : User.last_name,
-                F.ROLE : profileTyepMapping[int(User.profiletype)]
+                F.ROLE : profileTyepMapping[int(User.profiletype)],
+                F.EMAIL: User.email,
                 }
             }
     return payload
