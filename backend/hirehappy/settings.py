@@ -13,6 +13,7 @@ AUTH_USER_MODEL = 'app.User'
 
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG',cast = bool)
+SEND_MAIL = config('SEND_MAIL',cast = bool)
 
 DB = config('db')
 
