@@ -12,6 +12,8 @@ spec:
       labels:
         app: server
     spec:
+      imagePullSecrets:
+          - name: private
       containers:
         - name: server
           image: akk29/private:hire-happy-server

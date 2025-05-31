@@ -14,6 +14,8 @@ spec:
       labels:
         app: frontend
     spec:
+      imagePullSecrets:
+        - name: private
       containers:
         - name: frontend
           image: akk29/private:hire-happy-frontend  # Replace with the actual frontend image
