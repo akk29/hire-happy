@@ -4,7 +4,7 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from app.error_handler.exceptions import UserAuthenticationRequiredException
 from app.models.users import User
-from app.repository.Dbrepository import CRUDRepository
+from app.repository.db_repository import CRUDRepository
 from app.utils.utilities import create_reset_message
 
 class UserRepository(CRUDRepository):
@@ -33,8 +33,4 @@ class UserRepository(CRUDRepository):
         uidb64 = urlsafe_base64_encode(force_bytes(u.pk))
         token = default_token_generator.make_token(u)
         full_name = "{} {}".format(u.first_name , u.last_name)
-        return create_reset_message(uidb64,token,full_name)       
-
-
-    def change_password(self,**kwargs):
-        pass 
+        return create_reset_message(uidb64,token,full_name)

@@ -1,6 +1,6 @@
 from marshmallow import (Schema, fields, validates , validate,fields)
 from app.error_handler.exceptions import NotFoundException
-from app.repository.DatabaseFactory import DatabaseFactory
+from app.repository.database_factory import DatabaseFactory
 from app.utils.utilities import FILLER as F
 
 job_operations = DatabaseFactory.get_job_repository()

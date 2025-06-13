@@ -1,12 +1,12 @@
 from marshmallow import ( Schema, fields, validates, fields, validates_schema )
 from app.error_handler.exceptions import  ValidationExceptions, NotFoundException
-from app.repository.DatabaseFactory import DatabaseFactory
+from app.repository.database_factory import DatabaseFactory
 from app.utils.utilities import FILLER as F
 
 application_operations = DatabaseFactory.get_application_repository()
 job_operations = DatabaseFactory.get_job_repository()
 
-class CreateApplicationSchema(Schema):
+class CreateApplicationRules(Schema):
     uuid = fields.Str(required=True)   
     user_id = fields.Integer(required=True)
     

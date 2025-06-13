@@ -1,12 +1,12 @@
 from marshmallow import ( Schema, fields, validates )
 from app.error_handler.exceptions import NotFoundException
-from app.repository.DatabaseFactory import DatabaseFactory
+from app.repository.database_factory import DatabaseFactory
 from app.utils.utilities import FILLER as F
 
 job_operations = DatabaseFactory.get_job_repository()
 user_operations = DatabaseFactory.get_user_repository()
 
-class AdminLoginSchema(Schema):
+class AdminLoginRules(Schema):
     email = fields.Email(required=True)
     password = fields.Str(required=True)
 

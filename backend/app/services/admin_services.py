@@ -1,7 +1,7 @@
 from app.error_handler.exceptions import RequestMethodNotAllowException
-from app.repository.DatabaseFactory import DatabaseFactory
-from app.validator.admin_validators import AdminLoginSchema
-from app.validator.run_validator import RunValidatorOnData
+from app.repository.database_factory import DatabaseFactory
+from app.validator.admin_validators import AdminLoginRules
+from app.validator.run_validator import ValidationProcessor
 
 class AdminServices():
 
@@ -9,10 +9,10 @@ class AdminServices():
         self.job_operations = DatabaseFactory.get_job_repository()
         self.application_operations = DatabaseFactory.get_application_repository()
         self.user_operations = DatabaseFactory.get_user_repository()
-        self.validation_runner = RunValidatorOnData()
+        self.validation_runner = ValidationProcessor()
 
     def admin_login_service(self,**kwargs):
-        self.validation_runner.fire(AdminLoginSchema,**kwargs)
+        self.validation_runner.validate(AdminLoginRules,**kwargs)
         return self.user_operations.authenticate_user(**kwargs)     
 
     def admin_list_users(self,limit,offset):

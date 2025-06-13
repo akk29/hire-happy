@@ -4,9 +4,9 @@ from rest_framework import status
 from rest_framework.parsers import JSONParser
 from rest_framework.throttling import UserRateThrottle
 from rest_framework.views import APIView
-from app.mixins.nullcheckjson import checkBody
-from app.mixins.recruiterjob import RecuiterCanUpdateOrCreateJobMixin 
-from app.mixins.verifyjwtmixin import VerifyAuthorizationToken
+from app.controllers.mixins.nullcheckjson import checkBody
+from app.controllers.mixins.recruiterjob import RecuiterCanUpdateOrCreateJobMixin 
+from app.controllers.mixins.verifyjwtmixin import VerifyAuthorizationToken
 from app.services.job_services import JobServices
 from app.transformers.job_transformers import JobTransformer
 from app.utils.utilities import FILLER as F, user_token_from_request, user_details_from_token 

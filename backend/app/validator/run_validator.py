@@ -1,19 +1,19 @@
 from marshmallow import ValidationError
 from app.error_handler.exceptions import ValidationExceptions
 
-class RunValidatorOnData():
+class ValidationProcessor():
     
     def __init__(self):
-        self.payload = None
-        self.SchemaValidator = None
+        self.data = None
+        self.ValidatorRules = None
 
-    def set_parameters(self,Validator,**payload):        
-        self.payload = payload
-        self.SchemaValidator = Validator()
+    def load_data(self,Validator,**data):        
+        self.data = data
+        self.ValidatorRules = Validator()
 
-    def fire(self,Validator,**payload):
-        self.set_parameters(Validator,**payload)
+    def validate(self,Validator,**data):
+        self.load_data(Validator,**data)
         try:
-            self.SchemaValidator.load(self.payload)
+            self.ValidatorRules.load(self.data)
         except ValidationError as err:            
             raise ValidationExceptions(err)

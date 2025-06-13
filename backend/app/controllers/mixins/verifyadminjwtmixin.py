@@ -1,10 +1,10 @@
 from app.error_handler.exceptions import UserAuthenticationRequiredException
-from app.repository.DatabaseFactory import DatabaseFactory
-from app.utils.utilities import FILLER as F, user_details_from_token
+from app.repository.database_factory import DatabaseFactory
+from app.utils.utilities import FILLER as F,user_details_from_token
 
 user_operations = DatabaseFactory.get_user_repository()
 
-class VerifyAuthorizationToken():
+class VerifyAdminAuthorizationToken():
     '''
     This mixin will do:
     1. Check Authorization headers in Request
@@ -27,7 +27,7 @@ class VerifyAuthorizationToken():
                 user_payload = user_details_from_token(token)                
             except:
                 pass
-            if(user_payload is None or user_payload[F.ROLE] == F.SUPERUSER):
+            if(user_payload is None or user_payload[F.ROLE] != F.SUPERUSER):
                 raise UserAuthenticationRequiredException(F.AUTHENICATION_ERROR,F.INVALID_TOKEN)                
             else:
                 user_data = user_operations.object_by_id(user_payload[F.ID])                

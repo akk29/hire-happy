@@ -5,7 +5,7 @@ from rest_framework import status
 from app.error_handler.exceptions import ValidationExceptions, RequestMethodNotAllowException, NotFoundException, UserAuthenticationRequiredException, PermissionDenied
 from app.utils.utilities import FILLER as F
 
-class HandleAuthenticationExceptionsMiddleware(MiddlewareMixin):
+class ExceptionsProcessorMiddleware(MiddlewareMixin):
     
     def process_exception(self,request,exception):
         payload, response, code, exception_handled = None, None, None , False
@@ -36,3 +36,14 @@ class HandleAuthenticationExceptionsMiddleware(MiddlewareMixin):
         if(exception_handled):
             response = HttpResponse(json.dumps(payload),status=code,content_type=F.APPLICATION_JSON)     
             return response
+
+
+def handler404(request, *args, **argv):
+    payload = {F.CODE : status.HTTP_404_NOT_FOUND,F.MESSAGE : F.REQUEST_URL_NOT_FOUND}
+    response = HttpResponse(json.dumps(payload),content_type=F.APPLICATION_JSON,status = status.HTTP_404_NOT_FOUND)        
+    return response
+
+def handler500(request, *args, **argv):
+    payload = {F.CODE : status.HTTP_500_INTERNAL_SERVER_ERROR,F.MESSAGE : F.INTERNAL_SERVER_ERROR}
+    response = HttpResponse(json.dumps(payload),content_type=F.APPLICATION_JSON,status = status.HTTP_500_INTERNAL_SERVER_ERROR)        
+    return response

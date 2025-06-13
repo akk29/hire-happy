@@ -1,5 +1,5 @@
 from app.models.jobs import Job
-from app.repository.Dbrepository import CRUDRepository
+from app.repository.db_repository import CRUDRepository
 
 class JobRepository(CRUDRepository):
 

@@ -1,5 +1,5 @@
 from app.models.application import Application
-from app.repository.Dbrepository import CRUDRepository
+from app.repository.db_repository import CRUDRepository
 
 class ApplicationRepository(CRUDRepository):
 

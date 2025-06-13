@@ -21,5 +21,5 @@ urlpatterns = [
 ]
 
 
-handler404 = "app.error_handler.global_errors.handler404"
-handler500 = "app.error_handler.global_errors.handler500"
+handler404 = "app.error_handler.exception_handlers.handler404"
+handler500 = "app.error_handler.exception_handlers.handler500"

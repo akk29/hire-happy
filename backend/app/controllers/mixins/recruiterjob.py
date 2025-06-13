@@ -1,6 +1,6 @@
 import json
 from app.error_handler.exceptions import PermissionDenied,NotFoundException
-from app.repository.DatabaseFactory import DatabaseFactory
+from app.repository.database_factory import DatabaseFactory
 from app.utils.utilities import FILLER as F, user_token_from_request, user_details_from_token
 
 job_operations = DatabaseFactory.get_job_repository()

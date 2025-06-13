@@ -1,6 +1,6 @@
-from app.repository.ApplicationRepo import ApplicationRepository
-from app.repository.JobRepo import JobRepository 
-from app.repository.UserRepo import UserRepository
+from app.repository.application_repository import ApplicationRepository
+from app.repository.job_repository import JobRepository 
+from app.repository.user_repository import UserRepository
 
 class DatabaseFactory():
 

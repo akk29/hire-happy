@@ -1,8 +1,8 @@
 from django.db.models import Q as ex
-from app.repository.DatabaseFactory import DatabaseFactory
+from app.repository.database_factory import DatabaseFactory
 from app.utils.utilities import FILLER as F
 from app.validator.job_validators import JobCreationSchema , JobUpdateSchema
-from app.validator.run_validator import RunValidatorOnData
+from app.validator.run_validator import ValidationProcessor
 
 class JobServices():
 
@@ -10,10 +10,10 @@ class JobServices():
         self.job_operations = DatabaseFactory.get_job_repository()
         self.application_operations = DatabaseFactory.get_application_repository()
         self.user_operations = DatabaseFactory.get_user_repository()
-        self.validation_runner = RunValidatorOnData()
+        self.validation_runner = ValidationProcessor()
 
     def create_job_service(self,user_id,**kwargs):
-        self.validation_runner.fire(JobCreationSchema,**kwargs)
+        self.validation_runner.validate(JobCreationSchema,**kwargs)
         kwargs[F.USER_ID] = self.user_operations.object_by_id(user_id) 
         self.job_operations.create(**kwargs)
     
@@ -23,7 +23,7 @@ class JobServices():
         return [total , jobs]        
     
     def job_update_service(self,**kwargs):
-        self.validation_runner.fire(JobUpdateSchema,**kwargs)
+        self.validation_runner.validate(JobUpdateSchema,**kwargs)
         self.job_operations.update_by_uuid(**kwargs)
 
     def job_for_candidate_service(self,limit,offset,**kwargs):                       

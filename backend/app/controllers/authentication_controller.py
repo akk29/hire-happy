@@ -4,12 +4,12 @@ from rest_framework import status
 from rest_framework.parsers import JSONParser
 from rest_framework.throttling import UserRateThrottle
 from rest_framework.views import APIView
-from app.mixins.nullcheckjson import checkBody
-from app.mixins.verifyjwtmixin import VerifyAuthorizationToken
-from app.services.authentication_services import UserServices
+from app.controllers.mixins.nullcheckjson import checkBody
+from app.controllers.mixins.verifyjwtmixin import VerifyAuthorizationToken
+from app.services.authentication_services import AuthenticationServices
 from app.utils.utilities import FILLER as F, user_details_from_token, user_token_from_request, get_user_payload
 
-user_service = UserServices()
+user_service = AuthenticationServices()
 
 class SignupController(checkBody,APIView):
     throttle_classes = [UserRateThrottle]

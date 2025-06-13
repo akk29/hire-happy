@@ -1,7 +1,7 @@
 from app.utils.utilities import FILLER as F
-from app.repository.DatabaseFactory import DatabaseFactory
-from app.validator.application_validators import CreateApplicationSchema
-from app.validator.run_validator import RunValidatorOnData
+from app.repository.database_factory import DatabaseFactory
+from app.validator.application_validators import CreateApplicationRules
+from app.validator.run_validator import ValidationProcessor
 
 class ApplicationServices():
 
@@ -9,10 +9,10 @@ class ApplicationServices():
         self.job_operations = DatabaseFactory.get_job_repository()
         self.application_operations = DatabaseFactory.get_application_repository()
         self.user_operations = DatabaseFactory.get_user_repository()
-        self.validation_runner = RunValidatorOnData()
+        self.validation_runner = ValidationProcessor()
 
     def create_application_service(self,**kwargs):
-        self.validation_runner.fire(CreateApplicationSchema,**kwargs)          
+        self.validation_runner.validate(CreateApplicationRules,**kwargs)          
         kwargs[F.JOB_ID] = self.job_operations.object_by_uuid(kwargs[F.UUID])
         kwargs[F.USER_ID] = self.user_operations.object_by_id(kwargs[F.USER_ID])                
         self.application_operations.create(**kwargs)
