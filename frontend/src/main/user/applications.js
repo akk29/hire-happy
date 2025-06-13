@@ -24,7 +24,7 @@ const Applications = props => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    document.title = 'All Applications';
+    document.title = 'Applications';
     var offset = (pgno - 1) * 10;
     if (isNaN(offset)) {
       offset = 0;
@@ -60,7 +60,7 @@ const Applications = props => {
         return (
           <div className="container">
             <ApplicationHeader role={role} /> <Header />
-            <h1>All Applications</h1>
+            <h1>Applications</h1>
             <br />
             <table className="table table-striped">
               <thead>
@@ -87,7 +87,7 @@ const Applications = props => {
             <ApplicationHeader role={role} />
             <Header />
             <h1> Invalid Page</h1>
-            <Link to={'/applications/1'}> Go to All Applications </Link>
+            <Link to={'/applications/1'}> Go to Applications </Link>
           </div>
         );
       }

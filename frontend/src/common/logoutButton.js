@@ -19,7 +19,7 @@ const LogoutButton = () => {
   }
 
   return (
-    <button className="btn btn-primary" onClick={handleClick}>
+    <button style={{ marginLeft: '10px' }} className="btn btn-primary" onClick={handleClick}>
       Logout
     </button>
   );

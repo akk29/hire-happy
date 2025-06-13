@@ -7,7 +7,7 @@ export const UserinfoHeader = () => {
   const email = authData.email;
   return (
     <span>
-      {role} | {fullName} | {email}
+      {role} | asdsad{fullName} | {email}
     </span>
   );
 };

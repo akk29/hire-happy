@@ -3,7 +3,6 @@ import { FILLER as F } from '../utils';
 
 const redirectAuthorized = WrappedComponent => {
   return function RedirectAuthorizedWrapper(props) {
-    console.log('RedirectAuthorizedWrapper', props);
     const authData = JSON.parse(localStorage.getItem(F.AUTH_DATA));
     if (authData !== null) {
       return <Navigate to="/jobs/1" />;

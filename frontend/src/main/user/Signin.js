@@ -32,7 +32,6 @@ const Signin = props => {
   };
 
   if (props.isloading) {
-    console.log('Loading');
     return <h1>Loading</h1>;
   }
 

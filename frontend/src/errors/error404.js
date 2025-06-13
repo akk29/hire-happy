@@ -8,7 +8,7 @@ export const Error404 = () => {
     authData === null ? (
       <Link to={ROUTES.SIGNIN_ROUTE}> Signin </Link>
     ) : (
-      <Link to="/jobs/1"> All Jobs</Link>
+      <Link to="/jobs/1"> Jobs</Link>
     );
 
   return (

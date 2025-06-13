@@ -68,7 +68,7 @@ const Jobs = props => {
   const location = useLocation();
 
   useEffect(() => {
-     document.title = 'All Jobs';
+     document.title = 'Jobs';
     var offset = (pgno - 1) * Config.limit_size;
     if (isNaN(offset)) {
       offset = 0;
@@ -109,7 +109,7 @@ const Jobs = props => {
           <div className="container">
             <JobHeader role={role} />
             <Header />
-            <h1>All Jobs - {total}</h1>
+            <h1>Jobs - {total}</h1>
             <br />
             <table className="table table-striped">
               <thead>
@@ -137,7 +137,7 @@ const Jobs = props => {
             <JobHeader role={role} />
             <Header />
             <h1> Invalid Page</h1>
-            <Link to={'/jobs/1'}> Go to All Jobs </Link>
+            <Link to={'/jobs/1'}> Go to Jobs </Link>
           </div>
         );
       }
