@@ -1,5 +1,5 @@
 from marshmallow import ( Schema, fields, validates, fields, validates_schema )
-from app.error_handler.exceptions import  ValidationExceptions, NotFoundException
+from app.core.exceptions import  ValidationExceptions, NotFoundException
 from app.repository.database_factory import DatabaseFactory
 from app.utils.utilities import FILLER as F
 

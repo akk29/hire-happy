@@ -2,7 +2,7 @@ import ast, json
 from django.http import HttpResponse
 from django.utils.deprecation import MiddlewareMixin
 from rest_framework import status   
-from app.error_handler.exceptions import ValidationExceptions, RequestMethodNotAllowException, NotFoundException, UserAuthenticationRequiredException, PermissionDenied
+from app.core.exceptions import ValidationExceptions, RequestMethodNotAllowException, NotFoundException, UserAuthenticationRequiredException, PermissionDenied
 from app.utils.utilities import FILLER as F
 
 class ExceptionsProcessorMiddleware(MiddlewareMixin):

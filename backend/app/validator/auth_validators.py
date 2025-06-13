@@ -1,7 +1,7 @@
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_decode
 from marshmallow import ( Schema, fields, ValidationError , validates , validate,fields, validates_schema )
-from app.error_handler.exceptions import NotFoundException
+from app.core.exceptions import NotFoundException
 from app.repository.database_factory import DatabaseFactory
 from app.utils.utilities import FILLER as F
 

@@ -4,10 +4,7 @@ from rest_framework import status
 from rest_framework.parsers import JSONParser
 from rest_framework.throttling import UserRateThrottle
 from rest_framework.views import APIView
-from app.models.application import latest_entry_application
-from app.controllers.mixins.candidatejob import CanidateCanApplyToJobOnly
-from app.controllers.mixins.nullcheckjson import checkBody
-from app.controllers.mixins.verifyjwtmixin import VerifyAuthorizationToken
+from app.core.mixins import CanidateCanApplyToJobOnly, checkBody, VerifyAuthorizationToken
 from app.services.application_services import ApplicationServices
 from app.transformers.application_transformers import ApplicationTransformers
 from app.utils.utilities import FILLER as F, user_token_from_request, user_details_from_token

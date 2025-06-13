@@ -1,4 +1,4 @@
-from django.urls import path , include
+from django.urls import path
 from app.controllers.admin_controller import AdminApplicationController , AdminJobsController , AdminUsersController , AdminLoginController
 from app.controllers.application_controller import ApplicationController
 from app.controllers.authentication_controller import SignupController , LoginController , ResetPasswordController, VerifyTokenController, ChangePasswordView
@@ -19,7 +19,3 @@ urlpatterns = [
     path('api/v1/admin/login', AdminLoginController.as_view(),name='admin-login'),    
 
 ]
-
-
-handler404 = "app.error_handler.exception_handlers.handler404"
-handler500 = "app.error_handler.exception_handlers.handler500"

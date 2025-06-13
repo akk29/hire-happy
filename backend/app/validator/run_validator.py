@@ -1,5 +1,5 @@
 from marshmallow import ValidationError
-from app.error_handler.exceptions import ValidationExceptions
+from app.core.exceptions import ValidationExceptions
 
 class ValidationProcessor():
     

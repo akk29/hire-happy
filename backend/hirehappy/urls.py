@@ -21,5 +21,5 @@ urlpatterns = [
     path('',include('app.routes'))
 ]
 
-handler404 = 'app.error_handler.exception_handlers.handler404'
-handler500 = 'app.error_handler.exception_handlers.handler500'
+handler404 = 'app.core.exception_processor.handler404'
+handler500 = 'app.core.exception_processor.handler500'

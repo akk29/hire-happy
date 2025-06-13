@@ -1,4 +1,4 @@
-from app.celery.tasks import sendMailTask
+from app.core.celery_tasks import sendMailTask
 from hirehappy.settings import INFO_EMAIL, SEND_MAIL
 
 def send_email_to_recruiter(sender,instance,created,**kwargs):

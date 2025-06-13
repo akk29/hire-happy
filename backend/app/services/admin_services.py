@@ -1,4 +1,4 @@
-from app.error_handler.exceptions import RequestMethodNotAllowException
+from app.core.exceptions import RequestMethodNotAllowException
 from app.repository.database_factory import DatabaseFactory
 from app.validator.admin_validators import AdminLoginRules
 from app.validator.run_validator import ValidationProcessor

@@ -1,9 +1,9 @@
 from hirehappy.settings import RESET_EMAIL
 from django.utils.http import urlsafe_base64_decode
 from rest_framework import status
-from app.celery.tasks import sendMailTask
+from app.core.celery_tasks import sendMailTask
 from hirehappy.settings import SEND_MAIL
-from app.error_handler.exceptions import RequestMethodNotAllowException
+from app.core.exceptions import RequestMethodNotAllowException
 from app.repository.database_factory import DatabaseFactory
 from app.utils.utilities import FILLER as F, generate_salt_for_user , generate_hash_password
 from app.validator.run_validator import ValidationProcessor

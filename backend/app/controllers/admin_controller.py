@@ -4,8 +4,7 @@ from rest_framework import status
 from rest_framework.parsers import JSONParser
 from rest_framework.throttling import UserRateThrottle
 from rest_framework.views import APIView
-from app.controllers.mixins.nullcheckjson import checkBody
-from app.controllers.mixins.verifyadminjwtmixin import VerifyAdminAuthorizationToken
+from app.core.mixins import checkBody, VerifyAdminAuthorizationToken
 from app.services.admin_services import AdminServices
 from app.transformers.admin_transformers import AdminTransformer
 from app.utils.utilities import FILLER as F, get_user_payload 
