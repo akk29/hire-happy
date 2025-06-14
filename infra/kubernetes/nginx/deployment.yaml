@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment
+  name: nginx
   labels:
     app: nginx
 spec:
@@ -38,5 +38,5 @@ spec:
           claimName: static-pvc
       - name: nginx-config
         hostPath:
-          path: ../../infra/docker/backend/nginx/default.conf  # Change this to your local config file path
+          path: ..\infra\docker\frontend\nginx\default.conf
           type: File
