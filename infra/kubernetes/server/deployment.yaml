@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: server
+  template:
+    metadata:
+      labels:
+        app: server
+    spec:
+      imagePullSecrets:
+          - name: private
+      containers:
+        - name: server
+          image: akk29/private:hire-happy-server
+          ports:
+            - containerPort: 8000
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+          volumeMounts:
+            - name: static-volume
+              mountPath: /app/static
+      volumes:
+        - name: static-volume
+          persistentVolumeClaim:
+            claimName: static-pvc

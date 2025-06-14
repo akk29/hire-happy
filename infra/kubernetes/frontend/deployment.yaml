@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  labels:
+    app: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      imagePullSecrets:
+        - name: private
+      containers:
+        - name: frontend
+          image: akk29/private:hire-happy-frontend  # Replace with the actual frontend image
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+          volumeMounts:
+            - name: static-volume
+              mountPath: /app/static
+      volumes:
+        - name: static-volume
+          persistentVolumeClaim:
+            claimName: static-pvc  # Ensure this PVC is defined in static-pvc.yaml

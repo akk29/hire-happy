@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker
+  labels:
+    app: worker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: worker
+  template:
+    metadata:
+      labels:
+        app: worker
+    spec:
+      imagePullSecrets:
+        - name: private
+      containers:
+      - name: worker
+        image: akk29/private:hire-happy-worker
+        command: ["celery", "-A", "hirehappy.celery", "worker", "--pool=solo", "--loglevel=info"]
+        volumeMounts:
+        - name: static-volume
+          mountPath: /usr/src/app/static
+        resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+      volumes:
+      - name: static-volume
+        persistentVolumeClaim:
+          claimName: static-pvc
