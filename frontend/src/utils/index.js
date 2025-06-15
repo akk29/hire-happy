@@ -1,8 +1,8 @@
 /** RESPONSE CODES */
 export const SUCCESS = 200;
 export const CREATED = 201;
-export const NOT_FOUND = 404;
 export const UNAUTHORIZED = 401;
+export const NOT_FOUND = 404;
 
 /** ROLES */
 export const RECRUITER_ROLE = 'Recruiter';
@@ -25,24 +25,7 @@ export const SIGNUP_ROUTE = '/signup';
 export const USERS_ROUTE = '/users/:pgno';
 export const VERIFY_TOKEN_ROUTE = '/verify/:uuid64/:token';
 
-export const ROUTES = {
-  ADMIN_SIGNIN_ROUTE,
-  APPLICATION_ROUTE,
-  EDIT_JOB_ROUTE,
-  FORGOT_ROUTE,
-  INDEX_ROUTE,
-  JOB_ROUTE,
-  LOGOUT_ROUTE,
-  NOT_FOUND_ROUTE,
-  POST_JOB_ROUTE,
-  SIGNIN_ROUTE,
-  SIGNUP_ROUTE,
-  USERS_ROUTE,
-  VERIFY_TOKEN_ROUTE,
-};
-
 /** REQUETS Methods */
-
 export const GET = 'get';
 export const POST = 'post';
 export const DELETE = 'delete';
@@ -55,7 +38,6 @@ export const AUTHORIZATION = 'Authorization';
 export const APPLICATION_JSON = 'application/json';
 export const CONTENT_TYPE = 'Content-Type';
 export const VALIDATION_ERRORS = 'Validation Errors';
-
 export const BEARER = 'Bearer';
 
 export const JOBS = "JOBS"
@@ -73,9 +55,6 @@ export const FILLER = {
   SUPER_USER_ROLE,
   CANDIDATE_ROLE,
   GET,
-  POST,
-  DELETE,
-  PATCH,
   AUTH_DATA,
   RESET_DATA,
   CONTENT_TYPE,
@@ -87,4 +66,20 @@ export const FILLER = {
   APPLICATIONS,
   USERS,
   EDIT_JOB
+};
+
+export const ROUTES = {
+  ADMIN_SIGNIN_ROUTE,
+  APPLICATION_ROUTE,
+  EDIT_JOB_ROUTE,
+  FORGOT_ROUTE,
+  INDEX_ROUTE,
+  JOB_ROUTE,
+  LOGOUT_ROUTE,
+  NOT_FOUND_ROUTE,
+  POST_JOB_ROUTE,
+  SIGNIN_ROUTE,
+  SIGNUP_ROUTE,
+  USERS_ROUTE,
+  VERIFY_TOKEN_ROUTE,
 };

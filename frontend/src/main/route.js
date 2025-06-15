@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import SigninAdmin from './admin/signinAdmin';
-import Users from './admin/users';
+import { SigninAdmin, Users } from './admin';
 import {
   Signin,
   Signup,
@@ -11,7 +10,7 @@ import {
   Postjobs,
   EditJob,
 } from './user';
-import { Logout } from '../main/common';
+import { Logout } from './common';
 import { Error404 } from './error404';
 import { ROUTES } from '../utils';
 

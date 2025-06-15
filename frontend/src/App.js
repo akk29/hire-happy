@@ -1,8 +1,8 @@
+import { Provider } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
+import store from './store';
 import Route from '../src/main/route';
 import './App.css';
-import { Provider } from 'react-redux';
-import store from './store';
-import { ToastContainer } from 'react-toastify';
 
 const App = () => {
   return (
