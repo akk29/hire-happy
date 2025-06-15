@@ -11,7 +11,7 @@ import {
   Postjobs,
   EditJob,
 } from './user/index';
-import { Logout } from '../common/logout';
+import { Logout } from '../main/common/logout';
 import { Error404 } from '../errors/error404';
 import { ROUTES } from '../utils';
 

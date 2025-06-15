@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ChangePasswordAction } from '../../actions';
-import { ErrorsList } from '../../common';
+import { ErrorsList } from '../common';
 
 const ChangePassword = props => {
   document.title = 'Change Password';

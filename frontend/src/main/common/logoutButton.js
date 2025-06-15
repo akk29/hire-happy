@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { connect, useDispatch } from 'react-redux';
-import { logoutAction } from '../actions/authActions';
-import { ROUTES } from '../utils';
+import { logoutAction } from '../../actions/authActions';
+import { ROUTES } from '../../utils';
 
 const LogoutButton = () => {
   const [redirect, setRedirect] = useState(false);

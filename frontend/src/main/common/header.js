@@ -1,5 +1,5 @@
 import LogoutButton from './logoutButton';
-import { FILLER as F } from '../utils';
+import { FILLER as F } from '../../utils';
 
 export const Header = () => {
   const authData = JSON.parse(localStorage.getItem(F.AUTH_DATA));

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { ForgotAction } from '../../actions';
-import { ErrorsList } from '../../common';
+import { ErrorsList } from '../common';
 import { ROUTES } from '../../utils';
 
 const Forgot = props => {

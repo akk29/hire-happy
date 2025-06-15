@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, useParams, useNavigate, useLocation } from 'react-router-dom';
 import { getallUsers } from '../../actions';
-import { Header, Footer, CommonHeader } from '../../common';
+import { Header, Footer, CommonHeader } from '../common';
 import Config from '../config';
 import { authorized, adminonly } from '../hoc';
 import { FILLER as F } from '../../utils';

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { FILLER as F, ROUTES } from '../utils';
+import { FILLER as F, ROUTES } from '../../utils';
 
 export const CommonHeader = ({ role, type }) => {
     if (type === F.JOBS) {

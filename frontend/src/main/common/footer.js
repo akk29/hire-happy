@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import Config from '../main/config';
+import Config from '../config';
 
 const footer_index = (index, onclick, current) => {
   var limit = parseInt(Config.limit_size);

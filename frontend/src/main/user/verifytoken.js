@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ChangePassword from './changepassword';
 import { VerifyTokenAction } from '../../actions';
-import { ErrorsList } from '../../common';
+import { ErrorsList } from '../common';
 
 const VerifyToken = props => {
   document.title = 'Verify Token';
