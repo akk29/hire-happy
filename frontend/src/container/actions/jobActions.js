@@ -1,8 +1,8 @@
-import { ACTION } from '../constants/actionTypes';
-import Config from '../main/config';
-import { FILLER as F } from '../utils';
-import { errorToast, successToast } from '../common/toasts';
-import { axiosAuthenticated } from '../service/axios';
+import { ACTION } from '../actionTypes';
+import Config from '../../main/config';
+import { FILLER as F } from '../../utils';
+import { errorToast, successToast } from '../../main/common';
+import { axiosAuthenticated } from '../../service/axios';
 
 const sleepPromise = time => {
   return new Promise(resolve => setTimeout(resolve, time));

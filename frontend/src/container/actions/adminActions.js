@@ -1,6 +1,6 @@
-import { ACTION } from '../constants/actionTypes';
-import Config from '../main/config';
-import { FILLER as F } from '../utils';
+import { ACTION } from '../actionTypes';
+import Config from '../../main/config';
+import { FILLER as F } from '../../utils';
 
 export const getallUsers = (offset, limit, token) => dispatch => {
   dispatch({ type: ACTION.ISLOADING_USERS });

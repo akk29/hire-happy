@@ -1,7 +1,7 @@
-import { ACTION } from '../constants/actionTypes';
-import Config from '../main/config';
-import { axiosAuthenticated } from '../service/axios';
-import { FILLER as F } from '../utils';
+import { ACTION } from '../actionTypes';
+import Config from '../../main/config';
+import { axiosAuthenticated } from '../../service/axios';
+import { FILLER as F } from '../../utils';
 
 export const GetApplicationsAction = (limit, offset) => dispatch => {
   dispatch({ type: ACTION.ISLOADING_APPLICATIONS });

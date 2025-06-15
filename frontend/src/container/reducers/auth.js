@@ -1,5 +1,5 @@
-import { ACTION } from '../constants/actionTypes';
-import { FILLER as F } from '../utils';
+import { ACTION } from '../actionTypes';
+import { FILLER as F } from '../../utils';
 
 var initialState = { isloading: true, disable: false };
 var payload = JSON.parse(localStorage.getItem(F.AUTH_DATA));
@@ -16,37 +16,52 @@ const empty_state = {
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state = initialState, action) => {
   switch (action.type) {
-    case ACTION.RESET:
-      return empty_state;
-    case ACTION.ISLOADING_APPLICATIONS:
+    case ACTION.ISLOADING:
       return {
         ...state,
         isloading: true,
       };
-    case ACTION.LOADED_APPLICATIONS:
+    case ACTION.LOADED:
       return {
         ...state,
         isloading: false,
       };
-    case ACTION.ALLAPPLICATIONS:
+    case ACTION.RESET:
+      return empty_state;
+    case ACTION.LOGIN:
       return {
         ...state,
-        allapplications: action.payload,
+        userinfo: action.payload,
       };
-    case ACTION.REDIRECT:
+    case ACTION.REGISTER:
       return {
         ...state,
-        redirect: true,
+        userinfo: action.payload,
+      };
+    case ACTION.FORGOT:
+      return {
+        ...state,
+        userinfo: action.payload,
       };
     case ACTION.ERRORS:
       return {
         ...state,
         errors: action.errors,
       };
-    case ACTION.EDIT_REDIRECT:
+    case ACTION.PASSWORD_ERRORS:
       return {
         ...state,
-        redirect: action.payload,
+        error_password: action.errors,
+      };
+    case ACTION.CHANGEPASSWORD:
+      return {
+        ...state,
+        data: action.payload,
+      };
+    case ACTION.REDIRECT:
+      return {
+        ...state,
+        redirect: true,
       };
     case ACTION.DISABLE:
       return {
@@ -57,11 +72,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         disable: false,
-      };
-    case ACTION.CURRENT:
-      return {
-        ...state,
-        current: action.payload,
       };
     default:
       return state;

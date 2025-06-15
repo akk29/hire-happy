@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Link, useParams, useNavigate, useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { GetJobsAction, ApplyJobAction } from '../../actions';
+import { GetJobsAction, ApplyJobAction } from '../../container';
 import { Header, Footer, CommonHeader } from '../common';
 import Config from '../config';
 import { authorized } from '../hoc';

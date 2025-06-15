@@ -10,9 +10,9 @@ import {
   Application,
   Postjobs,
   EditJob,
-} from './user/index';
-import { Logout } from '../main/common/logout';
-import { Error404 } from '../errors/error404';
+} from './user';
+import { Logout } from '../main/common';
+import { Error404 } from './error404';
 import { ROUTES } from '../utils';
 
 // eslint-disable-next-line import/no-anonymous-default-export

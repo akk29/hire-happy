@@ -1,4 +1,4 @@
-import { ACTION } from '../constants/actionTypes';
+import { ACTION } from '../actionTypes';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state = { isloading: true }, action) => {

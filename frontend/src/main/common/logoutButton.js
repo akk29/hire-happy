@@ -1,16 +1,12 @@
 import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import { connect, useDispatch } from 'react-redux';
-import { logoutAction } from '../../actions/authActions';
+import { connect } from 'react-redux';
 import { ROUTES } from '../../utils';
 
-const LogoutButton = () => {
+const LogoutButton = (props) => {
   const [redirect, setRedirect] = useState(false);
-  const dispatch = useDispatch();
-
   const handleClick = () => {
     localStorage.clear();
-    dispatch(logoutAction());
     setRedirect(true);
   };
 
@@ -29,6 +25,4 @@ const mapStateToProps = state => ({
   logout: state.auth,
 });
 
-const mapDispatchToProps = { logoutAction };
-
-export default connect(mapStateToProps, mapDispatchToProps)(LogoutButton);
+export default connect(mapStateToProps, {})(LogoutButton);

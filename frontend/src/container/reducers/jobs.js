@@ -1,5 +1,5 @@
-import { ACTION } from '../constants/actionTypes';
-import { FILLER as F } from '../utils';
+import { ACTION } from '../actionTypes';
+import { FILLER as F } from '../../utils';
 
 var authData = JSON.parse(localStorage.getItem(F.AUTH_DATA));
 var initialState = { isloading: true, disable: false };

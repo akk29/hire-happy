@@ -3,7 +3,7 @@ import authReducer from './auth';
 import jobsReducer from './jobs';
 import adminReducer from './admin';
 import applicationsReducer from './applications';
-import { ACTION } from '../constants/actionTypes';
+import { ACTION } from '../actionTypes';
 
 const appReducer = combineReducers({
   auth: authReducer,

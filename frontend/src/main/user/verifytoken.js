@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ChangePassword from './changepassword';
-import { VerifyTokenAction } from '../../actions';
+import { VerifyTokenAction } from '../../container';
 import { ErrorsList } from '../common';
 
 const VerifyToken = props => {

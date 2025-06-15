@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { SignupAction, startStopLoader } from '../../actions';
+import { SignupAction, startStopLoader } from '../../container';
 import { ErrorsList } from '../common';
 import { redirectAuthorized } from '../hoc';
 import { ROUTES } from '../../utils';

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { EditJobAction } from '../../actions';
+import { EditJobAction } from '../../container';
 import { CommonHeader, ErrorsList, Header } from '../common/';
 import { authorized, recruiteronly } from '../hoc';
 

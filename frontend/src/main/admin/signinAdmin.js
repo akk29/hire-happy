@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import ReCAPTCHA from 'react-google-recaptcha';
-import { SigninAction, startStopLoader } from '../../actions';
+import { SigninAction, startStopLoader } from '../../container';
 import { ErrorsList } from '../common';
 import { redirectAuthorized } from '../hoc';
 

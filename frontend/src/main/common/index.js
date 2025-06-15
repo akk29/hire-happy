@@ -3,11 +3,17 @@ import { Footer } from './footer';
 import { Header } from './header';
 import logoutButton from './logoutButton';
 import { CommonHeader } from './commonHeader';
+import { errorToast,successToast,infoToast } from './toasts';
+import {Logout} from "./logout";
 
 export {
   Header,
   ErrorsList,
   logoutButton,
   Footer,
-  CommonHeader
+  CommonHeader,
+  errorToast,
+  successToast,
+  infoToast,
+  Logout
 };
