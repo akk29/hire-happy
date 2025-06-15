@@ -4,7 +4,7 @@ import { Link, useParams, useNavigate, useLocation } from 'react-router-dom';
 import { getallUsers } from '../../actions';
 import { Header, Footer, CommonHeader } from '../../common';
 import Config from '../config';
-import { authorized, adminonly } from '../../hoc';
+import { authorized, adminonly } from '../hoc';
 import { FILLER as F } from '../../utils';
 
 const single_user = (user, offset, disable) => {

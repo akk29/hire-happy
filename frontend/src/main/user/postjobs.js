@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { PostJobAction } from '../../actions';
 import { CommonHeader, ErrorsList, Header } from '../../common/';
-import { authorized, recruiteronly } from '../../hoc';
+import { authorized, recruiteronly } from '../hoc';
 import { FILLER as F } from '../../utils';
 
 const PostJob = props => {

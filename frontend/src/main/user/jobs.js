@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { GetJobsAction, ApplyJobAction } from '../../actions';
 import { Header, Footer, CommonHeader } from '../../common';
 import Config from '../config';
-import { authorized } from '../../hoc';
+import { authorized } from '../hoc';
 import { FILLER as F, ROUTES } from '../../utils';
 
 /**

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { SigninAction, startStopLoader } from '../../actions';
 import { ErrorsList } from '../../common';
-import { redirectAuthorized } from '../../hoc';
+import { redirectAuthorized } from '../hoc';
 
 const recaptchaRef = React.createRef();
 

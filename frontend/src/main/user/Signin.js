@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { SigninAction, startStopLoader } from '../../actions';
 import { ErrorsList } from '../../common';
-import { redirectAuthorized } from '../../hoc';
+import { redirectAuthorized } from '../hoc';
 import { ROUTES } from '../../utils';
 
 const Signin = props => {

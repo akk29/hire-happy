@@ -1,5 +1,5 @@
 import { Navigate } from 'react-router-dom';
-import { FILLER as F } from '../utils';
+import { FILLER as F } from '../../utils';
 
 const redirectAuthorized = WrappedComponent => {
   return function RedirectAuthorizedWrapper(props) {

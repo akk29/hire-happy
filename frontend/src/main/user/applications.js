@@ -4,7 +4,7 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import { GetApplicationsAction } from '../../actions';
 import { CommonHeader, Footer, Header } from '../../common';
 import Config from '../config';
-import { authorized } from '../../hoc';
+import { authorized } from '../hoc';
 import { FILLER as F } from '../../utils';
 
 const single_application = (application, offset, role) => {
