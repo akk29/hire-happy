@@ -37,4 +37,16 @@
   }
 }
 
+.header {
+  text-align: right;
+  margin-top: 15px;
+}
 
+.JobHeader {
+  position: absolute;
+  top: 25px;
+}
+
+.footer-btn {
+  margin-bottom: 5px;
+}
