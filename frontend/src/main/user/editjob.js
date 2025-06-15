@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { EditJobAction } from '../../actions';
-import { EditJobHeader, ErrorsList, Header } from '../../common/';
+import { CommonHeader, ErrorsList, Header } from '../../common/';
 import { authorized, recruiteronly } from '../../hoc';
 
 const EditJob = props => {
@@ -45,7 +45,7 @@ const EditJob = props => {
   return (
     <div>
       <form className="form-horizontal" onSubmit={handleOnSubmit} method="post">
-        <EditJobHeader /> <Header />
+        <CommonHeader type={"EDIT_JOB"} /> <Header />
         <h1>Edit Job</h1>
         <div className="form-group">
           <label className="control-label col-sm-2">Title : </label>
@@ -108,6 +108,7 @@ const mapStateToProps = state => ({
   redirect: state.jobs.redirect,
   errors: state.jobs.errors,
   disable: state.jobs.disable,
+  authData: state.auth.userinfo,
 });
 
 export default connect(

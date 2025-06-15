@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Link, useParams, useNavigate, useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { GetJobsAction, ApplyJobAction } from '../../actions';
-import { Header, JobHeader, Footer } from '../../common';
+import { Header, Footer, CommonHeader } from '../../common';
 import Config from '../config';
 import { authorized } from '../../hoc';
 import { FILLER as F, ROUTES } from '../../utils';
@@ -107,7 +107,7 @@ const Jobs = props => {
         });
         return (
           <div className="container">
-            <JobHeader role={role} />
+            <CommonHeader role={role} type={F.JOBS}/>
             <Header />
             <h1>Jobs - {total}</h1>
             <br />
@@ -134,7 +134,7 @@ const Jobs = props => {
         role = props.authData.role;
         return (
           <div className="container">
-            <JobHeader role={role} />
+            <CommonHeader role={role} type={F.JOBS}/>
             <Header />
             <h1> Invalid Page</h1>
             <Link to={'/jobs/1'}> Go to Jobs </Link>
@@ -145,7 +145,7 @@ const Jobs = props => {
       role = props.authData.role;
       return (
         <div className="container">
-          <JobHeader role={role} />
+          <CommonHeader role={role} type={F.JOBS}/>
           <Header />
           {role === F.RECRUITER_ROLE ? (
             <h1>No Jobs Posted</h1>

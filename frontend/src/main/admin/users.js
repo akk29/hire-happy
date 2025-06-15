@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, useParams, useNavigate, useLocation } from 'react-router-dom';
 import { getallUsers } from '../../actions';
-import { Header, UserHeader, Footer } from '../../common';
+import { Header, Footer, CommonHeader } from '../../common';
 import Config from '../config';
 import { authorized, adminonly } from '../../hoc';
 import { FILLER as F } from '../../utils';
@@ -80,7 +80,7 @@ const Users = props => {
         });
         return (
           <div className="container">
-            <UserHeader /> <Header />
+            <CommonHeader type={F.USERS} /> <Header />
             <h1>All Users</h1>
             <br />
             <table className="table table-striped">
@@ -105,8 +105,7 @@ const Users = props => {
       } else {
         return (
           <div className="container">
-            <UserHeader />
-            <Header />
+            <CommonHeader type={F.USERS} /> <Header />
             <h1> Invalid Page</h1>
             <Link to={'/users/1'}> Go to All Users </Link>
           </div>

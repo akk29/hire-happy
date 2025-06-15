@@ -58,6 +58,11 @@ export const VALIDATION_ERRORS = 'Validation Errors';
 
 export const BEARER = 'Bearer';
 
+export const JOBS = "JOBS"
+export const APPLICATIONS = "APPLICATIONS";
+export const USERS = "USERS";
+export const EDIT_JOB = "EDIT_JOB";
+
 export const FILLER = {
   SUCCESS,
   CREATED,
@@ -78,4 +83,8 @@ export const FILLER = {
   VALIDATION_ERRORS,
   AUTHORIZATION,
   BEARER,
+  JOBS,
+  APPLICATIONS,
+  USERS,
+  EDIT_JOB
 };

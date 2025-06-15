@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { GetApplicationsAction } from '../../actions';
-import { ApplicationHeader, Footer, Header } from '../../common';
+import { CommonHeader, Footer, Header } from '../../common';
 import Config from '../config';
 import { authorized } from '../../hoc';
 import { FILLER as F } from '../../utils';
@@ -59,7 +59,7 @@ const Applications = props => {
         });
         return (
           <div className="container">
-            <ApplicationHeader role={role} /> <Header />
+            <CommonHeader role={role} type={F.APPLICATIONS} /> <Header />
             <h1>Applications</h1>
             <br />
             <table className="table table-striped">
@@ -84,7 +84,7 @@ const Applications = props => {
       } else {
         return (
           <div className="container">
-            <ApplicationHeader role={role} />
+            <CommonHeader role={role} type={F.APPLICATIONS} />
             <Header />
             <h1> Invalid Page</h1>
             <Link to={'/applications/1'}> Go to Applications </Link>
@@ -94,7 +94,8 @@ const Applications = props => {
     } else {
       return (
         <div>
-          <ApplicationHeader role={role} /> <Header />
+          <CommonHeader role={role} type={F.APPLICATIONS} />
+          <Header />
           {role === F.RECRUITER_ROLE ? (
             <h1>No Application Recieved</h1>
           ) : (
