@@ -22,7 +22,7 @@ export default () => (
       <Route exact path={ROUTES.LOGOUT_ROUTE} element={Logout} />
       <Route exact path={ROUTES.SIGNIN_ROUTE} element={<Signin />} />
       <Route exact path={ROUTES.ADMIN_SIGNIN_ROUTE} element={<SigninAdmin />} />
-      <Route exact path={ROUTES.SIGNUP_ROUTE} element={<Signup />} />
+      <Route exact path={ROUTES.AUTHENTICATE_ROUTE} element={<Signup />} />
       <Route exact path={ROUTES.FORGOT_ROUTE} element={<Forgot />} />
       <Route exact path={ROUTES.POST_JOB_ROUTE} element={<Postjobs />} />
       <Route exact path={ROUTES.EDIT_JOB_ROUTE} element={<EditJob />} />

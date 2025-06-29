@@ -7,7 +7,7 @@ import { redirectAuthorized } from '../hoc';
 import { ROUTES } from '../../utils';
 
 const Signin = props => {
-  const [form, setForm] = useState({
+  const [signInform, setSignInForm] = useState({
     email: '',
     password: '',
   });
@@ -18,17 +18,17 @@ const Signin = props => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleOnChange = event => {
+  const handleOnSignInChange = event => {
     const { name, value } = event.target;
-    setForm(prev => ({
+    setSignInForm(prev => ({
       ...prev,
       [name]: value,
     }));
   };
 
-  const handleOnSubmit = event => {
+  const handleOnSignInSubmit = event => {
     event.preventDefault();
-    props.SigninAction(form, 'user');
+    props.SigninAction(signInform, 'user');
   };
 
   if (props.isloading) {
@@ -39,37 +39,38 @@ const Signin = props => {
     <div>
       <h1> Signin </h1>
       <br />
-      <form className="form-horizontal" onSubmit={handleOnSubmit} method="post">
-        <div className="form-group">
+      <form className="row g-3" onSubmit={handleOnSignInSubmit} method="post">
+        <div className="col-lg-6 col-md-6">
           <label>Email : </label>
           <input
             className="form-control"
             type="email"
             name="email"
-            value={form.email}
+            value={signInform.email}
             placeholder="Email"
-            onChange={handleOnChange}
+            onChange={handleOnSignInChange}
             required
           />
         </div>
-        <div className="form-group">
+        <div className="col-lg-6 col-md-6">
           <label>Password : </label>
           <input
             className="form-control"
             type="password"
             name="password"
-            value={form.password}
+            value={signInform.password}
             placeholder="password"
-            onChange={handleOnChange}
+            onChange={handleOnSignInChange}
             required
           />
         </div>
-        <div className="form-group">
+   
+        <div className="col-lg-4 col-md-4 signin-btn">
           <button className="btn btn-primary" disabled={props.disable}>
             Login
           </button>
           &nbsp;&nbsp;
-          <Link reloadDocument to={ROUTES.SIGNUP_ROUTE}>Register</Link> &nbsp; &nbsp;
+          <Link reloadDocument to={ROUTES.AUTHENTICATE_ROUTE}>Register</Link> &nbsp; &nbsp;
           <Link reloadDocument to={ROUTES.FORGOT_ROUTE}>Forgot Password</Link>
         </div>
       </form>

@@ -5,7 +5,7 @@ const authorized = WrappedComponent => {
   return function AuthorizedWrapper(props) {
     const authData = JSON.parse(localStorage.getItem(F.AUTH_DATA));
     if (authData === null) {
-      return <Navigate to={ROUTES.SIGNIN_ROUTE} />;
+      return <Navigate to={ROUTES.AUTHENTICATE_ROUTE} />;
     }
     return <WrappedComponent {...props} />;
   };

@@ -48,7 +48,7 @@ const Forgot = props => {
           </button>
           &nbsp; &nbsp;
           <Link reloadDocument to={ROUTES.SIGNIN_ROUTE}> Login </Link> &nbsp; &nbsp;
-          <Link reloadDocument to={ROUTES.SIGNUP_ROUTE}> Register </Link>
+          <Link reloadDocument to={ROUTES.AUTHENTICATE_ROUTE}> Register </Link>
         </div>
       </form>
        <ErrorsList errors={props.errors} />

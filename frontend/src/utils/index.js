@@ -21,7 +21,7 @@ export const LOGOUT_ROUTE = '/logout';
 export const NOT_FOUND_ROUTE = '*';
 export const POST_JOB_ROUTE = '/postjob';
 export const SIGNIN_ROUTE = '/signin';
-export const SIGNUP_ROUTE = '/signup';
+export const AUTHENTICATE_ROUTE = '/authenticate';
 export const USERS_ROUTE = '/users/:pgno';
 export const VERIFY_TOKEN_ROUTE = '/verify/:uuid64/:token';
 
@@ -79,7 +79,7 @@ export const ROUTES = {
   NOT_FOUND_ROUTE,
   POST_JOB_ROUTE,
   SIGNIN_ROUTE,
-  SIGNUP_ROUTE,
+  AUTHENTICATE_ROUTE,
   USERS_ROUTE,
   VERIFY_TOKEN_ROUTE,
 };

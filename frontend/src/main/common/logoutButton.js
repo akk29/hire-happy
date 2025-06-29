@@ -11,7 +11,7 @@ const LogoutButton = (props) => {
   };
 
   if (redirect) {
-    return <Navigate to={ROUTES.SIGNIN_ROUTE} />;
+    return <Navigate to={ROUTES.AUTHENTICATE_ROUTE} />;
   }
 
   return (
