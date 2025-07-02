@@ -110,7 +110,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'hirehappy.wsgi.application'
 
-if(DB == "sqllite3"):
+if(DB == "sqlite3"):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
