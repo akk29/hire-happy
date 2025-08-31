@@ -1,7 +1,7 @@
 import uuid 
 from django.db import models
 from app.models.users import User
-
+from app.utils.utilities import FILLER as F
 class Job(models.Model):
     id = models.BigAutoField(primary_key=True)
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
@@ -12,16 +12,8 @@ class Job(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
-    
     def __str__(self):
-        return ('{} at {} posted by {}'.format(self.title,self.location,self.user_id.first_name))
+        return (F.JOB_POSTED_BY.format(self.title,self.location,self.user_id.first_name))
     
     class Meta:
-        db_table = "jobs"
-
-def latest_job_entry(request,a):
-    total = Job.objects.count()
-    if(total):
-        return Job.objects.all().latest("created_at").created_at
-    else:
-        return None
+        db_table = F.JOBS

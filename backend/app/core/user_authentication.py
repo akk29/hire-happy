@@ -1,12 +1,12 @@
 from django.contrib.auth.backends import ModelBackend
-from app.utils.utilities import generate_hash_password
+from app.utils.utilities import FILLER as F, generate_hash_password
 from app.models.users import User
 
 class CustomUserAuthentication(ModelBackend):
 
     def authenticate(self,request,**kwargs):
-        emailid = kwargs['email'].lower()
-        password = str(kwargs['password'])     
+        emailid = kwargs[F.EMAIL].lower()
+        password = str(kwargs[F.PASSWORD])     
         user_info = User.objects.filter(email = emailid)  
         current_password = user_info[0].password
         user_salt = str.encode(user_info[0].salt)        

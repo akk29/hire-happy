@@ -5,7 +5,7 @@ from django.utils.http import urlsafe_base64_encode
 from app.core.exceptions import UserAuthenticationRequiredException
 from app.models.users import User
 from app.repository.db_repository import CRUDRepository
-from app.utils.utilities import create_reset_message
+from app.utils.utilities import FILLER as F, create_reset_message
 
 class UserRepository(CRUDRepository):
     
@@ -16,8 +16,8 @@ class UserRepository(CRUDRepository):
         self.model = User
     
     def authenticate_user(self,**kwargs):
-        email = kwargs['email'].lower()
-        password = kwargs['password']
+        email = kwargs[F.EMAIL].lower()
+        password = kwargs[F.PASSWORD]
         user = None
         try:
             user = authenticate(email=email,password=password)
@@ -26,10 +26,10 @@ class UserRepository(CRUDRepository):
         except:
             pass
         if(user is None):                      
-            raise UserAuthenticationRequiredException('password','incorrect password')
+            raise UserAuthenticationRequiredException(F.PASSWORD,F.INCORRECT_PASSWORD)
 
     def generate_password_reset_token(self,**kwargs):
-        u = User.objects.get(email = kwargs['email'])
+        u = User.objects.get(email = kwargs[F.EMAIL])
         uidb64 = urlsafe_base64_encode(force_bytes(u.pk))
         token = default_token_generator.make_token(u)
         full_name = "{} {}".format(u.first_name , u.last_name)

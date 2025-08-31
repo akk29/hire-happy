@@ -1,4 +1,5 @@
 import threading
+from app.utils.utilities import FILLER as F
 class CRUDRepository():
 
     _instances = {}
@@ -33,8 +34,8 @@ class CRUDRepository():
         return None
     
     def update(self,**kwargs):
-        id = kwargs['id']
-        del kwargs['id']
+        id = kwargs[F.ID]
+        del kwargs[F.ID]
         self.model.objects.filter(id = id).update(**kwargs)
 
     def all_objects(self):
@@ -57,6 +58,6 @@ class CRUDRepository():
             return None
 
     def update_by_uuid(self,**kwargs):
-        uuid = kwargs['uuid']
-        del kwargs['uuid']
+        uuid = kwargs[F.UUID]
+        del kwargs[F.UUID]
         self.model.objects.filter(uuid = uuid).update(**kwargs)

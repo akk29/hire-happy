@@ -39,7 +39,17 @@ class FILLER:
     RECRUITER = "Recruiter"
     CANDIDATE = "Candidate"
     APPLIED_BY = "applied_by"
-
+    CREATED_AT = 'created_at'
+    CREATED_AT_DSC = '-created_at'
+    APPLICATION_FOR_APPLIED_BY = 'Application for {} applied by {}'
+    JOB_POSTED_BY = '{} at {} posted by {}'
+    WARNING_ERROR = "warning_error"
+    APPLICATION_RECEIVED = "Application Recieved"
+    APPLICATION_RECEIVED_RECRUITER = 'Dear Recruiter, You have recieved the application'
+    APPLICATION_APPLIED = 'Application Applied'
+    JOB_APPLIED_CANDIDATE = 'Dear Candidate , You have applied to Job'
+    Users = "Users"
+    User = "User"
 
     # errors
     ERRORS = 'errors'
@@ -115,6 +125,7 @@ class FILLER:
     EMPTY_BODY = "Empty Body"
     INVALID_JSON_STREAM = "Invalid JSON stream"
     RECRUITER_CANNOT_APPLY = '''Recruiter can't apply to Job'''
+    INCORRECT_PASSWORD = 'incorrect password'
 
 F = FILLER
 

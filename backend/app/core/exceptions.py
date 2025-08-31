@@ -1,18 +1,20 @@
 import json, traceback
 from app.utils.loggerService import Logger
+from app.utils.utilities import FILLER as F
 
 def process_exception(self):
     tb = traceback.extract_stack()[:-1]  # Exclude current frame        
     last_frame = tb[-2]
-    if(hasattr(self,"warning_error")):
+    print(self)
+    if(hasattr(self,F.WARNING_ERROR)):
         last_frame = tb[-4]
     file_name = last_frame.filename
     line_no = last_frame.lineno
     func_name = last_frame.name
-    if(hasattr(self,"warning_error")):
-        self.logger.warning(f'{file_name} , {func_name}(), line no : {line_no} , raised {self.__repr__()}')
+    if(hasattr(self,F.WARNING_ERROR)):
+        self.logger.warning(f'{file_name}:{line_no}:{func_name} - {self.__repr__()}')
     else:
-        self.logger.error(f'{file_name} , {func_name}(), line no : {line_no} , raised {self.__repr__()} ----- errors : {self.error}')
+        self.logger.error(f'{file_name}:{line_no}:{func_name} - {self.__repr__()} - {self.error}')        
 
 class BaseExceptions(Exception):
 
@@ -21,7 +23,6 @@ class BaseExceptions(Exception):
         self.error = error
         self.logger = Logger.get_logger()
         process_exception(self)
-
 
     def __str__(self):
         return json.dumps({ self.field : self.error })
