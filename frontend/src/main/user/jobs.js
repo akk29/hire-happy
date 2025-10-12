@@ -85,7 +85,7 @@ const Jobs = props => {
   };
 
   if (props.redirect) {
-    return (window.location.href = '/jobs/1');
+    return (window.location.href = F.JOB_ONE);
   }
 
   if (!props.isloading) {
@@ -137,7 +137,7 @@ const Jobs = props => {
             <CommonHeader role={role} type={F.JOBS}/>
             <Header />
             <h1> Invalid Page</h1>
-            <Link to={'/jobs/1'}> Go to Jobs </Link>
+            <Link to={F.JOB_ONE}> Go to Jobs </Link>
           </div>
         );
       }

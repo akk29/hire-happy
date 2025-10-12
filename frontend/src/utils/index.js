@@ -1,15 +1,3 @@
-/** RESPONSE CODES */
-export const SUCCESS = 200;
-export const CREATED = 201;
-export const UNAUTHORIZED = 401;
-export const NOT_FOUND = 404;
-
-/** ROLES */
-export const RECRUITER_ROLE = 'Recruiter';
-export const ADMIN_ROLE = 'Admin';
-export const SUPER_USER_ROLE = 'SuperUser';
-export const CANDIDATE_ROLE = 'Candidate';
-
 /**ROUTES */
 export const ADMIN_SIGNIN_ROUTE = '/admin/signin';
 export const APPLICATION_ROUTE = '/applications/:pgno';
@@ -24,6 +12,18 @@ export const SIGNIN_ROUTE = '/signin';
 export const AUTHENTICATE_ROUTE = '/authenticate';
 export const USERS_ROUTE = '/users/:pgno';
 export const VERIFY_TOKEN_ROUTE = '/verify/:uuid64/:token';
+
+/** RESPONSE CODES */
+export const SUCCESS = 200;
+export const CREATED = 201;
+export const UNAUTHORIZED = 401;
+export const NOT_FOUND = 404;
+
+/** ROLES */
+export const RECRUITER_ROLE = 'Recruiter';
+export const ADMIN_ROLE = 'Admin';
+export const SUPER_USER_ROLE = 'SuperUser';
+export const CANDIDATE_ROLE = 'Candidate';
 
 /** REQUETS Methods */
 export const GET = 'get';
@@ -45,6 +45,12 @@ export const APPLICATIONS = "APPLICATIONS";
 export const USERS = "USERS";
 export const EDIT_JOB = "EDIT_JOB";
 
+export const ERROR = 'Error'
+export const PASSWORD_CHANGED_SUCCESS = 'Your Password Has been Changed'
+export const EMAIL_SENT = 'Email Sent'
+
+export const JOB_ONE = '/jobs/1'
+
 export const FILLER = {
   SUCCESS,
   CREATED,
@@ -65,7 +71,11 @@ export const FILLER = {
   JOBS,
   APPLICATIONS,
   USERS,
-  EDIT_JOB
+  EDIT_JOB,
+  ERROR,
+  PASSWORD_CHANGED_SUCCESS,
+  EMAIL_SENT,
+  JOB_ONE
 };
 
 export const ROUTES = {

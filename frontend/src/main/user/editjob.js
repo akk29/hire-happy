@@ -55,7 +55,7 @@ const EditJob = props => {
               type="text"
               name="title"
               value={form.title}
-              placeholder="title"
+              placeholder="Title"
               onChange={handleOnChange}
               required
             />
