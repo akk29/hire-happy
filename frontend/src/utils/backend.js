@@ -16,5 +16,5 @@ export const GET_ALL_JOBS = `${API_V1}/jobs`
 export const USER_LOGIN = `${API_V1}/login`
 export const USER_SIGNUP = `${API_V1}/signup`
 export const FORGOT_PASSWORD = `${API_V1}/forgot`
-export const VERYIFY_PASSWORD = `${API_V1}/verify`
+export const VERIFY_PASSWORD = `${API_V1}/verify`
 export const CHANGE_PASSWORD = `${API_V1}/change-password`

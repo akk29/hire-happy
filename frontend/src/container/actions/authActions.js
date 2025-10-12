@@ -9,7 +9,7 @@ import {
   FORGOT_PASSWORD,
   USER_LOGIN,
   USER_SIGNUP,
-  VERYIFY_PASSWORD,
+  VERIFY_PASSWORD,
 } from '../../utils/backend';
 
 const sleepPromise = time => {
@@ -85,7 +85,7 @@ export const ForgotAction = payload => dispatch => {
 export const VerifyTokenAction = payload => dispatch => {
   dispatch({ type: ACTION.ISLOADING });
   const url =
-    Config.base_url + `${VERYIFY_PASSWORD}/${payload.uuid64}/${payload.token}`;
+    Config.base_url + `${VERIFY_PASSWORD}/${payload.uuid64}/${payload.token}`;
   AxiosInstance.get(url)
     .then(response => {
       localStorage.setItem(F.RESET_DATA, response.data.data.token);
@@ -123,7 +123,7 @@ export const ChangePasswordAction = payload => dispatch => {
         .then(() => {
           dispatch({ type: ACTION.PASSWORD_ERRORS, errors: undefined });
           dispatch({
-            type: ACTION.CHANGEPASSWORD,
+            type: ACTION.CHANGE_PASSWORD,
             payload: response.data.data,
           });
           dispatch({ type: ACTION.REDIRECT, payload: {} });
@@ -132,7 +132,7 @@ export const ChangePasswordAction = payload => dispatch => {
         .catch(() => {
           dispatch({ type: ACTION.PASSWORD_ERRORS, errors: undefined });
           dispatch({
-            type: ACTION.CHANGEPASSWORD,
+            type: ACTION.CHANGE_PASSWORD,
             payload: response.data.data,
           });
           dispatch({ type: ACTION.REDIRECT, payload: {} });
