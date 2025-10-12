@@ -53,7 +53,7 @@ export default (state = initialState, action) => {
         ...state,
         error_password: action.errors,
       };
-    case ACTION.CHANGE_PASSWORD:
+    case ACTION.CHANGEPASSWORD:
       return {
         ...state,
         data: action.payload,
