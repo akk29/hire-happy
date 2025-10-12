@@ -15,7 +15,6 @@ import {
 const sleepPromise = time => {
   return new Promise(resolve => setTimeout(resolve, time));
 };
-// new code change + 2nd commit change
 
 export const SigninAction = (payload, user) => dispatch => {
   dispatch({ type: ACTION.DISABLE });
