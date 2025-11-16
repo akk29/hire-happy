@@ -1,5 +1,5 @@
 from marshmallow import ( Schema, fields, validates, fields, validates_schema )
-from app.core.exceptions import  ValidationExceptions, NotFoundException
+from app.core.exceptions import  ValidationExceptions
 from app.repository.database_factory import DatabaseFactory
 from app.utils.utilities import FILLER as F
 
@@ -18,7 +18,7 @@ class CreateApplicationRules(Schema):
         except:
             pass
         if(job is None):
-            raise NotFoundException(F.INVALID_UUID,F.JOB_APPLICATION_NOT_ALLOW)
+            raise ValidationExceptions(F.INVALID_UUID,F.JOB_APPLICATION_NOT_ALLOW)
 
     @validates_schema
     def validate_existing_application(self,data,**kwargs):                          

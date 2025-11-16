@@ -4,14 +4,14 @@ from rest_framework import status
 from rest_framework.parsers import JSONParser
 from rest_framework.throttling import UserRateThrottle
 from rest_framework.views import APIView
-from app.core.mixins import CanidateCanApplyToJobOnly, checkBody, VerifyAuthToken
+from app.core.mixins import checkBody, VerifyAuthToken
 from app.services.application_services import ApplicationServices
 from app.transformers.application_transformers import ApplicationTransformers
 from app.utils.utilities import FILLER as F, get_offset_limit
 
 application_services = ApplicationServices()
 
-class ApplicationController(VerifyAuthToken,checkBody,CanidateCanApplyToJobOnly,APIView):
+class ApplicationController(VerifyAuthToken,checkBody,APIView):
     throttle_classes = [UserRateThrottle]
         
     def get(self,request):        
@@ -25,8 +25,7 @@ class ApplicationController(VerifyAuthToken,checkBody,CanidateCanApplyToJobOnly,
     def post(self,request):        
         payload = JSONParser().parse(request)        
         user = request.user_data
-        payload[F.USER_ID] = user[F.ID]
-        application_services.create_application_service(**payload)        
+        application_services.create_application_service(user,**payload)        
         response = HttpResponse(json.dumps({F.CODE : status.HTTP_201_CREATED , F.MESSAGE : F.APPLIED}),content_type=F.APPLICATION_JSON,status = status.HTTP_201_CREATED)                
         return response
 
