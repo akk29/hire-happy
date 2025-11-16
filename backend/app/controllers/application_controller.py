@@ -16,7 +16,7 @@ class ApplicationController(VerifyAuthToken,checkBody,CanidateCanApplyToJobOnly,
         
     def get(self,request):        
         limit, offset = get_offset_limit(request)
-        user = request.user
+        user = request.user_data
         total, jobs, role = application_services.get_applications(user,offset,limit)
         payload = ApplicationTransformers.transform_applications(role,total,jobs,limit,offset)
         response = HttpResponse(json.dumps(payload),content_type=F.APPLICATION_JSON,status = status.HTTP_200_OK)                
@@ -24,7 +24,7 @@ class ApplicationController(VerifyAuthToken,checkBody,CanidateCanApplyToJobOnly,
     
     def post(self,request):        
         payload = JSONParser().parse(request)        
-        user = request.user
+        user = request.user_data
         payload[F.USER_ID] = user[F.ID]
         application_services.create_application_service(**payload)        
         response = HttpResponse(json.dumps({F.CODE : status.HTTP_201_CREATED , F.MESSAGE : F.APPLIED}),content_type=F.APPLICATION_JSON,status = status.HTTP_201_CREATED)                

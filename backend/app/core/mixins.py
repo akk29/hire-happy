@@ -124,5 +124,5 @@ class VerifyAuthToken():
             user_data = user_operations.object_by_id(user_payload[F.ID])                
             if(not user_data):
                 raise UserAuthenticationRequiredException(F.AUTHENICATION_ERROR,F.USER_DOESNOT_EXIST)
-            request.user = user_data            
+            request.user_data = user_data            
         return super().dispatch(request, *args, **kwargs)
