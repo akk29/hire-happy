@@ -2,12 +2,16 @@ import os
 from decouple import config
 from corsheaders.defaults import default_methods
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['localhost']
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_ALL_ORIGINS  = True
 CORS_ALLOW_METHODS = [*default_methods]
+
+CSRF_TRUSTED_ORIGINS = [ "http://localhost:3000"]
+ALLOWED_HOSTS = ['localhost']
+CORS_ORIGIN_WHITELIST = [ "http://localhost:3000"]
 
 AUTH_USER_MODEL = 'app.User'
 

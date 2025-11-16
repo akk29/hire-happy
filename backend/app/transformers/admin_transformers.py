@@ -8,16 +8,18 @@ class AdminTransformer():
         payload = get_payload(limit,offset,total)
         transformed_jobs = []
         if(total > 0):
-            for job in jobs:
-                full_name = '{} {}'.format(job.user_id.first_name,job.user_id.last_name )            
-                single_job = {
-                                F.UUID : job.uuid.hex,
-                                F.TITLE : job.title,
-                                F.DESCRIPTION : job.description,
-                                F.LOCATION : job.location, 
-                                F.POSTED_BY : full_name                  
-                            }                                   
-                transformed_jobs.append(single_job)        
+            transformed_jobs = [
+                {
+                    F.UUID: job.uuid.hex,
+                    F.TITLE: job.title,
+                    F.DESCRIPTION: job.description,
+                    F.LOCATION: job.location,
+                    F.POSTED_BY: "{} {}".format(
+                        job.user_id.first_name, job.user_id.last_name
+                    ),
+                }
+                for job in jobs
+            ]
         payload[F.JOBS] = transformed_jobs          
         return payload
 
@@ -26,15 +28,16 @@ class AdminTransformer():
         payload = get_payload(limit,offset,total)
         transformed_users = []
         if(total > 0):
-            for user in users:            
-                single_user = {
-                                F.UUID : user.uuid.hex,
-                                F.FIRST_NAME : user.first_name,
-                                F.LAST_NAME : user.last_name,
-                                F.EMAIL : user.email,
-                                F.ROLE : profileTyepMapping[int(user.profiletype)]
-                            }                                   
-                transformed_users.append(single_user)        
+            transformed_users = [
+                {
+                    F.UUID: user.uuid.hex,
+                    F.FIRST_NAME: user.first_name,
+                    F.LAST_NAME: user.last_name,
+                    F.EMAIL: user.email,
+                    F.ROLE: profileTyepMapping[int(user.profiletype)],
+                }
+                for user in users
+            ]
         payload[F.USERS] = transformed_users 
         return payload
 
@@ -43,17 +46,15 @@ class AdminTransformer():
         payload = get_payload(limit,offset,total)
         transformed_applications = []
         if(total > 0):
-            for application in applications:
-                recrutier = "{} {}".format(application.job_id.user_id.first_name,application.job_id.user_id.last_name)
-                candidate = "{} {}".format(application.user_id.first_name , application.user_id.last_name)
-                single_application = {
+            transformed_applications = [
+                {
                     F.UUID : application.uuid.hex,
                     F.TITLE : application.job_id.title,
                     F.LOCATION : application.job_id.location,
-                    F.POSTED_BY : recrutier,
-                    F.APPLIED_BY : candidate                                          
-                }                                  
-                transformed_applications.append(single_application)        
+                    F.POSTED_BY : "{} {}".format(application.job_id.user_id.first_name,application.job_id.user_id.last_name),
+                    F.APPLIED_BY : "{} {}".format(application.user_id.first_name , application.user_id.last_name)                                          
+                }   
+                for application in applications
+            ]   
         payload[F.APPLICATIONS] = transformed_applications       
         return payload
-

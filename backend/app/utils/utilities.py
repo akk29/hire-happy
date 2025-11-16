@@ -183,4 +183,11 @@ def caching_headers(response,last_entry=None):
     response[F.ETAG] = calculate_e_tag(last_entry)
     return response
 
+def get_offset_limit(request):
+    limit = request.GET.get(F.LIMIT)
+    offset = request.GET.get(F.OFFSET)
+    if((not limit or not offset)):
+        limit = 10
+        offset = 0         
+    return (limit,offset)
 

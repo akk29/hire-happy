@@ -4,14 +4,14 @@ from rest_framework import status
 from rest_framework.parsers import JSONParser
 from rest_framework.throttling import UserRateThrottle
 from rest_framework.views import APIView
-from app.core.mixins import checkBody, RecuiterCanUpdateOrCreateJobMixin,VerifyAuthorizationToken
+from app.core.mixins import checkBody, RecuiterCanUpdateOrCreateJobMixin,VerifyAuthToken
 from app.services.job_services import JobServices
 from app.transformers.job_transformers import JobTransformer
 from app.utils.utilities import FILLER as F, user_token_from_request, user_details_from_token 
 
 job_services = JobServices()
 
-class JobController(VerifyAuthorizationToken,checkBody,RecuiterCanUpdateOrCreateJobMixin,APIView):
+class JobController(VerifyAuthToken,checkBody,RecuiterCanUpdateOrCreateJobMixin,APIView):
     throttle_classes = [UserRateThrottle]
 
     def get(self,request):

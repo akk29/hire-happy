@@ -16,6 +16,9 @@ class JobServices():
         self.validation_runner.validate(JobCreationSchema,**kwargs)
         kwargs[F.USER_ID] = self.user_operations.object_by_id(user_id) 
         self.job_operations.create(**kwargs)
+
+    def get_jobs(self):
+        pass
     
     def jobs_for_recruiter_service(self,limit,offset,**kwargs):
         jobs =  self.job_operations.search_pagination(limit,offset,**kwargs)               
