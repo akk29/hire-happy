@@ -26,6 +26,9 @@ class BaseExceptions(Exception):
 
     def __str__(self):
         return json.dumps({ self.field : self.error })
+    
+    def __process_error__(self):
+        return self.error
 class RequestMethodNotAllowException(Exception):
     pass
 class ValidationExceptions(Exception):

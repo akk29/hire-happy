@@ -14,11 +14,11 @@ class ExceptionsProcessorMiddleware(MiddlewareMixin):
             code = status.HTTP_401_UNAUTHORIZED 
             exception_handled = True
             payload = {F.CODE : code , F.MESSAGE : F.AUTHENICATION_ERROR, F.ERRORS : errors}                    
-        if(isinstance(exception,PermissionDenied)):
-            errors = ast.literal_eval(str(exception))
+        if(isinstance(exception,PermissionDenied)):            
+            errors = exception.__process_error__()
             code = status.HTTP_403_FORBIDDEN
             exception_handled = True
-            payload = {F.CODE : code , F.MESSAGE : F.FORBIDDEN , F.ERRORS : errors}
+            payload = {F.CODE : code , F.MESSAGE : F.FORBIDDEN , F.DESCRIPTION : errors}
         if(isinstance(exception,NotFoundException)):
             errors = ast.literal_eval(str(exception)) 
             code = status.HTTP_404_NOT_FOUND
@@ -36,7 +36,6 @@ class ExceptionsProcessorMiddleware(MiddlewareMixin):
         if(exception_handled):
             response = HttpResponse(json.dumps(payload),status=code,content_type=F.APPLICATION_JSON)     
             return response
-
 
 def handler404(request, *args, **argv):
     payload = {F.CODE : status.HTTP_404_NOT_FOUND,F.MESSAGE : F.REQUEST_URL_NOT_FOUND}

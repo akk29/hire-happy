@@ -13,7 +13,7 @@ class ApplicationServices():
         self.validation_runner = ValidationProcessor()
 
     def create_application_service(self,user,**kwargs):
-        kwargs[F.USER_ID] = user[F.ID]
+        kwargs[F.USER_ID] = user.id
         self.validation_runner.validate(CreateApplicationRules,**kwargs)  
         role = profileTyepMapping[int(user.profiletype)]          
         if(role != F.CANDIDATE):
@@ -22,24 +22,24 @@ class ApplicationServices():
         kwargs[F.USER_ID] = self.user_operations.object_by_id(kwargs[F.USER_ID])                
         self.application_operations.create(**kwargs)
 
-    def get_applications(self,user,offset,limit):
+    def get_applications(self,user,limit,offset):        
         role = profileTyepMapping[int(user.profiletype)]     
         if(role == F.RECRUITER):
-            search = { F.USER_ID : user[F.ID] }
-            total , jobs = self.recruiters_applications_service(offset,limit,**search)            
+            search = { F.USER_ID : user.id }
+            total , jobs = self.recruiters_applications_service(limit,offset,**search)            
             return [total,jobs,role]            
         else:            
-            total , jobs = self.candidate_applications_service(offset,limit,**{F.ID : user.id})            
+            total , jobs = self.candidate_applications_service(limit,offset,**{F.ID : user.id})            
             return [total,jobs,role]
 
-    def recruiters_applications_service(self,offset,limit,**kwargs):                 
+    def recruiters_applications_service(self,limit,offset,**kwargs):                 
         all_jobs = self.job_operations.search(**kwargs)
         job_ids = [job.id for job in all_jobs]        
         applications = self.application_operations.all_objects().filter(job_id__in = job_ids)[int(offset): int(limit) + int(offset)]
         total = self.application_operations.all_objects().filter(job_id__in = job_ids).count()
         return [total,applications]
 
-    def candidate_applications_service(self,offset,limit,**kwargs):
+    def candidate_applications_service(self,limit,offset,**kwargs):
         search = {F.USER_ID : kwargs[F.ID]}            
         applied = self.application_operations.search_pagination(limit,offset,**search)            
         total = self.application_operations.search(**search).count()                     
