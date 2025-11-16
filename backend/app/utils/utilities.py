@@ -119,6 +119,8 @@ class FILLER:
     JOB_NOT_FOUND = "Job Not Found"
     PERMISSION_DENIED = 'permission denied'
     ONLY_RECRUITER_ALLOWED = "Only Recruiter are allowed to {} Job"
+    ONLY_RECRUITER_ALLOWED_POST = "Only Recruiter are allowed to post Job"
+    ONLY_RECRUITER_ALLOWED_UPDATE = "Only Recruiter are allowed to post Job"
     ACCESS_DENIED = "access denied"
     UNABLE_TO_EDIT_JOB = "Unable to edit Jobs posted by other Recruiters"
     BODY = "Body"
@@ -183,4 +185,11 @@ def caching_headers(response,last_entry=None):
     response[F.ETAG] = calculate_e_tag(last_entry)
     return response
 
+def get_limit_offset(request):
+    limit = request.GET.get(F.LIMIT)
+    offset = request.GET.get(F.OFFSET)
+    if((not limit or not offset)):
+        limit = 10
+        offset = 0         
+    return (limit,offset)
 

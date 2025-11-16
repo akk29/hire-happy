@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.parsers import JSONParser
 from rest_framework.throttling import UserRateThrottle
 from rest_framework.views import APIView
-from app.core.mixins import checkBody, VerifyAuthorizationToken
+from app.core.mixins import checkBody, VerifyAuthToken
 from app.services.authentication_services import AuthenticationServices
 from app.utils.utilities import FILLER as F, user_details_from_token, user_token_from_request, get_user_payload
 
@@ -62,7 +62,7 @@ class VerifyTokenController(checkBody,APIView):
         user_service.http_method_validation()
 
 
-class ChangePasswordView(VerifyAuthorizationToken,checkBody,APIView):
+class ChangePasswordView(VerifyAuthToken,checkBody,APIView):
      
     throttle_classes = [UserRateThrottle]
 

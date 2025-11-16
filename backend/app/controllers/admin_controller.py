@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 from app.core.mixins import checkBody, VerifyAdminAuthorizationToken
 from app.services.admin_services import AdminServices
 from app.transformers.admin_transformers import AdminTransformer
-from app.utils.utilities import FILLER as F, get_user_payload 
+from app.utils.utilities import FILLER as F, get_user_payload , get_limit_offset
 
 admin_services = AdminServices()
 
@@ -29,12 +29,8 @@ class AdminUsersController(VerifyAdminAuthorizationToken,APIView):
     throttle_classes = [UserRateThrottle]
         
     def get(self,request):        
-        limit = request.GET.get(F.LIMIT)
-        offset = request.GET.get(F.OFFSET)
-        if((not limit or not offset)):
-            limit = 10
-            offset = 0
-        total , users = admin_services.admin_list_users(limit,offset)        
+        limit, offset = get_limit_offset(request)        
+        total, users = admin_services.admin_list_users(limit,offset)        
         transformed_payload = AdminTransformer.transform_users(total,users,limit,offset)
         response = HttpResponse(json.dumps(transformed_payload),content_type=F.APPLICATION_JSON,status=status.HTTP_200_OK)
         return response
@@ -46,12 +42,8 @@ class AdminJobsController(VerifyAdminAuthorizationToken,APIView):
     throttle_classes = [UserRateThrottle]
         
     def get(self,request):
-        limit = request.GET.get(F.LIMIT)
-        offset = request.GET.get(F.OFFSET)
-        if((not limit or not offset)):
-            limit = 10
-            offset = 0
-        total , jobs = admin_services.admin_list_jobs(limit,offset)          
+        limit, offset = get_limit_offset(request)
+        total, jobs = admin_services.admin_list_jobs(limit,offset)          
         transformed_payload = AdminTransformer.transform_jobs(total,jobs,limit,offset)
         response = HttpResponse(json.dumps(transformed_payload),content_type=F.APPLICATION_JSON,status=status.HTTP_200_OK)
         return response
@@ -63,12 +55,8 @@ class AdminApplicationController(VerifyAdminAuthorizationToken,APIView):
     throttle_classes = [UserRateThrottle]
         
     def get(self,request):
-        limit = request.GET.get(F.LIMIT)
-        offset = request.GET.get(F.OFFSET)
-        if((not limit or not offset)):
-            limit = 10
-            offset = 0
-        total , applications = admin_services.admin_list_applications(limit,offset)                    
+        limit, offset = get_limit_offset(request)
+        total, applications = admin_services.admin_list_applications(limit,offset)                    
         transformed_payload = AdminTransformer.transform_applications(total,applications,limit,offset)
         response = HttpResponse(json.dumps(transformed_payload),content_type=F.APPLICATION_JSON,status=status.HTTP_200_OK)
         return response
