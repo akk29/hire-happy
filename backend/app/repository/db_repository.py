@@ -12,6 +12,10 @@ class CRUDRepository():
     @classmethod
     def get_instance(cls):
         # Ensure per-class lock exists (protected by global lock)
+        # To protect each class lock from the double locking issue. 
+        # This code on top will make sure there's always a lock for class
+        # Global Lock is to prevent the _lock Data Structure
+        # Two different class with different locks only allocate one lock at a time
         if cls not in cls._locks:
             with cls._global_lock:
                 if cls not in cls._locks:
