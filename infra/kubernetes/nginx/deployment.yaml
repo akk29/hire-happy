@@ -37,6 +37,5 @@ spec:
         persistentVolumeClaim:
           claimName: static-pvc
       - name: nginx-config
-        hostPath:
-          path: ..\infra\docker\frontend\nginx\default.conf
-          type: File
+        configMap:
+          name: nginx-config

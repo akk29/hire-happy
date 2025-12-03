@@ -12,6 +12,7 @@ services:
             - ./backend/nginx/default.conf:/etc/nginx/conf.d/default.conf
             - static_volume:/app/static
     server:
+        image: hire-happy-server
         restart: unless-stopped
         build:
             context: ../../
@@ -21,6 +22,7 @@ services:
         expose:
             - 8000
     frontend:
+        image: hire-happy-frontend
         restart: unless-stopped
         build:
             context: ../../
@@ -30,6 +32,7 @@ services:
     rabbitmq:
       image: rabbitmq:latest
     worker:
+      image: hire-happy-worker   
       build:
             context: ../../
             dockerfile: ./infra/docker/backend/Dockerfile
