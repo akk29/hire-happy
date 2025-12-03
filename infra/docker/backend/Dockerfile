@@ -8,10 +8,6 @@ WORKDIR /app
 COPY ../../backend/ /app
 RUN pip install --no-cache-dir -r requirements.txt
 EXPOSE 8000
-# RUN sleep 60
-RUN ["python", "manage.py", "makemigrations", "app"]
-RUN ["python", "manage.py", "migrate", "app"]
-RUN ["python", "manage.py", "makemigrations"]
-RUN ["python", "manage.py", "migrate"]
-RUN ["python", "manage.py", "collectstatic", "--noinput"]
-CMD ["gunicorn", "hirehappy.wsgi", "--bind", "0.0.0.0:8000", "--workers", "4", "--threads", "4"]
+COPY infra/docker/backend/server/entrypoint.sh /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
+ENTRYPOINT ["/app/entrypoint.sh"]
