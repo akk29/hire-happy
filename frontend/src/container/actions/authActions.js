@@ -122,19 +122,13 @@ export const ChangePasswordAction = payload => dispatch => {
       sleepPromise(2000)
         .then(() => {
           dispatch({ type: ACTION.PASSWORD_ERRORS, errors: undefined });
-          dispatch({
-            type: ACTION.CHANGE_PASSWORD,
-            payload: response.data.data,
-          });
+          dispatch({ type: ACTION.CHANGEPASSWORD, payload: response.data.data });
           dispatch({ type: ACTION.REDIRECT, payload: {} });
           dispatch({ type: ACTION.ENABLE });
         })
         .catch(() => {
           dispatch({ type: ACTION.PASSWORD_ERRORS, errors: undefined });
-          dispatch({
-            type: ACTION.CHANGE_PASSWORD,
-            payload: response.data.data,
-          });
+          dispatch({ type: ACTION.CHANGEPASSWORD, payload: response.data.data });
           dispatch({ type: ACTION.REDIRECT, payload: {} });
           dispatch({ type: ACTION.ENABLE });
         });

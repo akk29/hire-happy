@@ -15,7 +15,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG',cast = bool)
 SEND_MAIL = config('SEND_MAIL',cast = bool)
 
-DB = config('db')
+DB = config('DB')
 
 INFO_EMAIL = config('INFO_EMAIL')
 RESET_EMAIL = config('RESET_EMAIL')
@@ -29,7 +29,7 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = config('EMAIL_PORT')
 
-THROTTLE_RATE = config('throttle_rate')
+THROTTLE_RATE = config('THROTTLE_RATE')
 
 CELERY_BROKER_URL = config('CELERY_BROKER_URL')
 CELERY_ACCEPT_CONTENT = ['json']
@@ -121,11 +121,11 @@ elif(DB == "mysql"):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': config('database'),
-            'USER': config('dbuser'),
-            'PASSWORD': config('dbpassword'),
-            'HOST': config('dbhost'),
-            'PORT': config('dbport'),
+            'NAME': config('DATABASE'),
+            'USER': config('DBUSER'),
+            'PASSWORD': config('DBPASSWORD'),
+            'HOST': config('DBHOST'),
+            'PORT': config('DBPORT'),
         }
     }
 

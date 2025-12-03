@@ -8,6 +8,7 @@ gunicorn==23.0.0
 marshmallow==4.0.0
 python-decouple==3.8
 drf-spectacular==0.29.0
+mysqlclient==2.2.7
 
 # optional
 # amqp==5.3.1
