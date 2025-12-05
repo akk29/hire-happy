@@ -55,24 +55,6 @@ services:
             - 80:80        
     rabbitmq:
       image: rabbitmq:latest
-      container_name: rabbitmq
-    worker:
-      image: hire-happy-worker   
-      container_name: hire-happy-worker   
-      build:
-            context: ../../
-            dockerfile: ./infra/docker/backend/Dockerfile
-      command:
-        celery -A hirehappy.celery worker --pool=solo --loglevel=info
-      restart: on-failure:10
-      volumes:
-            - static_volume:/usr/src/app/static
-      depends_on:
-        rabbitmq:
-            condition: service_started
-        server:
-            condition: service_started
-        mysql:
-            condition: service_healthy        
+      container_name: rabbitmq      
 volumes:
     static_volume: {}
