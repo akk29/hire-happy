@@ -35,7 +35,7 @@ services:
         build:
             context: ../../   
         env_file: 
-            - ./backend/mysql/.env
+            - ../env/.mysql.env
         healthcheck:
             test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
             interval: 5s

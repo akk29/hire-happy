@@ -8,7 +8,7 @@ RUN ["npm","run","build"]
 
 # Production Stage
 FROM nginx:stable-alpine AS production
-COPY ./infra/docker/frontend/nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY ./infra/config/default.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/build /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]

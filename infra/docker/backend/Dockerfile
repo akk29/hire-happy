@@ -8,6 +8,6 @@ WORKDIR /app
 COPY ../../backend/ /app
 RUN pip install --no-cache-dir -r requirements.txt
 EXPOSE 8000
-COPY infra/docker/backend/server/entrypoint.sh /app/entrypoint.sh
+COPY infra/docker/backend/entrypoint.sh /app/entrypoint.sh
 RUN chmod +x /app/entrypoint.sh
 ENTRYPOINT ["/app/entrypoint.sh"]

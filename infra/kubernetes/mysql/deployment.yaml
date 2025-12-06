@@ -28,7 +28,7 @@ spec:
               memory: "512Mi"
             limits:
               cpu: "1000m"
-              memory: "2Gi"
+              memory: "1Gi"
           volumeMounts:
             - name: mysql-data
               mountPath: /var/lib/mysql
