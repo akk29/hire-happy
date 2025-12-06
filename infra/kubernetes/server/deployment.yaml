@@ -28,7 +28,7 @@ spec:
               memory: "256Mi"
           volumeMounts:
             - name: static-volume
-              mountPath: /app/static
+              mountPath: /app/static-files
       volumes:
         - name: static-volume
           persistentVolumeClaim:

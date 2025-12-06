@@ -1,5 +1,5 @@
 /**ROUTES */
-export const ADMIN_SIGNIN_ROUTE = '/admin/signin';
+export const ADMIN_SIGNIN_ROUTE = '/signin-admin';
 export const APPLICATION_ROUTE = '/applications/:pgno';
 export const EDIT_JOB_ROUTE = '/editjob';
 export const FORGOT_ROUTE = '/forgot';

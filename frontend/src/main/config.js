@@ -1,5 +1,5 @@
 var config = {
-  base_url: 'http://localhost:8000',
+  base_url: 'http://localhost',
   offset_size: '10',
   limit_size: '250',
 };
