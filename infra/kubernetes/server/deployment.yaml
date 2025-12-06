@@ -14,6 +14,18 @@ spec:
     spec:
       imagePullSecrets:
           - name: private
+      initContainers:
+      - name: wait-for-mysql
+        image: busybox:1.35
+        command:
+        - sh
+        - -c
+        - |
+          until nc -z mysql 3306; do
+            echo "Waiting for MySQL..."
+            sleep 2
+          done
+          echo "MySQL is available!"
       containers:
         - name: server
           image: akk29/private:hire-happy-server
