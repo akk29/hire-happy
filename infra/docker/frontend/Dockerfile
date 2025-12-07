@@ -3,7 +3,6 @@ FROM node:22.15.1-alpine AS build
 WORKDIR /app
 COPY ../../frontend /app
 RUN ["npm","install"]
-EXPOSE 3000
 RUN ["npm","run","build"]
 
 # Production Stage
